@@ -4,6 +4,7 @@ patch:
 
   menu/page_size: 5
 
-  # key_binder/bindings/+:
-  #   - { when: has_menu, accept: comma, send: Page_Up }
-  #   - { when: has_menu, accept: period, send: Page_Down }
+  key_binder/bindings/+:
+    # 翻页 , .
+    - { when: has_menu, accept: comma, send: Page_Up }
+    - { when: has_menu, accept: period, send: Page_Down }
