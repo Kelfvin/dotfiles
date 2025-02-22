@@ -25,3 +25,7 @@ bash ./setup.sh
 ```
 bash ./setup_rime.sh
 ```
+
+### Tmux
+
+进入tmux之后还需要使用 `<C-a>+I` 安装插件

@@ -33,6 +33,12 @@ for config in "$CONFIG_DIR"/*; do
 done
 
 # 配置 tmux
+TPM_DIR="$HOME/.tmux/" 
+if [ ! -d "$TPM_DIR" ]; then
+  echo "$TPM_DIR does not exist. Using git to clone."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
 if [ ! -e "$HOME/.tmux.conf" ]; then
   ln -s "$(pwd)/.tmux.conf" "$HOME/.tmux.conf"
   echo "Linked .tmux.conf to $HOME/.tmux.conf"
