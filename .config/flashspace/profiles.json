@@ -1,0 +1,41 @@
+{
+  "profiles" : [
+    {
+      "id" : "BFA5CA3E-C373-4F11-91B3-A3366AD61315",
+      "name" : "Default",
+      "workspaces" : [
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.tencent.qq",
+              "iconPath" : "/Applications/QQ.app/Contents/Resources/icon.icns",
+              "name" : "QQ"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+1",
+          "display" : "Built-in Retina Display",
+          "id" : "198593AE-B262-4CC7-9073-C0B53EB254CD",
+          "name" : "1",
+          "shortcut" : "opt+1"
+        },
+        {
+          "apps" : [
+
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "5B5BC5C4-B1EF-4F7A-89D2-B5D5BE11E363",
+          "name" : "2"
+        },
+        {
+          "apps" : [
+
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "AF3DDE7E-7B08-42E3-BFA1-2B21BC195CDB",
+          "name" : "3"
+        }
+      ]
+    }
+  ],
+  "selectedProfileId" : "BFA5CA3E-C373-4F11-91B3-A3366AD61315"
+}

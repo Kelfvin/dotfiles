@@ -1,0 +1,22 @@
+{
+  "centerCursorOnFocusChange" : false,
+  "centerCursorOnWorkspaceChange" : false,
+  "changeWorkspaceOnAppAssign" : true,
+  "checkForUpdatesAutomatically" : false,
+  "enableFocusManagement" : false,
+  "enableIntegrations" : false,
+  "enablePictureInPictureSupport" : true,
+  "enableSpaceControl" : true,
+  "enableSpaceControlAnimations" : true,
+  "floatingApps" : [
+
+  ],
+  "menuBarDisplayAliases" : "",
+  "menuBarTitleTemplate" : "$WORKSPACE",
+  "runScriptOnLaunch" : "",
+  "runScriptOnProfileChange" : "",
+  "runScriptOnWorkspaceChange" : "",
+  "showFloatingNotifications" : true,
+  "showMenuBarTitle" : true,
+  "spaceControlCurrentDisplayWorkspaces" : false
+}
