@@ -1,0 +1,15 @@
+[manager]
+ratio = [1,4,3] # 设置3个栏目的宽度
+
+show_hideen = true
+
+# macOS: Preview files with the system Quick Look 
+[[manager.prepend_keymap]]
+on = "<C-p>"
+run = 'shell -- qlmanage -p "$@"'
+
+[preview] 
+max_width = 1600 # 修改后需要执行 yazi --clear-cache
+max_height = 1200 # 保持 4:3 的比例，适配我的手机照片比例
+
+

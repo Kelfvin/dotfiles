@@ -6,11 +6,7 @@
       "workspaces" : [
         {
           "apps" : [
-            {
-              "bundleIdentifier" : "com.tencent.qq",
-              "iconPath" : "/Applications/QQ.app/Contents/Resources/icon.icns",
-              "name" : "QQ"
-            }
+
           ],
           "assignAppShortcut" : "opt+shift+1",
           "display" : "Built-in Retina Display",
@@ -33,6 +29,87 @@
           "display" : "Built-in Retina Display",
           "id" : "AF3DDE7E-7B08-42E3-BFA1-2B21BC195CDB",
           "name" : "3"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.apple.Safari.WebApp.D0325403-899B-4451-80A7-D51C0FBC426C",
+              "iconPath" : "/Users/fengkaiwen/Applications/ChatGPT.app/Contents/Resources/ApplicationIcon.icns",
+              "name" : "ChatGPT"
+            },
+            {
+              "bundleIdentifier" : "com.apple.Safari.WebApp.2A595FB9-08D2-4FA3-89EF-C3E552B68F24",
+              "iconPath" : "/Users/fengkaiwen/Applications/DeepSeek.app/Contents/Resources/ApplicationIcon.icns",
+              "name" : "DeepSeek"
+            },
+            {
+              "bundleIdentifier" : "com.apple.Safari.WebApp.47B72DD2-ECD6-4C36-B8BF-83039D0C57B9",
+              "iconPath" : "/Users/fengkaiwen/Applications/Kimi.app/Contents/Resources/ApplicationIcon.icns",
+              "name" : "Kimi"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "76AA8CC7-B84F-4ACE-9D0B-DA4CE673E759",
+          "name" : "C"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "net.kovidgoyal.kitty",
+              "iconPath" : "/Applications/kitty.app/Contents/Resources/kitty.icns",
+              "name" : "kitty"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+t",
+          "display" : "HDMI",
+          "id" : "8359C726-997F-43E9-8406-015DFB47FB30",
+          "name" : "T",
+          "shortcut" : "opt+t"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "app.zen-browser.zen",
+              "iconPath" : "/Applications/Zen Browser.app/Contents/Resources/firefox.icns",
+              "name" : "Zen"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+b",
+          "display" : "HDMI",
+          "id" : "D765B8B5-0B73-43FC-B5FF-C0493CC1C1E9",
+          "name" : "B",
+          "shortcut" : "opt+b"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.microsoft.Word",
+              "iconPath" : "/Applications/Microsoft Word.app/Contents/Resources/MSWD.icns",
+              "name" : "Microsoft Word"
+            }
+          ],
+          "display" : "HDMI",
+          "id" : "F4E72C92-063E-4888-9B86-3354213FAC94",
+          "name" : "W"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "io.playcover.PlayCover",
+              "iconPath" : "/Applications/PlayCover.app/Contents/Resources/AppIcon.icns",
+              "name" : "PlayCover"
+            },
+            {
+              "bundleIdentifier" : "com.tencent.jkchess",
+              "iconPath" : "/Users/fengkaiwen/Library/Containers/io.playcover.PlayCover/Applications/com.tencent.jkchess.app/Contents/Resources/AppIcon.icns",
+              "name" : "金铲铲之战"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+g",
+          "display" : "HDMI",
+          "id" : "BD861A01-176F-459B-9316-AB32FD6C264D",
+          "name" : "G",
+          "shortcut" : "opt+g"
         }
       ]
     }

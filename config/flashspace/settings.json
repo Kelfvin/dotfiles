@@ -1,22 +1,46 @@
 {
-  "centerCursorOnFocusChange" : false,
-  "centerCursorOnWorkspaceChange" : false,
+  "centerCursorOnFocusChange" : true,
+  "centerCursorOnWorkspaceChange" : true,
   "changeWorkspaceOnAppAssign" : true,
   "checkForUpdatesAutomatically" : false,
-  "enableFocusManagement" : false,
+  "enableFocusManagement" : true,
   "enableIntegrations" : false,
   "enablePictureInPictureSupport" : true,
   "enableSpaceControl" : true,
   "enableSpaceControlAnimations" : true,
+  "floatTheFocusedApp" : "opt+f",
   "floatingApps" : [
-
+    {
+      "bundleIdentifier" : "com.tencent.qq",
+      "iconPath" : "/Applications/QQ.app/Contents/Resources/icon.icns",
+      "name" : "QQ"
+    },
+    {
+      "bundleIdentifier" : "com.tencent.xinWeChat",
+      "iconPath" : "/Applications/WeChat.app/Contents/Resources/AppIcon.icns",
+      "name" : "WeChat"
+    },
+    {
+      "bundleIdentifier" : "com.netease.163music",
+      "iconPath" : "/Applications/NeteaseMusic.app/Contents/Resources/163Music.icns",
+      "name" : "网易云音乐"
+    }
   ],
+  "focusDown" : "opt+j",
+  "focusLeft" : "opt+h",
+  "focusRight" : "opt+l",
+  "focusUp" : "opt+k",
   "menuBarDisplayAliases" : "",
   "menuBarTitleTemplate" : "$WORKSPACE",
   "runScriptOnLaunch" : "",
   "runScriptOnProfileChange" : "",
   "runScriptOnWorkspaceChange" : "",
+  "showFlashSpace" : "opt+p",
   "showFloatingNotifications" : true,
   "showMenuBarTitle" : true,
-  "spaceControlCurrentDisplayWorkspaces" : false
+  "spaceControlCurrentDisplayWorkspaces" : false,
+  "switchToNextWorkspace" : "ctrl+opt+shift+l",
+  "switchToPreviousWorkspace" : "ctrl+opt+shift+h",
+  "switchToRecentWorkspace" : "opt+tab",
+  "unfloatTheFocusedApp" : "opt+shift+f"
 }

@@ -39,3 +39,5 @@ patch:
     - xform/in$/Ⓑ/
     - xlit/ⓆⓌⓇⓉⓎⓊⒾⓄⓅⓈⒹⒻⒼⒽⒿⓀⓁⓏⓍⒸⓋⒷⓃⓂ/qwrtyuiopsdfghjklzxcvbnm/
     # - abbrev/^(.).+$/$1/  # 首字母简拼，开启后会导致 3 个字母时 kj'x 变成 k'jx 的问题
+  translator/preedit_format: [] # 显示实际按下的按键 而不进行翻译
+  punctuator/digit_separators: ".:" # 配置哪些符号如果位于数字后就自动半角，默认有逗号，但是中国人没有在数字后面加逗号来作为分隔符的习惯，且这个东西触发概率极高，所以手动配置去除
