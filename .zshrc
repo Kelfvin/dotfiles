@@ -1,12 +1,6 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 #### PATH
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -22,6 +16,11 @@ source "$HOME/dotfiles/zsh/fzf-tab.zsh"
 # load completions
 autoload -U compinit && compinit
 
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
+
 zinit ice as"command" from"gh-r" lucid \
   mv"zoxide*/zoxide -> zoxide" \
   atclone"./zoxide init zsh > init.zsh" \
@@ -30,7 +29,6 @@ zinit light ajeetdsouza/zoxide
 
 zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-completions 
-zinit light romkatv/powerlevel10k
 zinit light sunlei/zsh-ssh
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
@@ -71,6 +69,4 @@ function set_proxy() {
 source <(fzf --zsh)
 
 eval "$(zoxide init zsh)" # 这个不能缺少，缺少了按Tab不能补全
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(starship init zsh)"
