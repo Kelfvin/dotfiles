@@ -3,6 +3,19 @@
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
+# yabai -m config window_animation_duration    0.35
+
+# add 20 padding to the top and 0 padding to the bottom of every space located on the main display
+yabai -m config external_bar main:32:0
+# add 20 padding to the top and bottom of all spaces regardless of the display it belongs to
+# yabai -m config external_bar all:20:20
+
+
+# yabai -m config active_window_border_color 0xffffffff
+# yabai -m config normal_window_border_color 0xff555555 
+# yabai -m config window_border on 
+# yabai -m config window_border_width 2
+
 
 # bsp or float (default: float)
 yabai -m config layout bsp
@@ -31,11 +44,13 @@ yabai -m mouse_drop_action swap
 yabai -m config window_shadow float
 
 yabai -m config window_opacity off
-yabai -m config active_window_opacity 1.0
-yabai -m config normal_window_opacity 0.9
+
+# yabai -m config active_window_opacity 1.0
+# yabai -m config normal_window_opacity 0.9
 
 # Disable specific spaces
 yabai -m rule --add app="^System Settings|系统设置$" manage=off
-# yabai -m rule --add app="^微信$" manage=off
+
+yabai -m rule --add app="^Wehcat$" manage=off
 
 echo "yabai configuration loaded.."

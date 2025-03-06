@@ -23,7 +23,7 @@
     {
       "bundleIdentifier" : "com.netease.163music",
       "iconPath" : "/Applications/NeteaseMusic.app/Contents/Resources/163Music.icns",
-      "name" : "网易云音乐"
+      "name" : "NetEaseMusic"
     }
   ],
   "focusDown" : "opt+j",
@@ -38,6 +38,7 @@
   "showFlashSpace" : "opt+p",
   "showFloatingNotifications" : true,
   "showMenuBarTitle" : true,
+  "showSpaceControl" : "opt+o",
   "spaceControlCurrentDisplayWorkspaces" : false,
   "switchToNextWorkspace" : "ctrl+opt+shift+l",
   "switchToPreviousWorkspace" : "ctrl+opt+shift+h",

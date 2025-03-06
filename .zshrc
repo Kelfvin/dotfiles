@@ -2,6 +2,10 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
+# 配置默认的编辑器
+export EDITOR="nvim"
+
+
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -55,10 +59,18 @@ zinit cdreplay -q
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}" # 匹配的时候忽略大小写
 
 
-#### alias
+#### --------alias-----------
 alias python="python3"
 alias ll="ls -l --color"
 alias c="clear"
+alias pip="pip3"
+
+### key-binds
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^F' forward-word    
+bindkey '^B' backward-word   
+
 
 
 # ----yazi-----
@@ -74,7 +86,7 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# 快速代理
+# -----快速代理------
 # useage: set_proxy localhost:7897
 function set_proxy() {
   proxy_ip=$1

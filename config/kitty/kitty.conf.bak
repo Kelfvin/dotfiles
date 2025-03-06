@@ -1,7 +1,7 @@
 font_size 16
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Day
+# Everforest Dark Hard
 include current-theme.conf
 # END_KITTY_THEME
 
@@ -15,8 +15,8 @@ bold_italic_font auto
 
 hide_window_decorations   titlebar-only
 window_padding_width      8
-background_opacity        0.9
-background_blur           10
+background_opacity        0.8
+background_blur           20
 
 # tab bar
 tab_bar_edge top
@@ -24,5 +24,5 @@ tab_bar_style powerline
 tab_powerline_style slanted
 
 cursor_trail 3
-
 cursor_shape block
+shell_integration no-cursor

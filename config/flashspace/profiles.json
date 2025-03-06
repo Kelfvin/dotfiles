@@ -58,6 +58,11 @@
               "bundleIdentifier" : "net.kovidgoyal.kitty",
               "iconPath" : "/Applications/kitty.app/Contents/Resources/kitty.icns",
               "name" : "kitty"
+            },
+            {
+              "bundleIdentifier" : "com.microsoft.VSCode",
+              "iconPath" : "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
+              "name" : "Code"
             }
           ],
           "assignAppShortcut" : "opt+shift+t",
@@ -72,6 +77,11 @@
               "bundleIdentifier" : "app.zen-browser.zen",
               "iconPath" : "/Applications/Zen Browser.app/Contents/Resources/firefox.icns",
               "name" : "Zen"
+            },
+            {
+              "bundleIdentifier" : "com.apple.Safari",
+              "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
+              "name" : "Safari浏览器"
             }
           ],
           "assignAppShortcut" : "opt+shift+b",
@@ -103,6 +113,11 @@
               "bundleIdentifier" : "com.tencent.jkchess",
               "iconPath" : "/Users/fengkaiwen/Library/Containers/io.playcover.PlayCover/Applications/com.tencent.jkchess.app/Contents/Resources/AppIcon.icns",
               "name" : "金铲铲之战"
+            },
+            {
+              "bundleIdentifier" : "com.netease.163music",
+              "iconPath" : "/Applications/NeteaseMusic.app/Contents/Resources/163Music.icns",
+              "name" : "网易云音乐"
             }
           ],
           "assignAppShortcut" : "opt+shift+g",

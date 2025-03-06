@@ -6,7 +6,7 @@ local keymap = vim.keymap
 keymap.set("n","<C-s>",":w<CR>",{ desc = "Save file"})
 
 -- format: keymap.set("mode","from_keys","to_keys", {desc=""})
-keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk"})
+keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk"})
 
 -- nh: no hilight
 keymap.set("n", "<leader>nh", ":nohl<CR>", {desc = "Clear search hilights"})

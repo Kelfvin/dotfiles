@@ -26,6 +26,10 @@ patch:
     com.mitchellh.ghostty:
         ascii_mode: true
         vim_mode: true
+    # com.microsoft.VSCode: 
+    #     ascii_mode: true
+    #     vim_mode: true
+
 
   preset_color_schemes/+:
     wechat:
