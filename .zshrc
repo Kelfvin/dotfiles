@@ -1,6 +1,13 @@
-#### PATH
+#### Environment
+
+# PATH 都在此处配置
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# 自定义Starship的配置目录
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+# Hugging Face 镜像
+export HF_ENDPOINT=https://hf-mirror.com
 
 # 配置默认的编辑器
 export EDITOR="nvim"
@@ -64,6 +71,12 @@ alias python="python3"
 alias ll="ls -l --color"
 alias c="clear"
 alias pip="pip3"
+alias v="nvim"
+
+# tmux alias
+alias tat="tmux attach -t"
+alias tns="tmux new -s"
+
 
 ### key-binds
 bindkey '^A' beginning-of-line
@@ -93,6 +106,16 @@ function set_proxy() {
   port=$2
   export https_proxy=http://$proxy_ip:$port http_proxy=http://$proxy_ip:$port all_proxy=socks5://$proxy_ip:$port
 }
+
+
+function _switch_cuda {
+│  v=$1
+│  export PATH=/usr/local/cuda-$v/bin:$PATH:
+│  export CUDADIR=/usr/local/cuda-$v
+│  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-$v/lib64
+│  nvcc --version
+}
+
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)

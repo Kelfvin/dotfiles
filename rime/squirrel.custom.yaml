@@ -29,7 +29,9 @@ patch:
     # com.microsoft.VSCode: 
     #     ascii_mode: true
     #     vim_mode: true
-
+    # md.obsidian:
+    #     ascii_mode: true
+    #     vim_mode: true
 
   preset_color_schemes/+:
     wechat:

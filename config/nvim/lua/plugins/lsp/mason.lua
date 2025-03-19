@@ -19,7 +19,7 @@ return {
           "lua_ls", 
           "rust_analyzer",        -- rust
           "ruff",                 -- python
-          "pyright"
+          "pyright",
         },
       })
     end,

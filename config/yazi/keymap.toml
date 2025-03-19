@@ -154,6 +154,25 @@ keymap = [
 	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
 
+
+[[manager.prepend_keymap]]
+on   = "2"
+run  = "plugin smart-switch 1"
+desc = "Switch or create tab 2"
+
+[[manager.prepend_keymap]]
+on  = "<C-y>"
+run = ["plugin system-clipboard"]
+
+[[manager.prepend_keymap]]
+on   = "t"
+run  = "plugin smart-tab"
+desc = "Create a tab and enter the hovered directory"
+
+[[manager.prepend_keymap]]
+on = "<C-p>"
+run = 'shell -- qlmanage -p "$@"'
+
 [tasks]
 
 keymap = [
@@ -296,6 +315,7 @@ keymap = [
 	{ on = "~",    run = "help", desc = "Open help" },
 	{ on = "<F1>", run = "help", desc = "Open help" },
 ]
+
 
 [confirm]
 

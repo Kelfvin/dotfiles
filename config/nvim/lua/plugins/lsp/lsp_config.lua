@@ -2,8 +2,9 @@ return {
   "neovim/nvim-lspconfig",
   event = {"BufReadPre","BufferNewFile"},
   config = function()
-    require'lspconfig'.pyright.setup{}
-    require'lspconfig'.ruff.setup{}
+    local lspconfig = require('lspconfig') 
+    lspconfig.pyright.setup{}
+    lspconfig.ruff.setup{}
 
 --    -- set keybinds
 --    opts.desc = "Show LSP references"
