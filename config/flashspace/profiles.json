@@ -9,8 +9,8 @@
 
           ],
           "assignAppShortcut" : "opt+shift+1",
-          "display" : "Built-in Retina Display",
-          "id" : "198593AE-B262-4CC7-9073-C0B53EB254CD",
+          "display" : "HDMI",
+          "id" : "8C0A0EDC-FCFE-4155-A6D9-1EFD45BDD7B0",
           "name" : "1",
           "shortcut" : "opt+1"
         },
@@ -18,17 +18,21 @@
           "apps" : [
 
           ],
-          "display" : "Built-in Retina Display",
+          "assignAppShortcut" : "opt+shift+2",
+          "display" : "HDMI",
           "id" : "5B5BC5C4-B1EF-4F7A-89D2-B5D5BE11E363",
-          "name" : "2"
+          "name" : "2",
+          "shortcut" : "opt+2"
         },
         {
           "apps" : [
 
           ],
-          "display" : "Built-in Retina Display",
+          "assignAppShortcut" : "opt+shift+3",
+          "display" : "HDMI",
           "id" : "AF3DDE7E-7B08-42E3-BFA1-2B21BC195CDB",
-          "name" : "3"
+          "name" : "3",
+          "shortcut" : "opt+3"
         },
         {
           "apps" : [
@@ -46,11 +50,19 @@
               "bundleIdentifier" : "com.apple.Safari.WebApp.47B72DD2-ECD6-4C36-B8BF-83039D0C57B9",
               "iconPath" : "/Users/fengkaiwen/Applications/Kimi.app/Contents/Resources/ApplicationIcon.icns",
               "name" : "Kimi"
+            },
+            {
+              "bundleIdentifier" : "com.google.Chrome.app.cadlkienfkclaiaibeoongdcgmdikeeg",
+              "iconPath" : "/Users/fengkaiwen/Applications/Chrome Apps.localized/ChatGPT.app/Contents/Resources/app.icns",
+              "name" : "ChatGPT"
             }
           ],
+          "assignAppShortcut" : "opt+shift+c",
           "display" : "Built-in Retina Display",
           "id" : "76AA8CC7-B84F-4ACE-9D0B-DA4CE673E759",
-          "name" : "C"
+          "name" : "Chat",
+          "shortcut" : "opt+c",
+          "symbolIconName" : "brain.head.profile"
         },
         {
           "apps" : [
@@ -58,18 +70,14 @@
               "bundleIdentifier" : "net.kovidgoyal.kitty",
               "iconPath" : "/Applications/kitty.app/Contents/Resources/kitty.icns",
               "name" : "kitty"
-            },
-            {
-              "bundleIdentifier" : "com.microsoft.VSCode",
-              "iconPath" : "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
-              "name" : "Code"
             }
           ],
           "assignAppShortcut" : "opt+shift+t",
           "display" : "HDMI",
           "id" : "8359C726-997F-43E9-8406-015DFB47FB30",
-          "name" : "T",
-          "shortcut" : "opt+t"
+          "name" : "Terminal",
+          "shortcut" : "opt+t",
+          "symbolIconName" : "apple.terminal"
         },
         {
           "apps" : [
@@ -82,13 +90,19 @@
               "bundleIdentifier" : "com.apple.Safari",
               "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
               "name" : "Safari浏览器"
+            },
+            {
+              "bundleIdentifier" : "com.google.Chrome",
+              "iconPath" : "/Applications/Google Chrome.app/Contents/Resources/app.icns",
+              "name" : "Google Chrome"
             }
           ],
           "assignAppShortcut" : "opt+shift+b",
           "display" : "HDMI",
           "id" : "D765B8B5-0B73-43FC-B5FF-C0493CC1C1E9",
-          "name" : "B",
-          "shortcut" : "opt+b"
+          "name" : "Browser",
+          "shortcut" : "opt+b",
+          "symbolIconName" : "globe"
         },
         {
           "apps" : [
@@ -100,7 +114,8 @@
           ],
           "display" : "HDMI",
           "id" : "F4E72C92-063E-4888-9B86-3354213FAC94",
-          "name" : "W"
+          "name" : "Writing",
+          "symbolIconName" : "pencil.circle"
         },
         {
           "apps" : [
@@ -123,8 +138,88 @@
           "assignAppShortcut" : "opt+shift+g",
           "display" : "HDMI",
           "id" : "BD861A01-176F-459B-9316-AB32FD6C264D",
-          "name" : "G",
-          "shortcut" : "opt+g"
+          "name" : "Game",
+          "shortcut" : "opt+g",
+          "symbolIconName" : "gamecontroller"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "org.zotero.zotero",
+              "iconPath" : "/Applications/Zotero.app/Contents/Resources/zotero.icns",
+              "name" : "Zotero"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+r",
+          "display" : "HDMI",
+          "id" : "DD93F85D-F574-4EF5-A6B0-278E7DB77C0F",
+          "name" : "Read",
+          "shortcut" : "opt+r",
+          "symbolIconName" : "book.pages"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "md.obsidian",
+              "iconPath" : "/Applications/Obsidian.app/Contents/Resources/icon.icns",
+              "name" : "Obsidian"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+n",
+          "display" : "HDMI",
+          "id" : "786491B6-7F31-4EC5-A445-FAE748E1C16E",
+          "name" : "Note",
+          "shortcut" : "opt+n",
+          "symbolIconName" : "note.text"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.microsoft.VSCode",
+              "iconPath" : "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
+              "name" : "Code"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+x",
+          "display" : "HDMI",
+          "id" : "93060230-7A7A-461B-8684-F1EC885B546B",
+          "name" : "Code",
+          "shortcut" : "opt+x",
+          "symbolIconName" : "command.circle.fill"
+        },
+        {
+          "apps" : [
+
+          ],
+          "assignAppShortcut" : "opt+shift+8",
+          "display" : "Built-in Retina Display",
+          "id" : "596A9C3D-0111-4169-97E2-8C98A74184E8",
+          "name" : "8",
+          "shortcut" : "opt+8"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.tencent.qq",
+              "iconPath" : "/Applications/QQ.app/Contents/Resources/icon.icns",
+              "name" : "QQ"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+9",
+          "display" : "Built-in Retina Display",
+          "id" : "0B712880-3CB8-4C05-819C-856101322242",
+          "name" : "9",
+          "shortcut" : "opt+9"
+        },
+        {
+          "apps" : [
+
+          ],
+          "assignAppShortcut" : "opt+shift+0",
+          "display" : "Built-in Retina Display",
+          "id" : "2F1E90F4-569B-41B1-B317-B867469C6911",
+          "name" : "0",
+          "shortcut" : "opt+0"
         }
       ]
     }

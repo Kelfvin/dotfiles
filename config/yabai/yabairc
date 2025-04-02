@@ -48,9 +48,15 @@ yabai -m config window_opacity off
 # yabai -m config active_window_opacity 1.0
 # yabai -m config normal_window_opacity 0.9
 
-# Disable specific spaces
+# 设置不管理的应用
 yabai -m rule --add app="^System Settings|系统设置$" manage=off
-
-yabai -m rule --add app="^Wehcat$" manage=off
+yabai -m rule --add app="^微信$" manage=off
+yabai -m rule --add app="^QQ$" manage=off
+yabai -m rule --add app="^访达$" manage=off
+yabai -m rule --add app="^Telegram$" manage=off
+yabai -m rule --add app="^Clash Verge$" manage=off
+yabai -m rule --add app="^网易云音乐$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
 
 echo "yabai configuration loaded.."
+

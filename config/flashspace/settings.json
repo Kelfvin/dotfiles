@@ -1,4 +1,5 @@
 {
+  "alternativeDisplays" : "",
   "centerCursorOnFocusChange" : true,
   "centerCursorOnWorkspaceChange" : true,
   "changeWorkspaceOnAppAssign" : true,
@@ -8,6 +9,7 @@
   "enablePictureInPictureSupport" : true,
   "enableSpaceControl" : true,
   "enableSpaceControlAnimations" : true,
+  "enableSwipeGesture" : false,
   "floatTheFocusedApp" : "opt+f",
   "floatingApps" : [
     {
@@ -24,14 +26,23 @@
       "bundleIdentifier" : "com.netease.163music",
       "iconPath" : "/Applications/NeteaseMusic.app/Contents/Resources/163Music.icns",
       "name" : "NetEaseMusic"
+    },
+    {
+      "bundleIdentifier" : "com.raycast.macos",
+      "iconPath" : "/Applications/Raycast.app/Contents/Resources/AppIcon-Release.icns",
+      "name" : "Raycast"
     }
   ],
   "focusDown" : "opt+j",
+  "focusFrontmostWindow" : false,
   "focusLeft" : "opt+h",
   "focusRight" : "opt+l",
   "focusUp" : "opt+k",
   "menuBarDisplayAliases" : "",
   "menuBarTitleTemplate" : "$WORKSPACE",
+  "pipApps" : [
+
+  ],
   "runScriptOnLaunch" : "",
   "runScriptOnProfileChange" : "",
   "runScriptOnWorkspaceChange" : "",
@@ -40,6 +51,10 @@
   "showMenuBarTitle" : true,
   "showSpaceControl" : "opt+o",
   "spaceControlCurrentDisplayWorkspaces" : false,
+  "spaceControlMaxColumns" : 6,
+  "swipeFingerCount" : 3,
+  "swipeNaturalDirection" : false,
+  "swipeThreshold" : 0.2,
   "switchToNextWorkspace" : "ctrl+opt+shift+l",
   "switchToPreviousWorkspace" : "ctrl+opt+shift+h",
   "switchToRecentWorkspace" : "opt+tab",
