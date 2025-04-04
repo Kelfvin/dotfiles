@@ -46,7 +46,7 @@
   "runScriptOnLaunch" : "",
   "runScriptOnProfileChange" : "",
   "runScriptOnWorkspaceChange" : "",
-  "showFlashSpace" : "opt+p",
+  "showFlashSpace" : "cmd+opt+shift+p",
   "showFloatingNotifications" : true,
   "showMenuBarTitle" : true,
   "showSpaceControl" : "opt+o",

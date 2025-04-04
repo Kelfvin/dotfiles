@@ -6,7 +6,11 @@
       "workspaces" : [
         {
           "apps" : [
-
+            {
+              "bundleIdentifier" : "com.tencent.meeting",
+              "iconPath" : "/Applications/TencentMeeting.app/Contents/Resources/AppIcon.icns",
+              "name" : "腾讯会议"
+            }
           ],
           "assignAppShortcut" : "opt+shift+1",
           "display" : "HDMI",
@@ -26,7 +30,11 @@
         },
         {
           "apps" : [
-
+            {
+              "bundleIdentifier" : "com.TickTick.task.mac",
+              "iconPath" : "/Applications/TickTick.app/Contents/Resources/AppIcon.icns",
+              "name" : "滴答清单"
+            }
           ],
           "assignAppShortcut" : "opt+shift+3",
           "display" : "HDMI",
@@ -57,11 +65,11 @@
               "name" : "ChatGPT"
             }
           ],
-          "assignAppShortcut" : "opt+shift+c",
+          "assignAppShortcut" : "opt+shift+d",
           "display" : "Built-in Retina Display",
           "id" : "76AA8CC7-B84F-4ACE-9D0B-DA4CE673E759",
           "name" : "Chat",
-          "shortcut" : "opt+c",
+          "shortcut" : "opt+d",
           "symbolIconName" : "brain.head.profile"
         },
         {
@@ -85,11 +93,6 @@
               "bundleIdentifier" : "app.zen-browser.zen",
               "iconPath" : "/Applications/Zen Browser.app/Contents/Resources/firefox.icns",
               "name" : "Zen"
-            },
-            {
-              "bundleIdentifier" : "com.apple.Safari",
-              "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
-              "name" : "Safari浏览器"
             },
             {
               "bundleIdentifier" : "com.google.Chrome",
@@ -163,6 +166,11 @@
               "bundleIdentifier" : "md.obsidian",
               "iconPath" : "/Applications/Obsidian.app/Contents/Resources/icon.icns",
               "name" : "Obsidian"
+            },
+            {
+              "bundleIdentifier" : "notion.id",
+              "iconPath" : "/Applications/Notion.app/Contents/Resources/electron.icns",
+              "name" : "Notion"
             }
           ],
           "assignAppShortcut" : "opt+shift+n",
@@ -180,11 +188,11 @@
               "name" : "Code"
             }
           ],
-          "assignAppShortcut" : "opt+shift+x",
+          "assignAppShortcut" : "opt+shift+c",
           "display" : "HDMI",
           "id" : "93060230-7A7A-461B-8684-F1EC885B546B",
           "name" : "Code",
-          "shortcut" : "opt+x",
+          "shortcut" : "opt+c",
           "symbolIconName" : "command.circle.fill"
         },
         {
@@ -203,6 +211,11 @@
               "bundleIdentifier" : "com.tencent.qq",
               "iconPath" : "/Applications/QQ.app/Contents/Resources/icon.icns",
               "name" : "QQ"
+            },
+            {
+              "bundleIdentifier" : "com.apple.Safari",
+              "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
+              "name" : "Safari浏览器"
             }
           ],
           "assignAppShortcut" : "opt+shift+9",
@@ -220,6 +233,26 @@
           "id" : "2F1E90F4-569B-41B1-B317-B867469C6911",
           "name" : "0",
           "shortcut" : "opt+0"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.adobe.Photoshop",
+              "iconPath" : "/Applications/Adobe Photoshop 2025/Adobe Photoshop 2025.app/Contents/Resources/PS_AppIcon.icns",
+              "name" : "Adobe Photoshop 2025"
+            },
+            {
+              "bundleIdentifier" : "com.apple.Preview",
+              "iconPath" : "/System/Applications/Preview.app/Contents/Resources/AppIcon.icns",
+              "name" : "预览"
+            }
+          ],
+          "assignAppShortcut" : "opt+shift+p",
+          "display" : "HDMI",
+          "id" : "C1358329-CCBC-483F-883A-5768A5ED92CE",
+          "name" : "Photo",
+          "shortcut" : "opt+p",
+          "symbolIconName" : "photo.artframe"
         }
       ]
     }
