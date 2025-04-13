@@ -72,9 +72,9 @@ if [ ! -x "$(command -v nvim)" ]; then
 	curl -Lo nvim.tar.gz https://github.com/neovim/neovim-releases/releases/download/stable/nvim-linux-x86_64.tar.gz
 	tar -xzf nvim.tar.gz
 	cd nvim-linux-x86_64
-	/bin/cp -rf bin/* $INSTALLDIR/
-	/bin/cp -rf share/* $INSTALLDIR/../share
-	/bin/cp -rf lib/* $INSTALLDIR/../lib
+	/bin/cp -rf bin/* $INSTALL_DIR/
+	/bin/cp -rf share/* $INSTALL_DIR/../share
+	/bin/cp -rf lib/* $INSTALL_DIR/../lib
 	cd ..
 	rm -rf nvim-linux-x86_64 nvim.tar.gz
 fi
