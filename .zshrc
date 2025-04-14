@@ -1,7 +1,7 @@
 #### Environment
 
 # PATH 都在此处配置
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # 自定义Starship的配置目录
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -68,7 +68,10 @@ zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}" # 匹配的时候忽略�
 
 #### --------alias-----------
 alias python="python3"
-alias ll="ls -l --color"
+
+alias ls="eza"
+alias ll="eza -l"
+
 alias c="clear"
 alias pip="pip3"
 alias v="nvim"
@@ -147,7 +150,9 @@ function _switch_cuda {
 
 
 # Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 eval "$(zoxide init zsh)" # 这个不能缺少，缺少了按Tab不能补全
 eval "$(starship init zsh)"
+
