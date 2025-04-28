@@ -12,6 +12,9 @@ export HF_ENDPOINT=https://hf-mirror.com
 # 配置默认的编辑器
 export EDITOR="nvim"
 
+# 设置aliyunpan工具的配置目录
+export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
+
 
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
