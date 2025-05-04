@@ -10,6 +10,11 @@
               "bundleIdentifier" : "com.tencent.meeting",
               "iconPath" : "/Applications/TencentMeeting.app/Contents/Resources/AppIcon.icns",
               "name" : "腾讯会议"
+            },
+            {
+              "bundleIdentifier" : "abnerworks.Typora",
+              "iconPath" : "/Applications/Typora.app/Contents/Resources/AppIcon.icns",
+              "name" : "Typora"
             }
           ],
           "assignAppShortcut" : "opt+shift+1",
@@ -98,6 +103,16 @@
               "bundleIdentifier" : "com.google.Chrome",
               "iconPath" : "/Applications/Google Chrome.app/Contents/Resources/app.icns",
               "name" : "Google Chrome"
+            },
+            {
+              "bundleIdentifier" : "com.microsoft.edgemac",
+              "iconPath" : "/Applications/Microsoft Edge.app/Contents/Resources/app.icns",
+              "name" : "Microsoft Edge"
+            },
+            {
+              "bundleIdentifier" : "company.thebrowser.Browser",
+              "iconPath" : "/Applications/Arc.app/Contents/Resources/AppIcon.icns",
+              "name" : "Arc"
             }
           ],
           "assignAppShortcut" : "opt+shift+b",
@@ -115,9 +130,11 @@
               "name" : "Microsoft Word"
             }
           ],
+          "assignAppShortcut" : "opt+shift+w",
           "display" : "HDMI",
           "id" : "F4E72C92-063E-4888-9B86-3354213FAC94",
           "name" : "Writing",
+          "shortcut" : "opt+w",
           "symbolIconName" : "pencil.circle"
         },
         {
@@ -163,14 +180,14 @@
         {
           "apps" : [
             {
-              "bundleIdentifier" : "md.obsidian",
-              "iconPath" : "/Applications/Obsidian.app/Contents/Resources/icon.icns",
-              "name" : "Obsidian"
-            },
-            {
               "bundleIdentifier" : "notion.id",
               "iconPath" : "/Applications/Notion.app/Contents/Resources/electron.icns",
               "name" : "Notion"
+            },
+            {
+              "bundleIdentifier" : "md.obsidian",
+              "iconPath" : "/Applications/Obsidian.app/Contents/Resources/icon.icns",
+              "name" : "Obsidian"
             }
           ],
           "assignAppShortcut" : "opt+shift+n",
@@ -182,6 +199,11 @@
         },
         {
           "apps" : [
+            {
+              "bundleIdentifier" : "com.jetbrains.intellij",
+              "iconPath" : "/Applications/IntelliJ IDEA.app/Contents/Resources/idea.icns",
+              "name" : "IntelliJ IDEA"
+            },
             {
               "bundleIdentifier" : "com.microsoft.VSCode",
               "iconPath" : "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
@@ -216,6 +238,11 @@
               "bundleIdentifier" : "com.apple.Safari",
               "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
               "name" : "Safari浏览器"
+            },
+            {
+              "bundleIdentifier" : "com.tencent.xinWeChat",
+              "iconPath" : "/Applications/WeChat.app/Contents/Resources/AppIcon.icns",
+              "name" : "微信"
             }
           ],
           "assignAppShortcut" : "opt+shift+9",
@@ -245,6 +272,16 @@
               "bundleIdentifier" : "com.apple.Preview",
               "iconPath" : "/System/Applications/Preview.app/Contents/Resources/AppIcon.icns",
               "name" : "预览"
+            },
+            {
+              "bundleIdentifier" : "com.adobe.LightroomClassicCC7",
+              "iconPath" : "/Applications/Adobe Lightroom Classic/Adobe Lightroom Classic.app/Contents/Resources/App.icns",
+              "name" : "Lightroom Classic"
+            },
+            {
+              "bundleIdentifier" : "com.apple.finder",
+              "iconPath" : "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
+              "name" : "访达"
             }
           ],
           "assignAppShortcut" : "opt+shift+p",
@@ -256,6 +293,5 @@
         }
       ]
     }
-  ],
-  "selectedProfileId" : "BFA5CA3E-C373-4F11-91B3-A3366AD61315"
+  ]
 }

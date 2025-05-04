@@ -12,6 +12,9 @@ export HF_ENDPOINT=https://hf-mirror.com
 # 配置默认的编辑器
 export EDITOR="nvim"
 
+# homebrew mirror
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+
 
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

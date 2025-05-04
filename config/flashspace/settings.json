@@ -9,7 +9,8 @@
   "enablePictureInPictureSupport" : true,
   "enableSpaceControl" : true,
   "enableSpaceControlAnimations" : true,
-  "enableSwipeGesture" : false,
+  "enableSwipeGestures" : false,
+  "enableWorkspaceTransitions" : false,
   "floatTheFocusedApp" : "opt+f",
   "floatingApps" : [
     {
@@ -31,6 +32,11 @@
       "bundleIdentifier" : "com.raycast.macos",
       "iconPath" : "/Applications/Raycast.app/Contents/Resources/AppIcon-Release.icns",
       "name" : "Raycast"
+    },
+    {
+      "bundleIdentifier" : "com.apple.finder",
+      "iconPath" : "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
+      "name" : "访达"
     }
   ],
   "focusDown" : "opt+j",
@@ -52,11 +58,19 @@
   "showSpaceControl" : "opt+o",
   "spaceControlCurrentDisplayWorkspaces" : false,
   "spaceControlMaxColumns" : 6,
-  "swipeFingerCount" : 3,
-  "swipeNaturalDirection" : false,
+  "swipeDown3FingerAction" : "none",
+  "swipeDown4FingerAction" : "none",
+  "swipeLeft3FingerAction" : "previousWorkspace",
+  "swipeLeft4FingerAction" : "none",
+  "swipeRight3FingerAction" : "nextWorkspace",
+  "swipeRight4FingerAction" : "none",
   "swipeThreshold" : 0.2,
+  "swipeUp3FingerAction" : "none",
+  "swipeUp4FingerAction" : "none",
   "switchToNextWorkspace" : "ctrl+opt+shift+l",
   "switchToPreviousWorkspace" : "ctrl+opt+shift+h",
   "switchToRecentWorkspace" : "opt+tab",
-  "unfloatTheFocusedApp" : "opt+shift+f"
+  "unfloatTheFocusedApp" : "opt+shift+f",
+  "workspaceTransitionDimming" : 0.2,
+  "workspaceTransitionDuration" : 0.3
 }
