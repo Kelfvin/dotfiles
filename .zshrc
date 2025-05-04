@@ -1,7 +1,7 @@
 #### Environment
 
 # PATH 都在此处配置
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # 自定义Starship的配置目录
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -12,8 +12,13 @@ export HF_ENDPOINT=https://hf-mirror.com
 # 配置默认的编辑器
 export EDITOR="nvim"
 
+<<<<<<< HEAD
 # homebrew mirror
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+=======
+# 设置aliyunpan工具的配置目录
+export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
+>>>>>>> 14b078280ad2f9a0ecd40a58645536daccb63e50
 
 
 # XDG_DATA_HOME=$HOME/.local/share/
@@ -71,7 +76,10 @@ zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}" # 匹配的时候忽略�
 
 #### --------alias-----------
 alias python="python3"
-alias ll="ls -l --color"
+
+alias ls="eza"
+alias ll="eza -l"
+
 alias c="clear"
 alias pip="pip3"
 alias v="nvim"
@@ -110,18 +118,49 @@ function set_proxy() {
   export https_proxy=http://$proxy_ip:$port http_proxy=http://$proxy_ip:$port all_proxy=socks5://$proxy_ip:$port
 }
 
-
 function _switch_cuda {
-│  v=$1
-│  export PATH=/usr/local/cuda-$v/bin:$PATH:
-│  export CUDADIR=/usr/local/cuda-$v
-│  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-$v/lib64
-│  nvcc --version
+  local v=$1
+  local cuda_base="/usr/local/cuda-$v"
+  local cuda_bin="$cuda_base/bin"
+  local cuda_lib="$cuda_base/lib64" # 假设是 lib64，根据实际情况调整
+
+  # 检查目标CUDA目录是否存在
+  if [ ! -d "$cuda_base" ]; then
+    echo "错误: CUDA 版本 $v 的目录 $cuda_base 不存在。"
+    return 1 # 返回错误码
+  fi
+
+  # 检查nvcc是否存在
+  if [ ! -x "$cuda_bin/nvcc" ]; then
+     echo "错误: 在 $cuda_bin 中未找到 nvcc 或其不可执行。"
+     return 1
+  fi
+
+  echo "正在切换到 CUDA $v..."
+
+  # 更新 PATH (移除末尾冒号，将新路径放在前面)
+  export PATH="$cuda_bin:$PATH"
+
+  # 设置 CUDADIR
+  export CUDADIR="$cuda_base"
+
+  # 更新 LD_LIBRARY_PATH (将新路径放在前面)
+  if [ -n "$LD_LIBRARY_PATH" ]; then
+    export LD_LIBRARY_PATH="$cuda_lib:$LD_LIBRARY_PATH"
+  else
+    export LD_LIBRARY_PATH="$cuda_lib"
+  fi
+
+  # 显示切换后的版本 (检查是否成功)
+  echo -n "当前 nvcc 版本: "
+  nvcc --version
 }
 
 
 # Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 eval "$(zoxide init zsh)" # 这个不能缺少，缺少了按Tab不能补全
 eval "$(starship init zsh)"
+
