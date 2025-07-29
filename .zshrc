@@ -12,14 +12,13 @@ export HF_ENDPOINT=https://hf-mirror.com
 # 配置默认的编辑器
 export EDITOR="nvim"
 
-<<<<<<< HEAD
 # homebrew mirror
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-=======
+
 # 设置aliyunpan工具的配置目录
 export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
->>>>>>> 14b078280ad2f9a0ecd40a58645536daccb63e50
 
+export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

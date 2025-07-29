@@ -1,6 +1,6 @@
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
-[mgr]
+[manager]
 
 keymap = [
 	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
@@ -155,21 +155,21 @@ keymap = [
 ]
 
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on   = "2"
 run  = "plugin smart-switch 1"
 desc = "Switch or create tab 2"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on  = "<C-y>"
 run = ["plugin system-clipboard"]
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on   = "t"
 run  = "plugin smart-tab"
 desc = "Create a tab and enter the hovered directory"
 
-[[mgr.prepend_keymap]]
+[[manager.prepend_keymap]]
 on = "<C-p>"
 run = 'shell -- qlmanage -p "$@"'
 

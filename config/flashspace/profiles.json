@@ -10,11 +10,6 @@
               "bundleIdentifier" : "com.tencent.meeting",
               "iconPath" : "/Applications/TencentMeeting.app/Contents/Resources/AppIcon.icns",
               "name" : "腾讯会议"
-            },
-            {
-              "bundleIdentifier" : "abnerworks.Typora",
-              "iconPath" : "/Applications/Typora.app/Contents/Resources/AppIcon.icns",
-              "name" : "Typora"
             }
           ],
           "assignAppShortcut" : "opt+shift+1",
@@ -100,11 +95,6 @@
               "name" : "Zen"
             },
             {
-              "bundleIdentifier" : "com.google.Chrome",
-              "iconPath" : "/Applications/Google Chrome.app/Contents/Resources/app.icns",
-              "name" : "Google Chrome"
-            },
-            {
               "bundleIdentifier" : "com.microsoft.edgemac",
               "iconPath" : "/Applications/Microsoft Edge.app/Contents/Resources/app.icns",
               "name" : "Microsoft Edge"
@@ -113,6 +103,16 @@
               "bundleIdentifier" : "company.thebrowser.Browser",
               "iconPath" : "/Applications/Arc.app/Contents/Resources/AppIcon.icns",
               "name" : "Arc"
+            },
+            {
+              "bundleIdentifier" : "abnerworks.Typora",
+              "iconPath" : "/Applications/Typora.app/Contents/Resources/AppIcon.icns",
+              "name" : "Typora"
+            },
+            {
+              "bundleIdentifier" : "com.google.Chrome",
+              "iconPath" : "/Applications/Google Chrome.app/Contents/Resources/app.icns",
+              "name" : "Google Chrome"
             }
           ],
           "assignAppShortcut" : "opt+shift+b",
@@ -188,6 +188,11 @@
               "bundleIdentifier" : "md.obsidian",
               "iconPath" : "/Applications/Obsidian.app/Contents/Resources/icon.icns",
               "name" : "Obsidian"
+            },
+            {
+              "bundleIdentifier" : "com.yuque.app",
+              "iconPath" : "/Applications/语雀.app/Contents/Resources/icon.icns",
+              "name" : "语雀"
             }
           ],
           "assignAppShortcut" : "opt+shift+n",
@@ -238,11 +243,6 @@
               "bundleIdentifier" : "com.apple.Safari",
               "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
               "name" : "Safari浏览器"
-            },
-            {
-              "bundleIdentifier" : "com.tencent.xinWeChat",
-              "iconPath" : "/Applications/WeChat.app/Contents/Resources/AppIcon.icns",
-              "name" : "微信"
             }
           ],
           "assignAppShortcut" : "opt+shift+9",
@@ -269,19 +269,9 @@
               "name" : "Adobe Photoshop 2025"
             },
             {
-              "bundleIdentifier" : "com.apple.Preview",
-              "iconPath" : "/System/Applications/Preview.app/Contents/Resources/AppIcon.icns",
-              "name" : "预览"
-            },
-            {
               "bundleIdentifier" : "com.adobe.LightroomClassicCC7",
               "iconPath" : "/Applications/Adobe Lightroom Classic/Adobe Lightroom Classic.app/Contents/Resources/App.icns",
               "name" : "Lightroom Classic"
-            },
-            {
-              "bundleIdentifier" : "com.apple.finder",
-              "iconPath" : "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
-              "name" : "访达"
             }
           ],
           "assignAppShortcut" : "opt+shift+p",

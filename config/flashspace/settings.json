@@ -4,6 +4,7 @@
   "centerCursorOnWorkspaceChange" : true,
   "changeWorkspaceOnAppAssign" : true,
   "checkForUpdatesAutomatically" : false,
+  "displayMode" : "static",
   "enableFocusManagement" : true,
   "enableIntegrations" : false,
   "enablePictureInPictureSupport" : true,
@@ -12,50 +13,28 @@
   "enableSwipeGestures" : false,
   "enableWorkspaceTransitions" : false,
   "floatTheFocusedApp" : "opt+f",
-  "floatingApps" : [
-    {
-      "bundleIdentifier" : "com.tencent.qq",
-      "iconPath" : "/Applications/QQ.app/Contents/Resources/icon.icns",
-      "name" : "QQ"
-    },
-    {
-      "bundleIdentifier" : "com.tencent.xinWeChat",
-      "iconPath" : "/Applications/WeChat.app/Contents/Resources/AppIcon.icns",
-      "name" : "WeChat"
-    },
-    {
-      "bundleIdentifier" : "com.netease.163music",
-      "iconPath" : "/Applications/NeteaseMusic.app/Contents/Resources/163Music.icns",
-      "name" : "NetEaseMusic"
-    },
-    {
-      "bundleIdentifier" : "com.raycast.macos",
-      "iconPath" : "/Applications/Raycast.app/Contents/Resources/AppIcon-Release.icns",
-      "name" : "Raycast"
-    },
-    {
-      "bundleIdentifier" : "com.apple.finder",
-      "iconPath" : "/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns",
-      "name" : "访达"
-    }
-  ],
   "focusDown" : "opt+j",
   "focusFrontmostWindow" : false,
   "focusLeft" : "opt+h",
   "focusRight" : "opt+l",
   "focusUp" : "opt+k",
+  "keepUnassignedAppsOnSwitch" : false,
   "menuBarDisplayAliases" : "",
   "menuBarTitleTemplate" : "$WORKSPACE",
   "pipApps" : [
 
   ],
+  "pipScreenCornerOffset" : 15,
+  "restoreHiddenAppsOnSwitch" : true,
   "runScriptOnLaunch" : "",
   "runScriptOnProfileChange" : "",
   "runScriptOnWorkspaceChange" : "",
   "showFlashSpace" : "cmd+opt+shift+p",
   "showFloatingNotifications" : true,
+  "showMenuBarIcon" : true,
   "showMenuBarTitle" : true,
   "showSpaceControl" : "opt+o",
+  "skipEmptyWorkspacesOnSwitch" : false,
   "spaceControlCurrentDisplayWorkspaces" : false,
   "spaceControlMaxColumns" : 6,
   "swipeDown3FingerAction" : "none",

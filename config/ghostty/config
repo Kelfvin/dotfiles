@@ -1,5 +1,3 @@
-# background = 282c34
-
 # Theme
 theme = "catppuccin-mocha"
 background-opacity = 0.8
@@ -9,15 +7,28 @@ macos-titlebar-style = hidden
 window-padding-x = 10
 window-padding-y = 10
 
+#粗体文本使用明亮调色板
+bold-is-bright = true
 
-# Font
-# font-family = "Maple Mono NF CN"
-font-family = JetBrainsMono Nerd Font Mono
-font-size=16
-font-feature = -calt
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size=15
 
-# 其他
 mouse-hide-while-typing = true
-# shell-integration = zsh
+
+###### shell-integration #######
+shell-integration = zsh
 shell-integration-features = no-cursor
+
+# cursor setting
 cursor-style = block
+cursor-style-blink = false
+cursor-opacity = 0.3
+adjust-cursor-thickness = 3
+# 设置alt+鼠标点击进行跳转
+cursor-click-to-move = true
+ 
+# 显示终端上的url链接，需要按下ctrl键才会显示
+link-url = true
+ 
+########### Key-Bind ##########
+keybind = super+s=text:\x1b:w\n

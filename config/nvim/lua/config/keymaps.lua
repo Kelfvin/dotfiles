@@ -11,7 +11,7 @@ keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk"})
 
 keymap.set("n", "q", ":qa<CR>", { desc = "Exit neovim"})
 
--- nh: no hilight
+-- h: no hilight
 keymap.set("n", "<leader>nh", ":nohl<CR>", {desc = "Clear search hilights"})
 
 -- increment/decrement numbers
@@ -35,3 +35,6 @@ keymap.set("n", "<leader>tp","<cmd>tabp<CR>", {desc="Go to previous tab"})
 keymap.set("n", "<leader>tf","<cmd>tabnew %<CR>", {desc="Open current buffer in new tab"})
 
 
+-- save file
+keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "保存文件" })
+keymap.set("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "保存文件" })
