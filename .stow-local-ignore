@@ -25,10 +25,12 @@ _darcs
 
 # 忽略这个处理环境的脚本
 setup.sh
+setup_rime.sh
 
 # 忽略rime，这个link的规则有点特殊
 setup_rime.sh
 rime
 
-
+# 忽略仓库图片
+assets
 
