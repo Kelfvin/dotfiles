@@ -1,5 +1,7 @@
 # kelf's dotfiles
 
+![](assets/shot.png)
+
 这个仓库将存放我的所有配置文件
 
 目前我的主力是一台MacBook air，日常中使用ssh连接到实验室的服务器上进行开发。
