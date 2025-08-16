@@ -16,7 +16,7 @@ font-size=15
 mouse-hide-while-typing = true
 
 ###### shell-integration #######
-shell-integration = zsh
+# shell-integration = zsh
 shell-integration-features = no-cursor
 
 # cursor setting

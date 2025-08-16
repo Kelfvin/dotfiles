@@ -19,40 +19,6 @@ cd "$(dirname "$0")"
 CONFIG_DIR="./config"
 TARGET_DIR="$HOME/.config"
 
-# 确保 .config 目录存在
-if [ ! -d "$TARGET_DIR" ]; then
-  echo "$TARGET_DIR does not exist. Creating it now."
-  mkdir -p "$TARGET_DIR"
-fi
-
-# 循环处理config中的每个子目录
-for config in "$CONFIG_DIR"/*; do
-  # 只处理目录
-  if [ -d "$config" ]; then
-    # 获取子目录的名称（例如 aerospace, btop等）
-    dir_name=$(basename "$config")
-    target_path="$TARGET_DIR/$dir_name"
-    
-    # 检查目标路径是否已存在
-    if [ -e "$target_path" ]; then
-      echo "Skipping $target_path because it already exists."
-    else
-      # 创建符号链接
-      ln -s "$(pwd)/$config" "$target_path"
-      echo "Linked $config to $target_path"
-    fi
-  fi
-done
-
-
-
-# 配置 .zshrc
-if [ ! -e "$HOME/.zshrc" ]; then
-  ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
-  echo "Linked .zshrc to $HOME/.zshrc"
-else
-  echo "$HOME/.zshrc already exists. Skipping."
-fi
 
 # 下面安装需要使用的一些工具
 
@@ -65,19 +31,6 @@ fi
 [ -x "$(command -v dust)" ] || cargo install du-dust
 [ -x "$(command -v yazi)" ] || cargo install --locked yazi-fm yazi-cli
 
-# install neovim which is compiled for older systems
-# if your system is relatively new, you can install it from:
-# https://github.com/neovim/neovim/releases/tag/stable
-if [ ! -x "$(command -v nvim)" ]; then
-	curl -Lo nvim.tar.gz https://github.com/neovim/neovim-releases/releases/download/stable/nvim-linux-x86_64.tar.gz
-	tar -xzf nvim.tar.gz
-	cd nvim-linux-x86_64
-	/bin/cp -rf bin/* $INSTALL_DIR/
-	/bin/cp -rf share/* $INSTALL_DIR/../share
-	/bin/cp -rf lib/* $INSTALL_DIR/../lib
-	cd ..
-	rm -rf nvim-linux-x86_64 nvim.tar.gz
-fi
 
 # install tmux>=3.3 for allow-passthrough option
 tmux_version=$(tmux -V | awk '{print $2}')
@@ -114,13 +67,6 @@ TPM_DIR="$HOME/.tmux/"
 if [ ! -d "$TPM_DIR" ]; then
   echo "$TPM_DIR does not exist. Using git to clone."
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
-if [ ! -e "$HOME/.tmux.conf" ]; then
-  ln -s "$(pwd)/.tmux.conf" "$HOME/.tmux.conf"
-  echo "Linked .tmux.conf to $HOME/.tmux.conf"
-else
-  echo "$HOME/.tmux.conf already exists. Skipping."
 fi
 
 source ~/.zshrc

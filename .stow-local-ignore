@@ -1,0 +1,34 @@
+RCS
+.+,v
+
+CVS
+\.\#.+       # CVS conflict files / emacs lock files
+\.cvsignore
+
+\.svn
+_darcs
+\.hg
+
+\.git
+\.gitignore
+\.gitmodules
+
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
+
+^/README.*
+^/LICENSE.*
+^/COPYING
+
+\.doc
+\.DS_Store
+
+# 忽略这个处理环境的脚本
+setup.sh
+
+# 忽略rime，这个link的规则有点特殊
+setup_rime.sh
+rime
+
+
+

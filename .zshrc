@@ -20,6 +20,8 @@ export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
 
 export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 
+export MUSICFOX_ROOT=$HOME/.config/go-musicfox
+
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -163,3 +165,6 @@ function _switch_cuda {
 eval "$(zoxide init zsh)" # 这个不能缺少，缺少了按Tab不能补全
 eval "$(starship init zsh)"
 
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
