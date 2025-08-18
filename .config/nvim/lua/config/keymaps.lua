@@ -38,3 +38,14 @@ keymap.set("n", "<leader>tf","<cmd>tabnew %<CR>", {desc="Open current buffer in 
 -- save file
 keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "保存文件" })
 keymap.set("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "保存文件" })
+
+
+-- Comment Box setting
+keymap.set({ "n", "v"}, "<Leader>cb", "<Cmd>CBlcbox<CR>", {desc="Box left commnet"})
+keymap.set({ "n", "v"}, "<Leader>cc", "<Cmd>CBccbox<CR>", {desc="Box center commnet"})
+keymap.set("n", "<Leader>ct", "<Cmd>CBllline<CR>", {desc = "Line title left commnet"})
+keymap.set("n", "<Leader>cl", "<Cmd>CBcline<CR>", {desc = "Line commnet"})
+-- remove a box or a titled line
+keymap.set({ "n", "v" }, "<Leader>cd", "<Cmd>CBd<CR>", {desc="Remove box or line comment"})
+
+
