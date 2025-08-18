@@ -52,10 +52,14 @@ if [ ! -x "$(command -v git)" ]; then
 fi
 
 
+
+
 # ── cargo ─────────────────────────────────────────────────────────────
-# 由于某些包需要最新的cargo才能安装，所以这里默认都下载吧，正常应该是要检查版本的，这里从简
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# [ -x "$(command -v cargo)" ] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# 检查是否有rustup
+if [ ! -x "$(command -v rustup)" ]; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	exit 1
+fi
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                    使用Cargo安装软件                     │
@@ -82,13 +86,47 @@ NEOVIM_RELEASE_URL="https://github.com/neovim/neovim/releases/download/v0.11.3/n
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
 if [ ! -d "$HOME/.lcoal/share/nvim"  ]; then
+  # 下载指定URL的包
 	echo "Starting download Neovim from github"
-  wget -O nvim.tar.gz $NEOVIM_RELEASE_URL
-  tar -xvf nvim.tar.gz
+  DOWNLOAD_FILE="nvim.tar.gz"
+  wget -O $DOWNLOAD_FILE $NEOVIM_RELEASE_URL
+  tar -xf $DOWNLOAD_FILE
   EXTRACT_DIR="nvim-linux-x86_64"
-  cp -r $EXTRACT_DIR/bin $EXTRACT_DIR/share $EXTRACT_DIR/lib $INSTALL_DIR
-	exit 1
+  
+  # 将解压后的文件复制到安装路径当中
+  cp -r $EXTRACT_DIR/{bin,share,lib} $INSTALL_DIR
+
+  # 清理下载文件
+  rm -rf $EXTRACT_DIR
+  rm DOWNLOAD_FILE
 fi
+
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                         LazyGit                          │
+# ╰──────────────────────────────────────────────────────────╯
+
+LAZYGIT_RELEASE_URL="https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
+
+# 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
+if [ ! -x "$INSTALL_DIR/bin/lazygit"  ]; then
+  # 下载指定URL的包
+	echo "Starting download LazyGit from github"
+  DOWNLOAD_FILE="lazygit.tar.gz"
+  wget -O $DOWNLOAD_FILE $LAZYGIT_RELEASE_URL
+  tar -xf $DOWNLOAD_FILE
+
+  EXTRACT_DIR="lazygit"
+  mkdir lazygit
+
+  tar -xf $DOWNLOAD_FILE -C $EXTRACT_DIR
+  cp $EXTRACT_DIR/lazygit $INSTALL_DIR/bin
+
+  # 清理下载文件
+  rm -rf $EXTRACT_DIR
+  rm $DOWNLOAD_FILE
+fi
+
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                     Tmux 安装与配置                      │
@@ -112,7 +150,7 @@ if (($(echo "$tmux_version < 3.3" | bc -l))); then
 	else
 		curl -Lo libevent.tar.gz https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
 		tar -xvzf libevent.tar.gz
-		cd libevent
+		cd libevent-*/
 		mkdir build && cd build
 		cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
 		make -j$(nproc)
@@ -133,4 +171,3 @@ if [ ! -d "$TPM_DIR" ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-source ~/.zshrc
