@@ -12,6 +12,7 @@ return {
     keymap = {
       ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+      preset = "super-tab",
     },
     signature = {
       enabled = true,
