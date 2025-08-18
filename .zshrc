@@ -1,6 +1,7 @@
-#### Environment
-
-# PATH 都在此处配置
+# ╭──────────────────────────────────────────────────────────╮
+# │                 Environment PATH SETTING                 │
+# ╰──────────────────────────────────────────────────────────╯
+# 
 export PATH=$HOME/.cargo/bin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # 自定义Starship的配置目录
@@ -22,6 +23,9 @@ export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 
 export MUSICFOX_ROOT=$HOME/.config/go-musicfox
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                      ZINIT Plugins                       │
+# ╰──────────────────────────────────────────────────────────╯
 # XDG_DATA_HOME=$HOME/.local/share/
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -74,8 +78,9 @@ zinit cdreplay -q
 # completion style
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}" # 匹配的时候忽略大小写
 
-
-#### --------alias-----------
+# ╭──────────────────────────────────────────────────────────╮
+# │                          Alias                           │
+# ╰──────────────────────────────────────────────────────────╯
 alias python="python3"
 
 alias ls="eza"
@@ -83,7 +88,6 @@ alias ll="eza -l"
 
 alias c="clear"
 alias pip="pip3"
-alias v="nvim"
 
 # tmux alias
 alias tat="tmux attach -t"
@@ -91,18 +95,20 @@ alias tns="tmux new -s"
 
 alias nv="nvim"
 
-### key-binds
+alias zsh_reload="source ~/.zshrc"
+
+# ╭──────────────────────────────────────────────────────────╮
+# │               Fix Shortcut in Tmux context               │
+# ╰──────────────────────────────────────────────────────────╯
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 bindkey '^F' forward-word    
 bindkey '^B' backward-word   
 
 
-
-# ----yazi-----
-# 配置退出时自动cd目录
-# 必须使用 y 来启动，按下q来退出
-# 如果不想切换目录，那么使用Q来退出
+# ── yazi function ─────────────────────────────────────────────────────
+# 使用 y 来启动yazi，按下q后将cd到查看的目录
+# 如果不想切换目录，那么使用shift-q来退出
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -112,7 +118,13 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# -----快速代理------
+# ── Python Venv Active ────────────────────────────────────────────────
+# 用于激活python的.venv环境
+function act(){
+  [ -f '.venv/bin/activate' ] && source .venv/bin/activate
+}
+
+# ── 快速代理───────────────────────────────────────────────
 # useage: set_proxy localhost:7897
 function set_proxy() {
   proxy_ip=$1
@@ -120,6 +132,7 @@ function set_proxy() {
   export https_proxy=http://$proxy_ip:$port http_proxy=http://$proxy_ip:$port all_proxy=socks5://$proxy_ip:$port
 }
 
+# ── 切换cuda版本 ──────────────────────────────────────────────────────
 function _switch_cuda {
   local v=$1
   local cuda_base="/usr/local/cuda-$v"
