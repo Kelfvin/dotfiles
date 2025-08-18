@@ -89,6 +89,7 @@ alias v="nvim"
 alias tat="tmux attach -t"
 alias tns="tmux new -s"
 
+alias nv="nvim"
 
 ### key-binds
 bindkey '^A' beginning-of-line
