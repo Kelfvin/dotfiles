@@ -1,38 +1,94 @@
 #!/bin/bash
 
-# 此setup脚本不需要root权限
-# 将需要使用的软件都放在 ~/.local/bin 下
-# 需要将"$HOME/.local/bin"添加到PATH中
-INSTALL_DIR="$HOME/.local/bin"
+# ──────────────────────────────────────────────────────────────────────
+# 此脚本用于在新机器上一键配置开发环境（无需Root权限）
+# 软件将安装在 ~/.local/bin 下
+# ──────────────────────────────────────────────────────────────────────
 
-# 基本设置
-# 使用curl来下载GitHub发布的包
+# ╭──────────────────────────────────────────────────────────╮
+# │                        常量设置                          │
+# ╰──────────────────────────────────────────────────────────╯
+
+INSTALL_DIR="$HOME/.local/"
+CONFIG_DIR="./config"
+TARGET_DIR="$HOME/.config"
+
+# 创建安装文件基本目录
+install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
+
+# 切换到脚本所在的目录
+cd "$(dirname "$0")"
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                       检查必要工具                       │
+# ╰──────────────────────────────────────────────────────────╯
+
+# ── curl ──────────────────────────────────────────────────────────────
+# 用于下载
 if [ ! -x "$(command -v curl)" ]; then
 	echo "curl is required..."
 	exit 1
 fi
 
-# 切换到脚本所在的目录
-cd "$(dirname "$0")"
+# ── wget ──────────────────────────────────────────────────────────────
+if [ ! -x "$(command -v wget)" ]; then
+	echo "wget is required..."
+	exit 1
+fi
 
-# 配置~/.config
-CONFIG_DIR="./config"
-TARGET_DIR="$HOME/.config"
+
+# ── git ───────────────────────────────────────────────────────────────
+if [ ! -x "$(command -v git)" ]; then
+	echo "git is required..."
+	exit 1
+fi
 
 
-# 下面安装需要使用的一些工具
+# ── cargo ─────────────────────────────────────────────────────────────
+# 由于某些包需要最新的cargo才能安装，所以这里默认都下载吧，正常应该是要检查版本的，这里从简
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# [ -x "$(command -v cargo)" ] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                    使用Cargo安装软件                     │
+# ╰──────────────────────────────────────────────────────────╯
+
+# fzf 查找工具
 [ -d "$HOME/.fzf" ] || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
-
-[ -x "$(command -v cargo)" ] || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# 正则查找工具
 [ -x "$(command -v rg)" ] || cargo install ripgrep
+# 更好用的ls工具
 [ -x "$(command -v eza)" ] || cargo install eza
 [ -x "$(command -v fd)" ] || cargo install fd-find
+# 更好用的du工具
 [ -x "$(command -v dust)" ] || cargo install du-dust
+# yazi--文件管理器
 [ -x "$(command -v yazi)" ] || cargo install --locked yazi-fm yazi-cli
 
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                          Neovim                          │
+# ╰──────────────────────────────────────────────────────────╯
+
+NEOVIM_RELEASE_URL="https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
+
+# 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
+if [ ! -d "$HOME/.lcoal/share/nvim"  ]; then
+	echo "Starting download Neovim from github"
+  wget -O nvim.tar.gz $NEOVIM_RELEASE_URL
+  tar -xvf nvim.tar.gz
+  EXTRACT_DIR="nvim-linux-x86_64"
+  cp -r $EXTRACT_DIR/bin $EXTRACT_DIR/share $EXTRACT_DIR/lib $INSTALL_DIR
+	exit 1
+fi
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                     Tmux 安装与配置                      │
+# ╰──────────────────────────────────────────────────────────╯
+
+# ── 安装Tmux ───────────────────────────────────────────────────────
 # install tmux>=3.3 for allow-passthrough option
+
 tmux_version=$(tmux -V | awk '{print $2}')
 if [[ ! ${tmux_version: -1} =~ [0-9] ]]; then
 	tmux_version="${tmux_version::-1}"
@@ -62,7 +118,7 @@ if (($(echo "$tmux_version < 3.3" | bc -l))); then
 	echo "$(tmux -V) has been installed!"
 fi
 
-# 配置 tmux
+# ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/" 
 if [ ! -d "$TPM_DIR" ]; then
   echo "$TPM_DIR does not exist. Using git to clone."
