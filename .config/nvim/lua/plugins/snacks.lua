@@ -23,7 +23,8 @@ return{
       notification = {
         -- wo = { wrap = true } -- Wrap notifications
       }
-    }
+    },
+    image = { enabled = true },
   },
   keys = {
     -- Top Pickers & Explorer
