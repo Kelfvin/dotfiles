@@ -5,16 +5,16 @@ opt.number = true
 
 
 -- tab & indentation
-opt.tabstop = 2 -- 2 spaces for tabs
-opt.shiftwidth = 2 -- 2 spaces for indent width
-opt.expandtab = true --expand tab to spaces
+opt.tabstop = 2       -- 2 spaces for tabs
+opt.shiftwidth = 2    -- 2 spaces for indent width
+opt.expandtab = true  --expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
 
 opt.wrap = true
 
 -- search settings
 opt.ignorecase = true -- ignore case when searhing
-opt.smartcase = true -- if you include mixed case in your search, assume you want case-sensitive
+opt.smartcase = true  -- if you include mixed case in your search, assume you want case-sensitive
 
 
 opt.cursorline = true
@@ -23,7 +23,7 @@ opt.cursorline = true
 opt.termguicolors = true
 opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 
--- backspace 
+-- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
 
