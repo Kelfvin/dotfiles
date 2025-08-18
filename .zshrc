@@ -107,6 +107,9 @@ bindkey '^E' end-of-line
 bindkey '^F' forward-word    
 bindkey '^B' backward-word   
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                      Function Space                      │
+# ╰──────────────────────────────────────────────────────────╯
 
 # ── yazi function ─────────────────────────────────────────────────────
 # 使用 y 来启动yazi，按下q后将cd到查看的目录
@@ -126,13 +129,22 @@ function act(){
   [ -f '.venv/bin/activate' ] && source .venv/bin/activate
 }
 
-# ── 快速代理───────────────────────────────────────────────
+# ── 取消代理 ──────────────────────────────────────────────────────────
 # useage: set_proxy localhost:7897
 function set_proxy() {
   proxy_ip=$1
   port=$2
   export https_proxy=http://$proxy_ip:$port http_proxy=http://$proxy_ip:$port all_proxy=socks5://$proxy_ip:$port
 }
+
+# ── 取消代理 ──────────────────────────────────────────────────────────
+function unset_proxy() {
+    unset http_proxy
+    unset https_proxy
+    unset all_proxy
+    echo "代理已取消"
+}
+
 
 # ── 切换cuda版本 ──────────────────────────────────────────────────────
 function _switch_cuda {
