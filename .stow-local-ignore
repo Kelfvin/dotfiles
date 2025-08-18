@@ -20,7 +20,7 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-\.doc
+doc
 \.DS_Store
 
 # 忽略这个处理环境的脚本
