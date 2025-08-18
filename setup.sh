@@ -85,7 +85,7 @@ fi
 NEOVIM_RELEASE_URL="https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
-if [ ! -d "$HOME/.lcoal/share/nvim"  ]; then
+if [ ! -d "$INSTALL_DIR/bin/nvim"  ]; then
   # 下载指定URL的包
 	echo "Starting download Neovim from github"
   DOWNLOAD_FILE="nvim.tar.gz"
@@ -98,7 +98,7 @@ if [ ! -d "$HOME/.lcoal/share/nvim"  ]; then
 
   # 清理下载文件
   rm -rf $EXTRACT_DIR
-  rm DOWNLOAD_FILE
+  rm $DOWNLOAD_FILE
 fi
 
 
@@ -106,7 +106,7 @@ fi
 # │                         LazyGit                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-LAZYGIT_RELEASE_URL="https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
+LAZYGIT_RELEASE_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
 if [ ! -x "$INSTALL_DIR/bin/lazygit"  ]; then
@@ -114,10 +114,9 @@ if [ ! -x "$INSTALL_DIR/bin/lazygit"  ]; then
 	echo "Starting download LazyGit from github"
   DOWNLOAD_FILE="lazygit.tar.gz"
   wget -O $DOWNLOAD_FILE $LAZYGIT_RELEASE_URL
-  tar -xf $DOWNLOAD_FILE
 
   EXTRACT_DIR="lazygit"
-  mkdir lazygit
+  mkdir $EXTRACT_DIR
 
   tar -xf $DOWNLOAD_FILE -C $EXTRACT_DIR
   cp $EXTRACT_DIR/lazygit $INSTALL_DIR/bin
@@ -133,36 +132,38 @@ fi
 # ╰──────────────────────────────────────────────────────────╯
 
 # ── 安装Tmux ───────────────────────────────────────────────────────
+# TODO: 这里的安装逻辑还有问题
+
 # install tmux>=3.3 for allow-passthrough option
 
-tmux_version=$(tmux -V | awk '{print $2}')
-if [[ ! ${tmux_version: -1} =~ [0-9] ]]; then
-	tmux_version="${tmux_version::-1}"
-fi
-if (($(echo "$tmux_version < 3.3" | bc -l))); then
-	curl -Lo tmux-3.5a.tar.gz https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
-	tar -xvzf tmux-3.5a.tar.gz
-	cd tmux-3.5a
-	if pkg-config --cflags --libs libevent &> /dev/null; then
-		./configure --prefix=$HOME/.local && make -j$(nproc)
-	elif PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig pkg-config --cflags --libs libevent &> /dev/null; then
-		./configure --prefix=$HOME/.local CFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib" && make -j$(nproc)
-	else
-		curl -Lo libevent.tar.gz https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
-		tar -xvzf libevent.tar.gz
-		cd libevent-*/
-		mkdir build && cd build
-		cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
-		make -j$(nproc)
-		make install
-		cd ../..
-		./configure --prefix=$HOME/.local CFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib" && make -j$(nproc)
-	fi
-	make install
-	cd ..
-	rm -rf tmux-3.5a tmux-3.5a.tar.gz
-	echo "$(tmux -V) has been installed!"
-fi
+# tmux_version=$(tmux -V | awk '{print $2}')
+# if [[ ! ${tmux_version: -1} =~ [0-9] ]]; then
+# 	tmux_version="${tmux_version::-1}"
+# fi
+# if (($(echo "$tmux_version < 3.3" | bc -l))); then
+# 	curl -Lo tmux-3.5a.tar.gz https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
+# 	tar -xvzf tmux-3.5a.tar.gz
+# 	cd tmux-3.5a
+# 	if pkg-config --cflags --libs libevent &> /dev/null; then
+# 		./configure --prefix=$HOME/.local && make -j$(nproc)
+# 	elif PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig pkg-config --cflags --libs libevent &> /dev/null; then
+# 		./configure --prefix=$HOME/.local CFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib" && make -j$(nproc)
+# 	else
+# 		curl -Lo libevent.tar.gz https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
+# 		tar -xvzf libevent.tar.gz
+# 		cd libevent-*/
+# 		mkdir build && cd build
+# 		cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
+# 		make -j$(nproc)
+# 		make install
+# 		cd ../..
+# 		./configure --prefix=$HOME/.local CFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib" && make -j$(nproc)
+# 	fi
+# 	make install
+# 	cd ..
+# 	rm -rf tmux-3.5a tmux-3.5a.tar.gz
+# 	echo "$(tmux -V) has been installed!"
+# fi
 
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/" 
