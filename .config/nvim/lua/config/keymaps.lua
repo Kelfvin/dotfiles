@@ -10,6 +10,7 @@ keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk" })
 
 
 keymap.set("n", "Q", ":qa<CR>", { desc = "Exit neovim" })
+keymap.set("n", "<leader>q", ":qa<CR>", { desc = "Exit neovim" })
 
 -- h: no hilight
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search hilights" })
