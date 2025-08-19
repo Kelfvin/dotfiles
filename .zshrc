@@ -62,12 +62,6 @@ zinit light zsh-users/zsh-autosuggestions
 # --- 高亮输入的命令和参数
 zinit light zdharma-continuum/fast-syntax-highlighting
 
-# --- 记录历史命令
-zinit ice as"command" from"gh-r" bpick"atuin-*.tar.gz" mv"atuin*/atuin -> atuin" \
-    atclone"./atuin init zsh > init.zsh; ./atuin gen-completions --shell zsh > _atuin" \
-    atpull"%atclone" src"init.zsh"
-zinit light atuinsh/atuin
-
 
 # load completions
 autoload -Uz compinit && compinit
@@ -94,6 +88,7 @@ alias tat="tmux attach -t"
 alias tns="tmux new -s"
 
 alias nv="nvim"
+alias lg="lazygit"
 
 alias zsh_reload="source ~/.zshrc"
 
@@ -185,9 +180,12 @@ function _switch_cuda {
   nvcc --version
 }
 
-
+# ╭──────────────────────────────────────────────────────────╮
+# │                           fzf                            │
+# ╰──────────────────────────────────────────────────────────╯
 # Set up fzf key bindings and fuzzy completion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# 非常强大，<C-r> 可以搜索历史命令，直接替代了atuin
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh 
 
 
 eval "$(zoxide init zsh)" # 这个不能缺少，缺少了按Tab不能补全
