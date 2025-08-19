@@ -92,6 +92,9 @@ alias lg="lazygit"
 
 alias zsh_reload="source ~/.zshrc"
 
+# replace cd with zoxide
+alias cd="z"
+
 # ╭──────────────────────────────────────────────────────────╮
 # │               Fix Shortcut in Tmux context               │
 # ╰──────────────────────────────────────────────────────────╯
