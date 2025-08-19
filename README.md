@@ -2,7 +2,12 @@
 
 ![](assets/shot.png)
 
-这个仓库将存放我的所有配置文件
+## 什么是dotfile?
+
+在 Unix/Linux/macOS 的世界里，dotfile（点文件）是指以 . 开头的隐藏配置文件。它们通常用来保存用户的 个性化设置、环境变量、程序配置等。有了这些配置文件，就可以在各个机器上一键构建开发环境。
+
+
+## 仓库简介
 
 目前我的主力是一台MacBook air，日常中使用ssh连接到实验室的服务器上进行开发。
 
@@ -13,39 +18,52 @@
 - Tmux：在服务器上实现持久化
 - Rime，开源的输入法，自定义程度很高，例如实现ESC切换到英文
 - Raycast: 查找文件，快速启动应用
-- 窗口管理：
-    - Aerospace，设置虚拟空间，快速切换窗口
+- Aerospace: 平铺式窗口管理器，设置虚拟空间，快速切换窗口
 
-## GNU stow
 
-使用stow来在系统对应的位置软链接到此dotfiles目录下
-
-配置软链接
-
-```shell
-stow .
-```
-
-取消软链接
-
-```shell
-stow -D .
-```
-
- 
 ## 使用
+
+### setup.sh
+
+这个脚本用来一键安装常用的软件
 
 ```
 bash ./setup.sh
 ```
 
-这将会在系统的对应目录设置好软链接。
+### GNU stow
+
+stow 用于在系统对应位置创建指向此dotfile的软链接
+
+例如：
+
+```
+❯ ll .zshrc .tmux.conf
+lrwxr-xr-x@ - kelf 16 Aug 23:17 .tmux.conf -> dotfiles/.tmux.conf
+lrwxr-xr-x@ - kelf 16 Aug 23:17 .zshrc -> dotfiles/.zshrc
+```
+
+(1) 配置软链接
+
+```shell
+stow .
+```
+
+(2) 取消软链接
+
+```shell
+stow -D .
+```
+
+
+### rime 输入法
 
 对于Rime输入法的配置，单独使用:
 
 ```
 bash ./setup_rime.sh
 ```
+ 
 
 ### Tmux
 
