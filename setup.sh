@@ -76,6 +76,8 @@ fi
 [ -x "$(command -v dust)" ] || cargo install du-dust
 # yazi--文件管理器
 [ -x "$(command -v yazi)" ] || cargo install --locked yazi-fm yazi-cli
+# tldr 便捷的命令查看器
+[ -x "$(command -v tldr)" ] || cargo install --locked tlrc
 
 
 # ╭──────────────────────────────────────────────────────────╮
