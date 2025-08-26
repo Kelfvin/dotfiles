@@ -12,6 +12,8 @@
 INSTALL_DIR="$HOME/.local/"
 CONFIG_DIR="./config"
 TARGET_DIR="$HOME/.config"
+# Github 下载的镜像配置
+GITHUB_MIRROR="https://ghproxy.link/"
 
 # 创建安装文件基本目录
 install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
@@ -84,10 +86,10 @@ fi
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-NEOVIM_RELEASE_URL="https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
+NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
-if [ ! -d "$INSTALL_DIR/bin/nvim"  ]; then
+if [ ! -f "$INSTALL_DIR/bin/nvim"  ]; then
   # 下载指定URL的包
 	echo "Starting download Neovim from github"
   DOWNLOAD_FILE="nvim.tar.gz"
@@ -108,10 +110,10 @@ fi
 # │                         LazyGit                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-LAZYGIT_RELEASE_URL="https://github.com/jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
+LAZYGIT_RELEASE_URL="${GITHUB_MIRROR}https://github.com/jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
-if [ ! -x "$INSTALL_DIR/bin/lazygit"  ]; then
+if [ ! -f "$INSTALL_DIR/bin/lazygit"  ]; then
   # 下载指定URL的包
 	echo "Starting download LazyGit from github"
   DOWNLOAD_FILE="lazygit.tar.gz"
