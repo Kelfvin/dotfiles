@@ -80,6 +80,8 @@ fi
 [ -x "$(command -v yazi)" ] || cargo install --locked yazi-fm yazi-cli
 # tldr 便捷的命令查看器
 [ -x "$(command -v tldr)" ] || cargo install --locked tlrc
+# tokei 代码统计工具
+[ -x "$(command -v tokei)" ] || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
 
 
 # ╭──────────────────────────────────────────────────────────╮
