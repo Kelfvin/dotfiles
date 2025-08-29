@@ -13,8 +13,11 @@ export HF_ENDPOINT=https://hf-mirror.com
 # 配置默认的编辑器
 export EDITOR="nvim"
 
-# homebrew mirror
+# ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 
 # 设置aliyunpan工具的配置目录
 export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
