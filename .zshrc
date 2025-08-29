@@ -26,7 +26,9 @@ export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 
 export MUSICFOX_ROOT=$HOME/.config/go-musicfox
 
-
+# ╭──────────────────────────────────────────────────────────╮
+# │                     ZSH 历史命令相关                     │
+# ╰──────────────────────────────────────────────────────────╯
 # zsh 历史命令保存位置
 export HISTFILE=~/.zsh_history
 
@@ -120,6 +122,7 @@ alias zsh_reload="source ~/.zshrc"
 # replace cd with zoxide
 alias cd="z"
 
+
 # ╭──────────────────────────────────────────────────────────╮
 # │               Fix Shortcut in Tmux context               │
 # ╰──────────────────────────────────────────────────────────╯
@@ -207,6 +210,46 @@ function _switch_cuda {
   echo -n "当前 nvcc 版本: "
   nvcc --version
 }
+
+
+# --------------------------------------------------
+# 清空 Homebrew 所有缓存（包括当前版本）
+# --------------------------------------------------
+function brew_clean_cache_all() {
+    local cache_dir
+    cache_dir="$(brew --cache)"
+
+    if [[ -d "$cache_dir" ]]; then
+        echo "⚠️ 正在清空 Homebrew 缓存：$cache_dir"
+        rm -rf "$cache_dir"/*
+        echo "✅ 清理完成。"
+    else
+        echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
+    fi
+}
+
+# --------------------------------------------------
+# 升级所有 Homebrew 包，然后清空缓存
+# --------------------------------------------------
+function brew_upgrade_and_clean() {
+    echo "⬆️ 正在升级 Homebrew..."
+    brew update
+    echo "⬆️ 正在升级 Homebrew 包..."
+    brew upgrade
+    echo "⬆️ 升级完成，准备清理缓存..."
+
+    local cache_dir
+    cache_dir="$(brew --cache)"
+
+    if [[ -d "$cache_dir" ]]; then
+        echo "⚠️ 正在清空 Homebrew 缓存：$cache_dir"
+        rm -rf "$cache_dir"/*
+        echo "✅ 升级并清理完成。"
+    else
+        echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
+    fi
+}
+
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                           fzf                            │
