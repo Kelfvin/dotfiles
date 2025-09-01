@@ -82,7 +82,7 @@ fi
 [ -x "$(command -v tldr)" ] || cargo install --locked tlrc
 # tokei 代码统计工具
 [ -x "$(command -v tokei)" ] || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
-
+[ -x "$(command -v bat)" ] || cargo install --locked bat
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
