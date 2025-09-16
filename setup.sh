@@ -13,7 +13,7 @@ INSTALL_DIR="$HOME/.local/"
 CONFIG_DIR="./config"
 TARGET_DIR="$HOME/.config"
 # Github 下载的镜像配置
-GITHUB_MIRROR="https://ghproxy.link/"
+GITHUB_MIRROR="https://xget.xi-xu.me/gh/"
 
 # 创建安装文件基本目录
 install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
@@ -68,7 +68,7 @@ fi
 # ╰──────────────────────────────────────────────────────────╯
 
 # fzf 查找工具
-[ -d "$HOME/.fzf" ] || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
+[ -d "$HOME/.fzf" ] || (git clone --depth 1 {$GITHUB_MIRROR}junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
 # 正则查找工具
 [ -x "$(command -v rg)" ] || cargo install ripgrep
 # 更好用的ls工具
@@ -81,14 +81,14 @@ fi
 # tldr 便捷的命令查看器
 [ -x "$(command -v tldr)" ] || cargo install --locked tlrc
 # tokei 代码统计工具
-[ -x "$(command -v tokei)" ] || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
+[ -x "$(command -v tokei)" ] || cargo install --git {$GITHUB_MIRROR}XAMPPRocky/tokei.git tokei
 [ -x "$(command -v bat)" ] || cargo install --locked bat
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
+NEOVIM_RELEASE_URL="${GITHUB_MIRROR}neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
 if [ ! -f "$INSTALL_DIR/bin/nvim"  ]; then
@@ -112,7 +112,7 @@ fi
 # │                         LazyGit                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-LAZYGIT_RELEASE_URL="${GITHUB_MIRROR}https://github.com/jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
+LAZYGIT_RELEASE_URL="${GITHUB_MIRROR}jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
 if [ ! -f "$INSTALL_DIR/bin/lazygit"  ]; then
