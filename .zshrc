@@ -122,7 +122,6 @@ alias zsh_reload="source ~/.zshrc"
 # replace cd with zoxide
 alias cd="z"
 
-
 # ╭──────────────────────────────────────────────────────────╮
 # │               Fix Shortcut in Tmux context               │
 # ╰──────────────────────────────────────────────────────────╯
@@ -169,6 +168,10 @@ function unset_proxy() {
     unset https_proxy
     unset all_proxy
     echo "代理已取消"
+}
+
+icat() {
+  kitty +kitten icat "$@"
 }
 
 
