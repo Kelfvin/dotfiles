@@ -122,9 +122,9 @@ alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
+# alt-7 = 'workspace 7'
+# alt-8 = 'workspace 8'
+# alt-9 = 'workspace 9'
 alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
 alt-b = 'workspace B'
 alt-c = 'workspace C'
@@ -241,3 +241,6 @@ shift-down = ['volume set 0', 'mode main']
     if.app-id = 'io.github.clash-verge-rev.clash-verge-rev'
     run = 'layout floating'
 
+[[on-window-detected]]
+    if.app-id = 'com.TickTick.task.mac'
+    run = 'layout floating'
