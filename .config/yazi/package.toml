@@ -1,9 +1,9 @@
 [[plugin.deps]]
 use = "orhnk/system-clipboard"
-rev = "7775a80"
-hash = "9b8f2573da54334b04747e51556040cc"
+rev = "888026c"
+hash = "9f82a544335a53d79e87ea315746caaa"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "c023460"
-hash = "2ac87e1b3a61f5887472899e86535d29"
+rev = "4a1802a"
+hash = "b951d27afe197d154f6da9683b46c5f8"

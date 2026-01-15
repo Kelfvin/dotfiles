@@ -13,8 +13,11 @@ export HF_ENDPOINT=https://hf-mirror.com
 # 配置默认的编辑器
 export EDITOR="nvim"
 
-# homebrew mirror
+# ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 
 # 设置aliyunpan工具的配置目录
 export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
@@ -24,6 +27,28 @@ export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 export MUSICFOX_ROOT=$HOME/.config/go-musicfox
 
 
+# zsh 历史命令保存位置
+export HISTFILE=~/.zsh_history
+
+# 内存里最多保存多少条命令
+export HISTSIZE=5000
+
+# 写入文件时保存多少条命令
+export SAVEHIST=5000
+
+# 追加历史而不是覆盖
+setopt APPEND_HISTORY
+
+# 实时写入，而不是退出时才写
+setopt INC_APPEND_HISTORY
+
+# 多个终端共享历史
+setopt SHARE_HISTORY
+
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                     ZSH 历史命令相关                     │
+# ╰──────────────────────────────────────────────────────────╯
 # zsh 历史命令保存位置
 export HISTFILE=~/.zsh_history
 
@@ -117,6 +142,7 @@ alias zsh_reload="source ~/.zshrc"
 # replace cd with zoxide
 alias cd="z"
 
+
 # ╭──────────────────────────────────────────────────────────╮
 # │               Fix Shortcut in Tmux context               │
 # ╰──────────────────────────────────────────────────────────╯
@@ -204,6 +230,46 @@ function _switch_cuda {
   echo -n "当前 nvcc 版本: "
   nvcc --version
 }
+
+
+# --------------------------------------------------
+# 清空 Homebrew 所有缓存（包括当前版本）
+# --------------------------------------------------
+function brew_clean_cache_all() {
+    local cache_dir
+    cache_dir="$(brew --cache)"
+
+    if [[ -d "$cache_dir" ]]; then
+        echo "⚠️ 正在清空 Homebrew 缓存：$cache_dir"
+        rm -rf "$cache_dir"/*
+        echo "✅ 清理完成。"
+    else
+        echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
+    fi
+}
+
+# --------------------------------------------------
+# 升级所有 Homebrew 包，然后清空缓存
+# --------------------------------------------------
+function brew_upgrade_and_clean() {
+    echo "⬆️ 正在升级 Homebrew..."
+    brew update
+    echo "⬆️ 正在升级 Homebrew 包..."
+    brew upgrade
+    echo "⬆️ 升级完成，准备清理缓存..."
+
+    local cache_dir
+    cache_dir="$(brew --cache)"
+
+    if [[ -d "$cache_dir" ]]; then
+        echo "⚠️ 正在清空 Homebrew 缓存：$cache_dir"
+        rm -rf "$cache_dir"/*
+        echo "✅ 升级并清理完成。"
+    else
+        echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
+    fi
+}
+
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                           fzf                            │
