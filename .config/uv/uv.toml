@@ -1,2 +1,6 @@
 index-url = "https://mirrors.bfsu.edu.cn/pypi/web/simple"
 # index-url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+
+# 缓存目录配置说明：
+# 默认缓存位置是 ~/.cache/uv/
+# 直接将这个位置软链接到其他的地方就行
