@@ -1,5 +1,5 @@
 # Theme
-theme = "catppuccin-mocha"
+theme = "Catppuccin Mocha"
 background-opacity = 0.8
 background-blur-radius = 30
 
@@ -10,8 +10,10 @@ window-padding-y = 10
 #粗体文本使用明亮调色板
 bold-is-bright = true
 
-font-family = "JetBrainsMono Nerd Font Mono"
+font-family = JetBrainsMono Nerd Font Mono
+font-family = Maple Mono NF CN
 font-size=15
+font-thicken = true
 
 mouse-hide-while-typing = true
 
@@ -22,13 +24,39 @@ shell-integration-features = no-cursor
 # cursor setting
 cursor-style = block
 cursor-style-blink = false
-cursor-opacity = 0.3
+# cursor-opacity = 0.3
 adjust-cursor-thickness = 3
 # 设置alt+鼠标点击进行跳转
 cursor-click-to-move = true
  
 # 显示终端上的url链接，需要按下ctrl键才会显示
 link-url = true
- 
+
 ########### Key-Bind ##########
 keybind = super+s=text:\x1b:w\n
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                 解绑默认的切换tab快捷键                  │
+# ╰──────────────────────────────────────────────────────────╯
+keybind = cmd+digit_1=unbind
+keybind = cmd+digit_2=unbind
+keybind = cmd+digit_3=unbind
+keybind = cmd+digit_4=unbind
+keybind = cmd+digit_5=unbind
+keybind = cmd+digit_6=unbind
+keybind = cmd+digit_7=unbind
+keybind = cmd+digit_8=unbind
+keybind = cmd+digit_9=unbind
+
+# ╭──────────────────────────────────────────────────────────╮
+# │           set command+number to Tmux shortcuts           │
+# ╰──────────────────────────────────────────────────────────╯
+keybind = cmd+digit_1=text:\x00\x31
+keybind = cmd+digit_2=text:\x00\x32
+keybind = cmd+digit_3=text:\x00\x33
+keybind = cmd+digit_4=text:\x00\x34
+keybind = cmd+digit_5=text:\x00\x35
+keybind = cmd+digit_6=text:\x00\x36
+keybind = cmd+digit_7=text:\x00\x37
+keybind = cmd+digit_8=text:\x00\x38
+keybind = cmd+digit_9=text:\x00\x39
