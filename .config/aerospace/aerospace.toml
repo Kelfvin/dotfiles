@@ -223,9 +223,9 @@ shift-down = ['volume set 0', 'mode main']
     if.app-id = 'com.tencent.qq'
     run = 'layout floating'
 
-[[on-window-detected]]
-    if.app-id = 'com.netease.163music'
-    run = 'layout floating'
+# [[on-window-detected]]
+#     if.app-id = 'com.netease.163music'
+#     run = 'layout floating'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.finder'
@@ -241,6 +241,6 @@ shift-down = ['volume set 0', 'mode main']
     if.app-id = 'io.github.clash-verge-rev.clash-verge-rev'
     run = 'layout floating'
 
-[[on-window-detected]]
-    if.app-id = 'com.TickTick.task.mac'
-    run = 'layout floating'
+# [[on-window-detected]]
+#     if.app-id = 'com.TickTick.task.mac'
+#     run = 'layout floating'
