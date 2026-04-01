@@ -26,6 +26,26 @@ export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 
 export MUSICFOX_ROOT=$HOME/.config/go-musicfox
 
+
+# zsh 历史命令保存位置
+export HISTFILE=~/.zsh_history
+
+# 内存里最多保存多少条命令
+export HISTSIZE=5000
+
+# 写入文件时保存多少条命令
+export SAVEHIST=5000
+
+# 追加历史而不是覆盖
+setopt APPEND_HISTORY
+
+# 实时写入，而不是退出时才写
+setopt INC_APPEND_HISTORY
+
+# 多个终端共享历史
+setopt SHARE_HISTORY
+
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                     ZSH 历史命令相关                     │
 # ╰──────────────────────────────────────────────────────────╯
@@ -261,3 +281,7 @@ function brew_upgrade_and_clean() {
 
 eval "$(zoxide init zsh)" # 这个不能缺少，缺少了按Tab不能补全
 eval "$(starship init zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
