@@ -4,6 +4,7 @@
 # 此脚本用于在新机器上一键配置开发环境（无需Root权限）
 # 软件将安装在 ~/.local/bin 下
 # ──────────────────────────────────────────────────────────────────────
+set -euo pipefail
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                        常量设置                          │
@@ -54,13 +55,10 @@ if [ ! -x "$(command -v git)" ]; then
 fi
 
 
-
-
 # ── cargo ─────────────────────────────────────────────────────────────
 # 检查是否有rustup
 if [ ! -x "$(command -v rustup)" ]; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-	exit 1
+  curl https://sh.rustup.rs -sSf | sh
 fi
 
 # ╭──────────────────────────────────────────────────────────╮
@@ -87,8 +85,9 @@ fi
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
+NVIM_VERSION="v0.12.0"
 
-NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz"
+NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
 
 # 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
 if [ ! -f "$INSTALL_DIR/bin/nvim"  ]; then
