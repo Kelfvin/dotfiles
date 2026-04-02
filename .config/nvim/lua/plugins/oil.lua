@@ -26,7 +26,7 @@ require("oil").setup({
 		["|"] = { "actions.select", opts = { vertical = true } },
     ["-"] = "actions.close",
     ["<leader>e"] = "actions.close",
-    ["<BS>"] = "actions.parent",
+    ["<BS>"] = "actions.parent", -- 设置退格键为去到上级目录
     ["gd"] = {
       desc = "Toggle file detail view",
       callback = function()
