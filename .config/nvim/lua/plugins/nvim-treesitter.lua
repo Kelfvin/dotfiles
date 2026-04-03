@@ -2,21 +2,12 @@ vim.pack.add({
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", name = "nvim-treesitter" },
 })
 
-require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "c",
-    "lua",
-    "python",
-    "vim",
-    "vimdoc",
-    "javascript",
-    "html",
-    "css",
-    "latex",
-    "typst",
-    "vue",
-  },
-  sync_install = false,
-  highlight = { enable = true },
-  indent = { enable = true },
-})
+local sitter = require("nvim-treesitter")
+
+
+sitter.setup {
+  -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+  install_dir = vim.fn.stdpath('data') .. '/site'
+}
+
+sitter.install { 'rust', 'javascript', 'zig' }
