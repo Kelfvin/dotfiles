@@ -14,7 +14,7 @@ INSTALL_DIR="$HOME/.local/"
 CONFIG_DIR="./config"
 TARGET_DIR="$HOME/.config"
 # Github 下载的镜像配置
-GITHUB_MIRROR="https://ghproxy.link/"
+GITHUB_MIRROR="https://ghfast.top/"
 
 # 创建安装文件基本目录
 install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
@@ -80,7 +80,7 @@ fi
 [ -x "$(command -v tldr)" ] || cargo install --locked tlrc
 # tokei 代码统计工具
 [ -x "$(command -v tokei)" ] || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
-
+[ -x "$(command -v tree-sitter)" ] || cargo install --locked tree-sitter-cli 
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
@@ -95,7 +95,7 @@ if [ ! -f "$INSTALL_DIR/bin/nvim"  ]; then
 	echo "Starting download Neovim from github"
   DOWNLOAD_FILE="nvim.tar.gz"
   wget -O $DOWNLOAD_FILE $NEOVIM_RELEASE_URL
-  tar -xf $DOWNLOAD_FILE
+  tar -xzf $DOWNLOAD_FILE
   EXTRACT_DIR="nvim-linux-x86_64"
   
   # 将解压后的文件复制到安装路径当中
