@@ -7,9 +7,9 @@ require("config.keymaps")
 --          ╭─────────────────────────────────────────────────────────╮
 --          │                      lsp settings                       │
 --          ╰─────────────────────────────────────────────────────────╯
-vim.lsp.enable 'lua_ls'
-vim.lsp.enable 'pyright_ls'
-vim.lsp.enable 'ruff_ls'
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("pyright_ls")
+vim.lsp.enable("ruff_ls")
 
 --          ╭─────────────────────────────────────────────────────────╮
 --          │                         plugins                         │
