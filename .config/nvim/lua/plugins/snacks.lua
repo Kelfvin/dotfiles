@@ -1,29 +1,29 @@
 vim.pack.add({
-  { src = "https://github.com/folke/snacks.nvim", name = "snacks" },
+	{ src = "https://github.com/folke/snacks.nvim", name = "snacks" },
 })
 
 local Snacks = require("snacks")
 
 Snacks.setup({
-  bigfile = { enabled = true },
-  dashboard = { enabled = false },
-  explorer = { enabled = true },
-  indent = { enabled = true },
-  input = { enabled = true },
-  notifier = {
-    enabled = true,
-    timeout = 3000,
-  },
-  picker = { enabled = true },
-  quickfile = { enabled = true },
-  scope = { enabled = true },
-  scroll = { enabled = true },
-  statuscolumn = { enabled = true },
-  words = { enabled = true },
-  styles = {
-    notification = {},
-  },
-  image = { enabled = true },
+	bigfile = { enabled = true },
+	dashboard = { enabled = false },
+	explorer = { enabled = true },
+	indent = { enabled = true },
+	input = { enabled = true },
+	notifier = {
+		enabled = true,
+		timeout = 3000,
+	},
+	picker = { enabled = true },
+	quickfile = { enabled = true },
+	scope = { enabled = true },
+	scroll = { enabled = true },
+	statuscolumn = { enabled = true },
+	words = { enabled = true },
+	styles = {
+		notification = {},
+	},
+	image = { enabled = true },
 })
 
 local map = function(key, func, desc)
@@ -132,5 +132,3 @@ map("<leader>N", Snacks.notifier.hide, "Notification history")
 map("<leader>gb", Snacks.git.blame_line, "Git blame line")
 
 map("<leader>K", Snacks.image.hover, "Display image in hover")
-
-

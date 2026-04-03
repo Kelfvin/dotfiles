@@ -24,15 +24,15 @@ require("oil").setup({
 		["zh"] = "actions.toggle_hidden",
 		["\\"] = { "actions.select", opts = { horizontal = true } },
 		["|"] = { "actions.select", opts = { vertical = true } },
-    ["-"] = "actions.close",
-    ["<leader>e"] = "actions.close",
-    ["<BS>"] = "actions.parent", -- 设置退格键为去到上级目录
-    ["gd"] = {
-      desc = "Toggle file detail view",
-      callback = function()
-        detail = not detail
-        if detail then
-          require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+		["-"] = "actions.close",
+		["<leader>e"] = "actions.close",
+		["<BS>"] = "actions.parent", -- 设置退格键为去到上级目录
+		["gd"] = {
+			desc = "Toggle file detail view",
+			callback = function()
+				detail = not detail
+				if detail then
+					require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
 				else
 					require("oil").set_columns({ "icon" })
 				end

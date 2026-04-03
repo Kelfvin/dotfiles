@@ -1,5 +1,5 @@
 vim.pack.add({
-{src = "https://github.com/ludopinelli/comment-box.nvim", name = "commen-box"}
+	{ src = "https://github.com/ludopinelli/comment-box.nvim", name = "commen-box" },
 })
 
 local keymap = vim.keymap.set
