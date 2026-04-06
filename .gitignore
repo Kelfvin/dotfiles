@@ -8,3 +8,4 @@ lazy-lock.json
 btop.log
 
 nvim.log
+.config/nvim/nvim-pack-lock.json
