@@ -114,3 +114,10 @@ function brew_upgrade_and_clean() {
         echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
     fi
 }
+
+
+function open_remote_code(){
+  local host="$1"
+  local remote_path="$2"
+  code --remote "ssh-remote+$host" "$remote_path"
+}
