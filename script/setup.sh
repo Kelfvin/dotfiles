@@ -87,23 +87,23 @@ fi
 # ╰──────────────────────────────────────────────────────────╯
 NVIM_VERSION="v0.12.0"
 
-NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
+if [ "$(uname -s)" = "Darwin" ]; then
+  command -v nvim >/dev/null 2>&1 || brew install neovim
+else
+  NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
 
-# 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
-if [ ! -f "$INSTALL_DIR/bin/nvim"  ]; then
-  # 下载指定URL的包
-	echo "Starting download Neovim from github"
-  DOWNLOAD_FILE="nvim.tar.gz"
-  wget -O $DOWNLOAD_FILE $NEOVIM_RELEASE_URL
-  tar -xzf $DOWNLOAD_FILE
-  EXTRACT_DIR="nvim-linux-x86_64"
-  
-  # 将解压后的文件复制到安装路径当中
-  cp -r $EXTRACT_DIR/{bin,share,lib} $INSTALL_DIR
+  if [ ! -x "$INSTALL_DIR/bin/nvim" ]; then
+    echo "Starting download Neovim from github"
+    DOWNLOAD_FILE="nvim.tar.gz"
+    wget -O "$DOWNLOAD_FILE" "$NEOVIM_RELEASE_URL"
+    tar -xzf "$DOWNLOAD_FILE"
+    EXTRACT_DIR="nvim-linux-x86_64"
 
-  # 清理下载文件
-  rm -rf $EXTRACT_DIR
-  rm $DOWNLOAD_FILE
+    cp -r "$EXTRACT_DIR"/{bin,share,lib} "$INSTALL_DIR"
+
+    rm -rf "$EXTRACT_DIR"
+    rm -f "$DOWNLOAD_FILE"
+  fi
 fi
 
 
