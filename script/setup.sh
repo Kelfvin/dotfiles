@@ -56,8 +56,8 @@ fi
 
 
 # ── cargo ─────────────────────────────────────────────────────────────
-# 检查是否有rustup
-if [ ! -x "$(command -v rustup)" ]; then
+# 检查是否有cargo
+if [ ! -x "$(command -v cargo)" ]; then
   curl https://sh.rustup.rs -sSf | sh
 fi
 
