@@ -1,3 +1,6 @@
+# ICON
+macos-icon = xray
+
 # Theme
 theme = "Catppuccin Mocha"
 background-opacity = 0.8
@@ -6,6 +9,8 @@ background-blur-radius = 30
 macos-titlebar-style = hidden
 window-padding-x = 10
 window-padding-y = 10
+
+clipboard-read=allow
 
 #粗体文本使用明亮调色板
 bold-is-bright = true
