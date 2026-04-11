@@ -28,7 +28,7 @@ cd "$(dirname "$0")"
 
 # ── cmake ─────────────────────────────────────────────────────────────
 # 编译工作
-if [ ! -x "$(command -v cmake)" ]; then
+if ! command -v cmake >/dev/null 2>&1; then
 	echo "cmake is required..."
 	exit 1
 fi
@@ -36,20 +36,20 @@ fi
 
 # ── curl ──────────────────────────────────────────────────────────────
 # 用于下载
-if [ ! -x "$(command -v curl)" ]; then
+if ! command -v curl >/dev/null 2>&1; then
 	echo "curl is required..."
 	exit 1
 fi
 
 # ── wget ──────────────────────────────────────────────────────────────
-if [ ! -x "$(command -v wget)" ]; then
+if ! command -v wget >/dev/null 2>&1; then
 	echo "wget is required..."
 	exit 1
 fi
 
 
 # ── git ───────────────────────────────────────────────────────────────
-if [ ! -x "$(command -v git)" ]; then
+if ! command -v git >/dev/null 2>&1; then
 	echo "git is required..."
 	exit 1
 fi
@@ -57,7 +57,7 @@ fi
 
 # ── cargo ─────────────────────────────────────────────────────────────
 # 检查是否有cargo
-if [ ! -x "$(command -v cargo)" ]; then
+if ! command -v cargo >/dev/null 2>&1; then
   curl https://sh.rustup.rs -sSf | sh
 fi
 
@@ -66,29 +66,35 @@ fi
 # ╰──────────────────────────────────────────────────────────╯
 
 # fzf 查找工具
-[ -d "$HOME/.fzf" ] || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
+command -v fzf >/dev/null 2>&1 || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
 # 正则查找工具
-[ -x "$(command -v rg)" ] || cargo install ripgrep
+command -v rg >/dev/null 2>&1 || cargo install ripgrep
 # 更好用的ls工具
-[ -x "$(command -v eza)" ] || cargo install eza
-[ -x "$(command -v fd)" ] || cargo install fd-find
+command -v eza >/dev/null 2>&1 || cargo install eza
+command -v fd >/dev/null 2>&1 || cargo install fd-find
 # 更好用的du工具
-[ -x "$(command -v dust)" ] || cargo install du-dust
+command -v dust >/dev/null 2>&1 || cargo install du-dust
 # yazi--文件管理器
-[ -x "$(command -v yazi)" ] || cargo install --locked yazi-fm yazi-cli
+command -v yazi >/dev/null 2>&1 || cargo install --locked yazi-fm yazi-cli
 # tldr 便捷的命令查看器
-[ -x "$(command -v tldr)" ] || cargo install --locked tlrc
+command -v tldr >/dev/null 2>&1 || cargo install --locked tlrc
 # tokei 代码统计工具
-[ -x "$(command -v tokei)" ] || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
-[ -x "$(command -v tree-sitter)" ] || cargo install --locked tree-sitter-cli 
+command -v tokei >/dev/null 2>&1 || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
+command -v tree-sitter >/dev/null 2>&1 || cargo install --locked tree-sitter-cli 
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
 NVIM_VERSION="v0.12.0"
 
+# 如果是Macos系统，那么使用homebrew进行安装k
 if [ "$(uname -s)" = "Darwin" ]; then
   command -v nvim >/dev/null 2>&1 || brew install neovim
+
+# 如果是 Archlinux 系统，那么使用 Pacman 进行安装
+elif command -v pacman >/dev/null 2>&1; then
+  command -v nvim >/dev/null 2>&1 || sudo pacman -S --needed neovim
+
 else
   NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
 
@@ -113,8 +119,7 @@ fi
 
 LAZYGIT_RELEASE_URL="${GITHUB_MIRROR}https://github.com/jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
 
-# 查找~/.lcoal/share/nvim 是否存在，如果不存在就下载。
-if [ ! -f "$INSTALL_DIR/bin/lazygit"  ]; then
+if ! command -v lazygit >/dev/null 2>&1; then
   # 下载指定URL的包
 	echo "Starting download LazyGit from github"
   DOWNLOAD_FILE="lazygit.tar.gz"
@@ -177,3 +182,14 @@ if [ ! -d "$TPM_DIR" ]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+
+# 安装 uv
+if ! command -v uv >/dev/null 2>&1; then
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
+
+#  安装 nvm 
+if ! command -v nvm >/dev/null 2>&1; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+fi
