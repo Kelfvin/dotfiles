@@ -16,6 +16,8 @@ alias zsh_reload="source ~/.zshrc"
 ## Modified commands
 alias ping='ping -c 5'
 
+alias free="free -h"
+
 
 if command -v eza>/dev/null 2>&1; then
   alias ls="eza"
