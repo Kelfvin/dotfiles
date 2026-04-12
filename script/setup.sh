@@ -176,10 +176,10 @@ fi
 # fi
 
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
-TPM_DIR="$HOME/.tmux/" 
+TPM_DIR="$HOME/.tmux/plugins/tpm" 
 if [ ! -d "$TPM_DIR" ]; then
   echo "$TPM_DIR does not exist. Using git to clone."
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm $TPM_DIR
 fi
 
 
