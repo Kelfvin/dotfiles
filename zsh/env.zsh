@@ -17,11 +17,15 @@ export PATH
 # Hugging Face 镜像
 export HF_ENDPOINT=https://hf-mirror.com
 
-# ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
+# # ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
+# brew update / Homebrew 自身仓库更新
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+# 包元数据查询（formula/cask API）
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+# 二进制预编译
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+
 
 # 自定义Starship的配置目录
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
