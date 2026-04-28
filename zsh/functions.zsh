@@ -116,7 +116,7 @@ function brew_upgrade_and_clean() {
 }
 
 
-function open_remote_code(){
+function code_open_remote(){
   local host="$1"
   local remote_path="$2"
   code --remote "ssh-remote+$host" "$remote_path"
@@ -167,4 +167,10 @@ function cl() {
 	else
 		echo "cl: $dir: 找不到目录"
 	fi
+}
+
+function zed_ssh_open(){
+  local host="$1"
+  local remote_path="$2"
+  zed "ssh://${host}:${remote_path}"
 }
