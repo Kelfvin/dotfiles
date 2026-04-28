@@ -6,3 +6,4 @@ source "$HOME/dotfiles/zsh/keybinds.zsh"
 source "$HOME/dotfiles/zsh/functions.zsh"
 
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
