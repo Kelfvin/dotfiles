@@ -1,15 +1,11 @@
-return {
-  'akinsho/bufferline.nvim',
-  version = "*",
-  dependencies = 'nvim-tree/nvim-web-devicons',
-  opts = {
-    options = {
-      mode = "tabs",
-      seperator_style = "slant",
-    }
-  },
+vim.pack.add({
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons", name = "nvim-web-devicons" },
+	{ src = "https://github.com/akinsho/bufferline.nvim", name = "bufferline.nvim" },
+})
 
-  config = function()
-    require("bufferline").setup {}
-  end,
-}
+require("bufferline").setup({
+	options = {
+		mode = "tabs",
+		separator_style = "slant",
+	},
+})
