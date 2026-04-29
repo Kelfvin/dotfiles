@@ -1,22 +1,14 @@
-return {
-  'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
-  config = function()
-    local lualine = require("lualine")
-    local lazy_status = require("lazy.status")
-    lualine.setup({
-      sections = {
-        lualine_x = {
-          {
-            lazy_status.updates,
-            cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" },
-          },
-          { "encoding" },
-          { "fileformat" },
-          { "filetype" },
-        },
-      },
-    })
-  end,
-}
+vim.pack.add({
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons", name = "nvim-web-devicons" },
+	{ src = "https://github.com/nvim-lualine/lualine.nvim", name = "lualine.nvim" },
+})
+
+require("lualine").setup({
+	sections = {
+		lualine_x = {
+			{ "encoding" },
+			{ "fileformat" },
+			{ "filetype" },
+		},
+	},
+})

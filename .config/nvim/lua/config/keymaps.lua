@@ -8,7 +8,6 @@ keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
 -- format: keymap.set("mode","from_keys","to_keys", {desc=""})
 keymap.set("i", "jj", "<ESC>", { desc = "Exit insert mode with jk" })
 
-
 keymap.set("n", "Q", ":qa<CR>", { desc = "Exit neovim" })
 keymap.set("n", "<leader>q", ":qa<CR>", { desc = "Exit neovim" })
 
@@ -35,16 +34,6 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
 
-
 -- save file
 keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "保存文件" })
 keymap.set("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "保存文件" })
-
-
--- Comment Box setting
-keymap.set({ "n", "v" }, "<Leader>cb", "<Cmd>CBlcbox<CR>", { desc = "Box left commnet" })
-keymap.set({ "n", "v" }, "<Leader>cc", "<Cmd>CBccbox<CR>", { desc = "Box center commnet" })
-keymap.set("n", "<Leader>ct", "<Cmd>CBllline<CR>", { desc = "Line title left commnet" })
-keymap.set("n", "<Leader>cl", "<Cmd>CBcline<CR>", { desc = "Line commnet" })
--- remove a box or a titled line
-keymap.set({ "n", "v" }, "<Leader>cd", "<Cmd>CBd<CR>", { desc = "Remove box or line comment" })

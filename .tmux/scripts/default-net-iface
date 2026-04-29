@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+# macOS
+if command -v route >/dev/null 2>&1 && uname | grep -q Darwin; then
+  route get default 2>/dev/null | awk '/interface: / {print $2; exit}'
+  exit 0
+fi
+
+# Linux: 优先用 ip
+if command -v ip >/dev/null 2>&1; then
+  iface=$(ip route get 1.1.1.1 2>/dev/null | awk '{
+    for (i=1; i<=NF; i++) if ($i=="dev") { print $(i+1); exit }
+  }')
+  if [ -n "$iface" ]; then
+    echo "$iface"
+    exit 0
+  fi
+
+  iface=$(ip route 2>/dev/null | awk '/default/ {
+    for (i=1; i<=NF; i++) if ($i=="dev") { print $(i+1); exit }
+  }')
+  if [ -n "$iface" ]; then
+    echo "$iface"
+    exit 0
+  fi
+fi
+
+# 最后兜底：尝试 ifconfig 里找一个非 lo 的活动接口
+if command -v ifconfig >/dev/null 2>&1; then
+  ifconfig 2>/dev/null | awk -F: '
+    /^[a-zA-Z0-9]/ { iface=$1 }
+    /status: active/ && iface != "lo0" && iface != "lo" { print iface; exit }
+  '
+fi
