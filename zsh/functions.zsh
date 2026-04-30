@@ -174,3 +174,10 @@ function zed_ssh_open(){
   local remote_path="$2"
   zed "ssh://${host}:${remote_path}"
 }
+
+
+# kimi cc switch
+function cc_switch_kimi(){
+  export ANTHROPIC_BASE_URL=https://api.kimi.com/coding/
+  export ANTHROPIC_API_KEY=$(bw get password kimi_api_key)
+}
