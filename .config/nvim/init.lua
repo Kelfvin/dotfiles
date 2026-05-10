@@ -8,9 +8,21 @@ require("config.others")
 --          ╭─────────────────────────────────────────────────────────╮
 --          │                      lsp settings                       │
 --          ╰─────────────────────────────────────────────────────────╯
+-- diagnostic
+vim.diagnostic.config({
+	virtual_text = { current_line = true },
+	update_in_insert = false,
+	severity_sort = true,
+	float = {
+		border = "rounded",
+		source = "if_many",
+	},
+})
+
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("pyright_ls")
 vim.lsp.enable("ruff_ls")
+vim.lsp.enable("clangd_ls")
 
 --          ╭─────────────────────────────────────────────────────────╮
 --          │                         plugins                         │
