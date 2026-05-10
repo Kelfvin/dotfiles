@@ -136,45 +136,6 @@ if ! command -v lazygit >/dev/null 2>&1; then
   rm $DOWNLOAD_FILE
 fi
 
-
-# ╭──────────────────────────────────────────────────────────╮
-# │                     Tmux 安装与配置                      │
-# ╰──────────────────────────────────────────────────────────╯
-
-# ── 安装Tmux ───────────────────────────────────────────────────────
-# TODO: 这里的安装逻辑还有问题
-
-# install tmux>=3.3 for allow-passthrough option
-
-# tmux_version=$(tmux -V | awk '{print $2}')
-# if [[ ! ${tmux_version: -1} =~ [0-9] ]]; then
-# 	tmux_version="${tmux_version::-1}"
-# fi
-# if (($(echo "$tmux_version < 3.3" | bc -l))); then
-# 	curl -Lo tmux-3.5a.tar.gz https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
-# 	tar -xvzf tmux-3.5a.tar.gz
-# 	cd tmux-3.5a
-# 	if pkg-config --cflags --libs libevent &> /dev/null; then
-# 		./configure --prefix=$HOME/.local && make -j$(nproc)
-# 	elif PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig pkg-config --cflags --libs libevent &> /dev/null; then
-# 		./configure --prefix=$HOME/.local CFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib" && make -j$(nproc)
-# 	else
-# 		curl -Lo libevent.tar.gz https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
-# 		tar -xvzf libevent.tar.gz
-# 		cd libevent-*/
-# 		mkdir build && cd build
-# 		cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local
-# 		make -j$(nproc)
-# 		make install
-# 		cd ../..
-# 		./configure --prefix=$HOME/.local CFLAGS="-I$HOME/.local/include" LDFLAGS="-L$HOME/.local/lib" && make -j$(nproc)
-# 	fi
-# 	make install
-# 	cd ..
-# 	rm -rf tmux-3.5a tmux-3.5a.tar.gz
-# 	echo "$(tmux -V) has been installed!"
-# fi
-
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/plugins/tpm" 
 if [ ! -d "$TPM_DIR" ]; then
@@ -190,6 +151,6 @@ fi
 
 
 #  安装 nvm 
-if ! command -v nvm >/dev/null 2>&1; then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+if ! command -v fnm >/dev/null 2>&1; then
+   curl -fsSL https://fnm.vercel.app/install | bash
 fi
