@@ -41,15 +41,14 @@ export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
 
 export MUSICFOX_ROOT=$HOME/.config/go-musicfox
 
-# fnm
-FNM_PATH="/home/kelf/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "$(fnm env --shell zsh)"
-fi
-
 if [ -n "$SSH_AUTH_SOCK" ] && [ -S "$SSH_AUTH_SOCK" ]; then
   ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
 fi
 
 export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+
+FNM_PATH="${HOME}/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell zsh)"
+fi
