@@ -178,6 +178,7 @@ function zed_ssh_open(){
 
 # kimi cc switch
 function cc_switch_kimi(){
+  local bw_key_name="$1"
   export ANTHROPIC_BASE_URL=https://api.kimi.com/coding/
-  export ANTHROPIC_API_KEY=$(bw get password kimi_api_key)
+  export ANTHROPIC_API_KEY=$(bw get password ${bw_key_name})
 }
