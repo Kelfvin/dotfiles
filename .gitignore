@@ -11,5 +11,4 @@ nvim.log
 .config/nvim/nvim-pack-lock.json
 /.config/karabiner/automatic_backups
 .tmux/plugins
-/.config/karabiner
 /.config/btop
