@@ -55,6 +55,39 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 
+# ── libclang ──────────────────────────────────────────────────────────
+# tree-sitter-cli 等 Rust 包编译时 bindgen 需要 libclang
+if [ -z "${LIBCLANG_PATH:-}" ]; then
+  HAS_LIBCLANG=0
+  if command -v ldconfig >/dev/null 2>&1 && ldconfig -p 2>/dev/null | grep -q libclang; then
+    HAS_LIBCLANG=1
+  elif find /usr/lib /usr/local/lib /usr/lib64 /opt -maxdepth 3 -name "libclang*.so*" -print -quit 2>/dev/null | grep -q .; then
+    HAS_LIBCLANG=1
+  elif [ "$(uname -s)" = "Darwin" ] && { [ -d "/usr/local/opt/llvm/lib" ] || [ -d "/opt/homebrew/opt/llvm/lib" ]; }; then
+    HAS_LIBCLANG=1
+  elif command -v clang >/dev/null 2>&1; then
+    HAS_LIBCLANG=1
+  fi
+
+  if [ "$HAS_LIBCLANG" -eq 0 ]; then
+    echo "libclang is required for building some Rust packages (e.g. tree-sitter-cli)."
+    echo "Please install it first:"
+    if [ "$(uname -s)" = "Darwin" ]; then
+      echo "  brew install llvm"
+      echo "  export LIBCLANG_PATH=\$(brew --prefix llvm)/lib"
+    elif command -v apt-get >/dev/null 2>&1; then
+      echo "  sudo apt-get install -y libclang-dev"
+    elif command -v pacman >/dev/null 2>&1; then
+      echo "  sudo pacman -S --needed clang"
+    elif command -v dnf >/dev/null 2>&1; then
+      echo "  sudo dnf install -y clang-devel"
+    else
+      echo "  Please install clang/libclang development package manually."
+    fi
+    exit 1
+  fi
+fi
+
 # ── cargo ─────────────────────────────────────────────────────────────
 # 检查是否有cargo
 if ! command -v cargo >/dev/null 2>&1; then
