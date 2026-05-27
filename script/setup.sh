@@ -136,6 +136,60 @@ if ! command -v lazygit >/dev/null 2>&1; then
   rm $DOWNLOAD_FILE
 fi
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                       ImageMagick                        │
+# ╰──────────────────────────────────────────────────────────╯
+
+if ! command -v convert >/dev/null 2>&1 && ! command -v magick >/dev/null 2>&1; then
+  if [ "$(uname -s)" = "Darwin" ]; then
+    brew install imagemagick
+  elif command -v pacman >/dev/null 2>&1; then
+    sudo pacman -S --needed imagemagick
+  elif command -v apt-get >/dev/null 2>&1; then
+    sudo apt-get update && sudo apt-get install -y imagemagick
+  elif command -v dnf >/dev/null 2>&1; then
+    sudo dnf install -y ImageMagick
+  else
+    echo "WARN: Could not install ImageMagick automatically. Please install it manually."
+  fi
+fi
+
+# ╭──────────────────────────────────────────────────────────╮
+# │              ImageMagick magick compatibility            │
+# ╰──────────────────────────────────────────────────────────╯
+# Debian/Ubuntu 官方仓库的 ImageMagick 6 只提供 convert/identify，
+# 而 Yazi 等现代工具统一调用 magick（ImageMagick 7 风格）。
+# 为保持兼容，在仅有 convert 的系统上创建用户级 wrapper。
+if command -v convert >/dev/null 2>&1 && ! command -v magick >/dev/null 2>&1; then
+	if [ ! -x "$INSTALL_DIR/bin/magick" ]; then
+		echo "ImageMagick 6 detected, creating ~/.local/bin/magick wrapper for Yazi compatibility..."
+		tee "$INSTALL_DIR/bin/magick" > /dev/null <<'EOF'
+#!/bin/sh
+exec convert "$@"
+EOF
+		chmod +x "$INSTALL_DIR/bin/magick"
+	fi
+
+	# 确保 ~/.local/bin 在当前 PATH 中；若不在，尝试写入 shell 配置
+	if ! echo ":$PATH:" | grep -q ":$INSTALL_DIR/bin:"; then
+		SHELL_RC=""
+		if [ -n "${ZSH_VERSION:-}" ]; then
+			SHELL_RC="$HOME/.zshrc"
+		elif [ -n "${BASH_VERSION:-}" ]; then
+			SHELL_RC="$HOME/.bashrc"
+		elif [ -f "$HOME/.zshrc" ]; then
+			SHELL_RC="$HOME/.zshrc"
+		elif [ -f "$HOME/.bashrc" ]; then
+			SHELL_RC="$HOME/.bashrc"
+		fi
+
+		if [ -n "$SHELL_RC" ] && ! grep -qF "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" "$SHELL_RC" 2>/dev/null; then
+			echo "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" >> "$SHELL_RC"
+			echo "Added $INSTALL_DIR/bin to PATH in $SHELL_RC. Please run: source $SHELL_RC"
+		fi
+	fi
+fi
+
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/plugins/tpm" 
 if [ ! -d "$TPM_DIR" ]; then
