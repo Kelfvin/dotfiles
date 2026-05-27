@@ -49,3 +49,11 @@ alias rm='rm -I'                    # 'rm -i' prompts for every file
 
 alias ff="fastfetch"
 alias c="clear"
+
+# bat + tail for log viewing
+alias batlog='bat --paging=never -l log'
+
+# tailbat must be a function (not alias) to accept filename arguments
+tailbat() {
+    tail -f "$@" | bat --paging=never -l log
+}
