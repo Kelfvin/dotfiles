@@ -2,7 +2,7 @@
 
 # ──────────────────────────────────────────────────────────────────────
 # 此脚本用于在新机器上一键配置开发环境（无需Root权限）
-# 软件将安装在 ~/.local/bin 下
+# 软件将安装在 ~/.local 下
 # ──────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -13,8 +13,6 @@ set -euo pipefail
 INSTALL_DIR="$HOME/.local/"
 CONFIG_DIR="./config"
 TARGET_DIR="$HOME/.config"
-# Github 下载的镜像配置
-GITHUB_MIRROR="https://ghfast.top/"
 
 # 创建安装文件基本目录
 install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
@@ -93,7 +91,7 @@ fi
 # ── cargo ─────────────────────────────────────────────────────────────
 # 检查是否有cargo
 if ! command -v cargo >/dev/null 2>&1; then
-  curl https://sh.rustup.rs -sSf | sh
+  curl https://sh.rustup.rs -sSf | sh -s -- -y
 fi
 
 # 确保 cargo 及其插件在 PATH 中
@@ -127,9 +125,6 @@ command -v cargo-install-update >/dev/null 2>&1 || cargo binstall --no-confirm c
 
 
 
-# fzf 查找工具
-command -v fzf >/dev/null 2>&1 || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
-
 
 # 安装 eget（从 GitHub Release 下载二进制文件的工具）
 if ! command -v eget >/dev/null 2>&1; then
@@ -137,6 +132,9 @@ if ! command -v eget >/dev/null 2>&1; then
   curl https://zyedidia.github.io/eget.sh | sh
   mv eget "$INSTALL_DIR/bin/"
 fi
+
+# fzf 查找工具
+command -v fzf >/dev/null 2>&1 || eget junegunn/fzf --to "$INSTALL_DIR/bin"
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
@@ -184,7 +182,7 @@ if ! command -v convert >/dev/null 2>&1 && ! command -v magick >/dev/null 2>&1; 
   elif command -v pacman >/dev/null 2>&1; then
     sudo pacman -S --needed imagemagick
   else
-    eget ImageMagick/ImageMagick --to "${INSTALL_DIR}/bin/magick"
+    eget ImageMagick/ImageMagick --to "$INSTALL_DIR/bin/magick"
   fi
 fi
 
@@ -203,7 +201,8 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 
-#  安装 nvm 
+
+#  安装 fnm
 if ! command -v fnm >/dev/null 2>&1; then
-   curl -fsSL https://fnm.vercel.app/install | bash
+   eget Schniz/fnm --to "$INSTALL_DIR/bin"
 fi
