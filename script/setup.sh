@@ -123,6 +123,9 @@ command -v tokei >/dev/null 2>&1 || cargo binstall --no-confirm tokei
 command -v tree-sitter >/dev/null 2>&1 || cargo binstall --no-confirm tree-sitter-cli
 command -v bat >/dev/null 2>&1 || cargo binstall --no-confirm bat
 
+command -v cargo-install-update >/dev/null 2>&1 || cargo binstall --no-confirm cargo-update
+
+
 
 # fzf 查找工具
 command -v fzf >/dev/null 2>&1 || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
