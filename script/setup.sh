@@ -70,8 +70,9 @@ if [ -z "${LIBCLANG_PATH:-}" ]; then
   fi
 
   if [ "$HAS_LIBCLANG" -eq 0 ]; then
-    echo "libclang is required for building some Rust packages (e.g. tree-sitter-cli)."
-    echo "Please install it first:"
+    echo "WARNING: libclang not detected. Most tools will be installed via prebuilt binaries,"
+    echo "but if cargo-binstall falls back to source compilation, some packages may fail."
+    echo "To be safe, you can install it first:"
     if [ "$(uname -s)" = "Darwin" ]; then
       echo "  brew install llvm"
       echo "  export LIBCLANG_PATH=\$(brew --prefix llvm)/lib"
@@ -84,7 +85,8 @@ if [ -z "${LIBCLANG_PATH:-}" ]; then
     else
       echo "  Please install clang/libclang development package manually."
     fi
-    exit 1
+    echo ""
+    echo "Continuing anyway..."
   fi
 fi
 
@@ -94,33 +96,50 @@ if ! command -v cargo >/dev/null 2>&1; then
   curl https://sh.rustup.rs -sSf | sh
 fi
 
+# 确保 cargo 及其插件在 PATH 中
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# 安装 cargo-binstall（从预编译二进制快速安装 Rust 工具，避免本地编译）
+command -v cargo-binstall >/dev/null 2>&1 || cargo install cargo-binstall --locked
+
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                    使用Cargo安装软件                     │
 # ╰──────────────────────────────────────────────────────────╯
 
+# 正则查找工具
+command -v rg >/dev/null 2>&1 || cargo binstall --no-confirm ripgrep
+# 更好用的ls工具
+command -v eza >/dev/null 2>&1 || cargo binstall --no-confirm eza
+command -v fd >/dev/null 2>&1 || cargo binstall --no-confirm fd-find
+# 更好用的du工具
+command -v dust >/dev/null 2>&1 || cargo binstall --no-confirm du-dust
+# yazi--文件管理器
+command -v yazi >/dev/null 2>&1 || cargo binstall --no-confirm yazi-fm yazi-cli
+# tldr 便捷的命令查看器
+command -v tldr >/dev/null 2>&1 || cargo binstall --no-confirm tlrc
+# tokei 代码统计工具
+command -v tokei >/dev/null 2>&1 || cargo binstall --no-confirm tokei
+command -v tree-sitter >/dev/null 2>&1 || cargo binstall --no-confirm tree-sitter-cli
+command -v bat >/dev/null 2>&1 || cargo binstall --no-confirm bat
+
+
 # fzf 查找工具
 command -v fzf >/dev/null 2>&1 || (git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf && $HOME/.fzf/install)
-# 正则查找工具
-command -v rg >/dev/null 2>&1 || cargo install ripgrep
-# 更好用的ls工具
-command -v eza >/dev/null 2>&1 || cargo install eza
-command -v fd >/dev/null 2>&1 || cargo install fd-find
-# 更好用的du工具
-command -v dust >/dev/null 2>&1 || cargo install du-dust
-# yazi--文件管理器
-command -v yazi >/dev/null 2>&1 || cargo install --locked yazi-fm yazi-cli
-# tldr 便捷的命令查看器
-command -v tldr >/dev/null 2>&1 || cargo install --locked tlrc
-# tokei 代码统计工具
-command -v tokei >/dev/null 2>&1 || cargo install --git https://github.com/XAMPPRocky/tokei.git tokei
-command -v tree-sitter >/dev/null 2>&1 || cargo install --locked tree-sitter-cli 
+
+
+# 安装 eget（从 GitHub Release 下载二进制文件的工具）
+if ! command -v eget >/dev/null 2>&1; then
+  echo "Installing eget..."
+  curl https://zyedidia.github.io/eget.sh | sh
+  mv eget "$INSTALL_DIR/bin/"
+fi
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
-NVIM_VERSION="v0.12.0"
 
-# 如果是Macos系统，那么使用homebrew进行安装k
+# 如果是Macos系统，那么使用homebrew进行安装
 if [ "$(uname -s)" = "Darwin" ]; then
   command -v nvim >/dev/null 2>&1 || brew install neovim
 
@@ -129,19 +148,9 @@ elif command -v pacman >/dev/null 2>&1; then
   command -v nvim >/dev/null 2>&1 || sudo pacman -S --needed neovim
 
 else
-  NEOVIM_RELEASE_URL="${GITHUB_MIRROR}https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim-linux-x86_64.tar.gz"
-
   if [ ! -x "$INSTALL_DIR/bin/nvim" ]; then
-    echo "Starting download Neovim from github"
-    DOWNLOAD_FILE="nvim.tar.gz"
-    wget -O "$DOWNLOAD_FILE" "$NEOVIM_RELEASE_URL"
-    tar -xzf "$DOWNLOAD_FILE"
-    EXTRACT_DIR="nvim-linux-x86_64"
-
-    cp -r "$EXTRACT_DIR"/{bin,share,lib} "$INSTALL_DIR"
-
-    rm -rf "$EXTRACT_DIR"
-    rm -f "$DOWNLOAD_FILE"
+    echo "Installing Neovim via eget..."
+    eget neovim/neovim --to "$INSTALL_DIR/bin/nvim"
   fi
 fi
 
@@ -150,23 +159,16 @@ fi
 # │                         LazyGit                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-LAZYGIT_RELEASE_URL="${GITHUB_MIRROR}jesseduffield/lazygit/releases/download/v0.54.2/lazygit_0.54.2_linux_x86_64.tar.gz"
+# macOS 和 Archlinux 自行使用包管理器安装
+if [ "$(uname -s)" = "Darwin" ]; then
+  :
 
-if ! command -v lazygit >/dev/null 2>&1; then
-  # 下载指定URL的包
-	echo "Starting download LazyGit from github"
-  DOWNLOAD_FILE="lazygit.tar.gz"
-  wget -O $DOWNLOAD_FILE $LAZYGIT_RELEASE_URL
+elif command -v pacman >/dev/null 2>&1; then
+  :
 
-  EXTRACT_DIR="lazygit"
-  mkdir $EXTRACT_DIR
-
-  tar -xf $DOWNLOAD_FILE -C $EXTRACT_DIR
-  cp $EXTRACT_DIR/lazygit $INSTALL_DIR/bin
-
-  # 清理下载文件
-  rm -rf $EXTRACT_DIR
-  rm $DOWNLOAD_FILE
+elif ! command -v lazygit >/dev/null 2>&1; then
+  echo "Installing LazyGit via eget..."
+  eget jesseduffield/lazygit --to "$INSTALL_DIR/bin"
 fi
 
 # ╭──────────────────────────────────────────────────────────╮
@@ -178,50 +180,11 @@ if ! command -v convert >/dev/null 2>&1 && ! command -v magick >/dev/null 2>&1; 
     brew install imagemagick
   elif command -v pacman >/dev/null 2>&1; then
     sudo pacman -S --needed imagemagick
-  elif command -v apt-get >/dev/null 2>&1; then
-    sudo apt-get update && sudo apt-get install -y imagemagick
-  elif command -v dnf >/dev/null 2>&1; then
-    sudo dnf install -y ImageMagick
   else
-    echo "WARN: Could not install ImageMagick automatically. Please install it manually."
+    eget ImageMagick/ImageMagick --to "${INSTALL_DIR}/bin/magick"
   fi
 fi
 
-# ╭──────────────────────────────────────────────────────────╮
-# │              ImageMagick magick compatibility            │
-# ╰──────────────────────────────────────────────────────────╯
-# Debian/Ubuntu 官方仓库的 ImageMagick 6 只提供 convert/identify，
-# 而 Yazi 等现代工具统一调用 magick（ImageMagick 7 风格）。
-# 为保持兼容，在仅有 convert 的系统上创建用户级 wrapper。
-if command -v convert >/dev/null 2>&1 && ! command -v magick >/dev/null 2>&1; then
-	if [ ! -x "$INSTALL_DIR/bin/magick" ]; then
-		echo "ImageMagick 6 detected, creating ~/.local/bin/magick wrapper for Yazi compatibility..."
-		tee "$INSTALL_DIR/bin/magick" > /dev/null <<'EOF'
-#!/bin/sh
-exec convert "$@"
-EOF
-		chmod +x "$INSTALL_DIR/bin/magick"
-	fi
-
-	# 确保 ~/.local/bin 在当前 PATH 中；若不在，尝试写入 shell 配置
-	if ! echo ":$PATH:" | grep -q ":$INSTALL_DIR/bin:"; then
-		SHELL_RC=""
-		if [ -n "${ZSH_VERSION:-}" ]; then
-			SHELL_RC="$HOME/.zshrc"
-		elif [ -n "${BASH_VERSION:-}" ]; then
-			SHELL_RC="$HOME/.bashrc"
-		elif [ -f "$HOME/.zshrc" ]; then
-			SHELL_RC="$HOME/.zshrc"
-		elif [ -f "$HOME/.bashrc" ]; then
-			SHELL_RC="$HOME/.bashrc"
-		fi
-
-		if [ -n "$SHELL_RC" ] && ! grep -qF "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" "$SHELL_RC" 2>/dev/null; then
-			echo "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" >> "$SHELL_RC"
-			echo "Added $INSTALL_DIR/bin to PATH in $SHELL_RC. Please run: source $SHELL_RC"
-		fi
-	fi
-fi
 
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/plugins/tpm" 
