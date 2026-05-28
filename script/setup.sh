@@ -20,6 +20,24 @@ install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
 # 切换到脚本所在的目录
 cd "$(dirname "$0")"
 
+# 如果命令不存在，则执行后面的安装命令
+ensure_cmd() {
+    local cmd="$1"
+    shift
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        "$@"
+    fi
+}
+
+# 如果目录不存在，则执行后面的安装命令
+ensure_dir() {
+    local dir="$1"
+    shift
+    if [ ! -d "$dir" ]; then
+        "$@"
+    fi
+}
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                       检查必要工具                       │
 # ╰──────────────────────────────────────────────────────────╯
@@ -90,15 +108,13 @@ fi
 
 # ── cargo ─────────────────────────────────────────────────────────────
 # 检查是否有cargo
-if ! command -v cargo >/dev/null 2>&1; then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y
-fi
+ensure_cmd cargo sh -c 'curl https://sh.rustup.rs -sSf | sh -s -- -y'
 
 # 确保 cargo 及其插件在 PATH 中
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # 安装 cargo-binstall（从预编译二进制快速安装 Rust 工具，避免本地编译）
-command -v cargo-binstall >/dev/null 2>&1 || cargo install cargo-binstall --locked
+ensure_cmd cargo-binstall cargo install cargo-binstall --locked
 
 
 # ╭──────────────────────────────────────────────────────────╮
@@ -106,22 +122,22 @@ command -v cargo-binstall >/dev/null 2>&1 || cargo install cargo-binstall --lock
 # ╰──────────────────────────────────────────────────────────╯
 
 # 正则查找工具
-command -v rg >/dev/null 2>&1 || cargo binstall --no-confirm ripgrep
+ensure_cmd rg cargo binstall --no-confirm ripgrep
 # 更好用的ls工具
-command -v eza >/dev/null 2>&1 || cargo binstall --no-confirm eza
-command -v fd >/dev/null 2>&1 || cargo binstall --no-confirm fd-find
+ensure_cmd eza cargo binstall --no-confirm eza
+ensure_cmd fd cargo binstall --no-confirm fd-find
 # 更好用的du工具
-command -v dust >/dev/null 2>&1 || cargo binstall --no-confirm du-dust
+ensure_cmd dust cargo binstall --no-confirm du-dust
 # yazi--文件管理器
-command -v yazi >/dev/null 2>&1 || cargo binstall --no-confirm yazi-fm yazi-cli
+ensure_cmd yazi cargo binstall --no-confirm yazi-fm yazi-cli
 # tldr 便捷的命令查看器
-command -v tldr >/dev/null 2>&1 || cargo binstall --no-confirm tlrc
+ensure_cmd tldr cargo binstall --no-confirm tlrc
 # tokei 代码统计工具
-command -v tokei >/dev/null 2>&1 || cargo binstall --no-confirm tokei
-command -v tree-sitter >/dev/null 2>&1 || cargo binstall --no-confirm tree-sitter-cli
-command -v bat >/dev/null 2>&1 || cargo binstall --no-confirm bat
+ensure_cmd tokei cargo binstall --no-confirm tokei
+ensure_cmd tree-sitter cargo binstall --no-confirm tree-sitter-cli
+ensure_cmd bat cargo binstall --no-confirm bat
 
-command -v cargo-install-update >/dev/null 2>&1 || cargo binstall --no-confirm cargo-update
+ensure_cmd cargo-install-update cargo binstall --no-confirm cargo-update
 
 
 
@@ -134,7 +150,10 @@ if ! command -v eget >/dev/null 2>&1; then
 fi
 
 # fzf 查找工具
-command -v fzf >/dev/null 2>&1 || eget junegunn/fzf --to "$INSTALL_DIR/bin"
+ensure_cmd fzf eget junegunn/fzf --to "$INSTALL_DIR/bin"
+
+# fastfetch 系统信息展示工具
+ensure_cmd fastfetch eget fastfetch-cli/fastfetch --to "$INSTALL_DIR/bin"
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
@@ -188,21 +207,18 @@ fi
 
 
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
-TPM_DIR="$HOME/.tmux/plugins/tpm" 
-if [ ! -d "$TPM_DIR" ]; then
-  echo "$TPM_DIR does not exist. Using git to clone."
-  git clone https://github.com/tmux-plugins/tpm $TPM_DIR
-fi
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+ensure_dir "$TPM_DIR" sh -c 'echo "$TPM_DIR does not exist. Using git to clone." && git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"'
 
 
 # 安装 uv
-if ! command -v uv >/dev/null 2>&1; then
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-fi
+ensure_cmd uv sh -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
 
+# 安装 kimi
+ensure_cmd kimi uv tool install kimi-cli
+# 安装 nvitop
+ensure_cmd nvitop uv tool install nvitop
 
 
 #  安装 fnm
-if ! command -v fnm >/dev/null 2>&1; then
-   eget Schniz/fnm --to "$INSTALL_DIR/bin"
-fi
+ensure_cmd fnm eget Schniz/fnm --to "$INSTALL_DIR/bin"
