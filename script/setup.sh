@@ -214,8 +214,6 @@ ensure_dir "$TPM_DIR" sh -c 'echo "$TPM_DIR does not exist. Using git to clone."
 # 安装 uv
 ensure_cmd uv sh -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
 
-# 安装 kimi
-ensure_cmd kimi uv tool install kimi-cli
 # 安装 nvitop
 ensure_cmd nvitop uv tool install nvitop
 
