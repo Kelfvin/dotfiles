@@ -52,3 +52,7 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "$(fnm env --shell zsh)"
 fi
+
+
+# kimi-code
+export PATH="/home/kelf/.kimi-code/bin:$PATH"
