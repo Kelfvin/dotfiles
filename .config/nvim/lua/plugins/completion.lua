@@ -42,8 +42,9 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 					},
 				},
 			},
-			sources = {
-				providers = {
+				sources = {
+					default = { "lsp", "path", "snippets", "buffer" },
+					providers = {
 					snippets = {
 						score_offset = 1000,
 						should_show_items = function(ctx) -- avoid triggering snippets after . " ' chars.
@@ -96,10 +97,10 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 				},
 				-- Setup completion by filetype
 				per_filetype = {
-					text = { "dictionary" },
-					markdown = { "lsp", "thesaurus" },
-					typst = { "lsp", "snippets", "dictionary" },
-					tex = { "dictionary", "thesaurus" },
+					text = { "dictionary", "path" },
+					markdown = { "lsp", "thesaurus", "path" },
+					typst = { "lsp", "snippets", "dictionary", "path" },
+					tex = { "dictionary", "thesaurus", "path" },
 				},
 			},
 		})
