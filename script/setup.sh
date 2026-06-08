@@ -208,7 +208,7 @@ fi
 
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/plugins/tpm"
-ensure_dir "$TPM_DIR" sh -c 'echo "$TPM_DIR does not exist. Using git to clone." && git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"'
+ensure_dir "$TPM_DIR" git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
 
 
 # 安装 uv
