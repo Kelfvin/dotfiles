@@ -1,19 +1,36 @@
-vim.pack.add({
-	{ src = "https://github.com/ludopinelli/comment-box.nvim", name = "commen-box" },
-})
-
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Titles
-keymap({ "n", "v" }, "<Leader>cb", "<Cmd>CBccbox<CR>", opts)
--- Named parts
-keymap({ "n", "v" }, "<Leader>ct", "<Cmd>CBllline<CR>", opts)
--- Simple line
-keymap("n", "<Leader>cl", "<Cmd>CBline<CR>", opts)
--- keymap("i", "<M-l>", "<Cmd>CBline<CR>", opts) -- To use in Insert Mode
--- Marked comments
-keymap({ "n", "v" }, "<Leader>cm", "<Cmd>CBllbox14<CR>", opts)
--- Removing a box is simple enough with the command (CBd), but if you
--- use it a lot:
-keymap({ "n", "v" }, "<Leader>cd", "<Cmd>CBd<CR>", opts)
+-- Simple top/bottom line comment box, left aligned, no side borders
+local function simple_comment_box(cmd_opts)
+	local lstart = cmd_opts.line1
+	local lend = cmd_opts.line2
+
+	local lines = vim.api.nvim_buf_get_lines(0, lstart - 1, lend, false)
+	local indent = vim.fn.indent(lstart)
+	local indent_str = string.rep(" ", indent)
+
+	local comment_prefix = vim.bo.commentstring
+	if comment_prefix:find("%%s") then
+		comment_prefix = comment_prefix:gsub("%%s", "")
+	end
+	comment_prefix = comment_prefix:gsub("%s+$", "")
+
+	local prefix = indent_str .. comment_prefix
+
+	local width = 60
+	local sep = prefix .. string.rep("-", width)
+
+	local new_lines = { sep }
+	for _, line in ipairs(lines) do
+		local text = line:gsub("^%s+", "")
+		table.insert(new_lines, prefix .. " " .. text)
+	end
+	table.insert(new_lines, sep)
+
+	vim.api.nvim_buf_set_lines(0, lstart - 1, lend, false, new_lines)
+end
+
+vim.api.nvim_create_user_command("CBSimpleBox", simple_comment_box, { range = true })
+
+keymap({ "n", "v" }, "<Leader>cb", ":CBSimpleBox<CR>", opts)
