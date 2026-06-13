@@ -179,12 +179,18 @@ fi
 # │                         LazyGit                          │
 # ╰──────────────────────────────────────────────────────────╯
 
-# macOS 和 Archlinux 自行使用包管理器安装
+# macOS 和 Archlinux 使用包管理器安装，其他 Linux 用 eget
 if [ "$(uname -s)" = "Darwin" ]; then
-  :
+  if ! command -v lazygit >/dev/null 2>&1; then
+    echo "Installing LazyGit via brew..."
+    brew install lazygit
+  fi
 
 elif command -v pacman >/dev/null 2>&1; then
-  :
+  if ! command -v lazygit >/dev/null 2>&1; then
+    echo "Installing LazyGit via pacman..."
+    sudo pacman -S --needed lazygit
+  fi
 
 elif ! command -v lazygit >/dev/null 2>&1; then
   echo "Installing LazyGit via eget..."
