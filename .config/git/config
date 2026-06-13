@@ -1,0 +1,12 @@
+[user]
+	name = kelf
+	email = kelfvin@163.com
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
