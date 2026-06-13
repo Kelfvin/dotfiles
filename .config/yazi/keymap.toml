@@ -4,14 +4,11 @@ run  = "plugin smart-switch 1"
 desc = "Switch or create tab 2"
 
 [[mgr.prepend_keymap]]
-on  = "<C-y>"
-run = ["plugin system-clipboard"]
-
-[[mgr.prepend_keymap]]
 on   = "t"
 run  = "plugin smart-tab"
 desc = "Create a tab and enter the hovered directory"
 
 [[mgr.prepend_keymap]]
-on = "<C-p>"
-run = 'shell -- qlmanage -p "$@"'
+on   = "l"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
