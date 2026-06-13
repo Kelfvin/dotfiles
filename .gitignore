@@ -13,3 +13,4 @@ nvim.log
 .tmux/plugins
 /.config/btop
 /.config/yazi/plugins
+zsh/.claude
