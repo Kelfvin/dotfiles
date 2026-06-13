@@ -1,48 +1,67 @@
-# ICON
-macos-icon = xray
-
-# Theme
-theme = "Catppuccin Mocha"
-background-opacity = 0.8
-background-blur-radius = 30
-
+#------------------------------------------------------------
+# MacOS
+#------------------------------------------------------------
 macos-titlebar-style = hidden
-window-padding-x = 10
-window-padding-y = 10
+macos-icon           = xray
+macos-option-as-alt  = true
 
-clipboard-read=allow
+#------------------------------------------------------------
+# Theme
+#------------------------------------------------------------
+theme              = Catppuccin Frappe
+window-padding-x   = 10
+window-padding-y   = 10
+background-opacity = 0.85
+background-blur    = 40
+cursor-style       = block
+cursor-style-blink = false
 
-#粗体文本使用明亮调色板
-bold-is-bright = true
-
-font-family = JetBrainsMono Nerd Font Mono
-font-family = Maple Mono NF CN
-font-size=15
+#-----------------------------------------------------------
+# Font
+#------------------------------------------------------------
+font-family  = JetBrainsMono Nerd Font Mono
+font-family  = Maple Mono NF CN
+font-size    = 14
 font-thicken = true
 
+#------------------------------------------------------------
+# Shader
+#------------------------------------------------------------
+custom-shader = "shaders/cursor_warp.glsl"
+custom-shader = "shaders/ripple_cursor.glsl"
+
+#------------------------------------------------------------
+# Shell-Integration 
+#------------------------------------------------------------
+shell-integration-features = no-cursor,sudo,title,ssh-env,ssh-terminfo
+
+#------------------------------------------------------------
+# Behaviour
+#------------------------------------------------------------
 mouse-hide-while-typing = true
 
-###### shell-integration #######
-# shell-integration = zsh
-shell-integration-features = no-cursor
-
-# cursor setting
-cursor-style = block
-cursor-style-blink = false
-# cursor-opacity = 0.3
-adjust-cursor-thickness = 3
-# 设置alt+鼠标点击进行跳转
+#------------------------------------------------------------
+# Link
+#------------------------------------------------------------
 cursor-click-to-move = true
- 
-# 显示终端上的url链接，需要按下ctrl键才会显示
-link-url = true
+link-url             = true
 
-########### Key-Bind ##########
+#------------------------------------------------------------
+# Clipboard
+#------------------------------------------------------------
+clipboard-read                 = allow
+clipboard-write                = allow
+clipboard-paste-protection     = true
+clipboard-trim-trailing-spaces = true
+
+#------------------------------------------------------------
+# Key-Bind
+#------------------------------------------------------------
+# command + s save file in neovim
 keybind = super+s=text:\x1b:w\n
 
-# ╭──────────────────────────────────────────────────────────╮
-# │                 解绑默认的切换tab快捷键                  │
-# ╰──────────────────────────────────────────────────────────╯
+# Tmux command + number change tmux window
+# unbind shortcuts in ghostty
 keybind = cmd+digit_1=unbind
 keybind = cmd+digit_2=unbind
 keybind = cmd+digit_3=unbind
@@ -53,9 +72,7 @@ keybind = cmd+digit_7=unbind
 keybind = cmd+digit_8=unbind
 keybind = cmd+digit_9=unbind
 
-# ╭──────────────────────────────────────────────────────────╮
-# │           set command+number to Tmux shortcuts           │
-# ╰──────────────────────────────────────────────────────────╯
+# set command+number to Tmux shortcuts
 keybind = cmd+digit_1=text:\x00\x31
 keybind = cmd+digit_2=text:\x00\x32
 keybind = cmd+digit_3=text:\x00\x33
