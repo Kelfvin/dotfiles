@@ -19,7 +19,10 @@ keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" })
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
 
 -- reload config
-keymap.set("n", "<leader>r", ":source %<CR>", { desc = "reload config" })
+keymap.set("n", "<leader>r", function()
+	vim.cmd("source " .. vim.fn.stdpath("config") .. "/init.lua")
+	print("Config reloaded")
+end, { desc = "reload config" })
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
