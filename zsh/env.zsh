@@ -14,6 +14,15 @@ path=(
 export PATH
 
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                 XDG Base Directories                     │
+# ╰──────────────────────────────────────────────────────────╯
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+
 # Hugging Face 镜像
 export HF_ENDPOINT=https://hf-mirror.com
 
