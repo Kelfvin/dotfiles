@@ -78,3 +78,11 @@ fi
 
 # kimi-code
 export PATH="/home/kelf/.kimi-code/bin:$PATH"
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+  --color=bg:-1,bg+:#313244 \
+  --color=fg:#cdd6f4,fg+:#cdd6f4 \
+  --color=hl:#f38ba8,hl+:#f38ba8 \
+  --color=spinner:#f5e0dc,header:#f38ba8,info:#cba6f7 \
+  --color=pointer:#f5e0dc,marker:#b4befe,prompt:#cba6f7 \
+  --color=border:#6c7086"
