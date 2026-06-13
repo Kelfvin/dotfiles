@@ -12,7 +12,7 @@ theme              = Catppuccin Mocha
 window-padding-x   = 10
 window-padding-y   = 10
 background-opacity = 0.85
-background-blur    = 40
+background-blur    = 30
 cursor-style       = block
 cursor-style-blink = false
 
@@ -23,12 +23,6 @@ font-family  = JetBrainsMono Nerd Font Mono
 font-family  = Maple Mono NF CN
 font-size    = 14
 font-thicken = true
-
-#------------------------------------------------------------
-# Shader
-#------------------------------------------------------------
-custom-shader = "shaders/cursor_warp.glsl"
-custom-shader = "shaders/ripple_cursor.glsl"
 
 #------------------------------------------------------------
 # Shell-Integration 
