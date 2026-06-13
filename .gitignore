@@ -12,3 +12,4 @@ nvim.log
 /.config/karabiner/automatic_backups
 .tmux/plugins
 /.config/btop
+/.config/yazi/plugins
