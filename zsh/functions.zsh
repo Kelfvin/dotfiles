@@ -20,11 +20,15 @@ function act(){
   [ -f '.venv/bin/activate' ] && source .venv/bin/activate
 }
 
-# ── 取消代理 ──────────────────────────────────────────────────────────
-# useage: set_proxy localhost:7897
+# ── 设置代理 ──────────────────────────────────────────────────────────
+# usage: set_proxy <host> <port>   e.g. set_proxy localhost 7897
 function set_proxy() {
-  proxy_ip=$1
-  port=$2
+  if [ $# -lt 2 ]; then
+    echo "usage: set_proxy <host> <port>   e.g. set_proxy localhost 7897" >&2
+    return 1
+  fi
+  local proxy_ip="$1"
+  local port="$2"
   export https_proxy=http://$proxy_ip:$port http_proxy=http://$proxy_ip:$port all_proxy=socks5://$proxy_ip:$port
 }
 
