@@ -5,5 +5,6 @@
 bindkey -e
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
-bindkey '^F' forward-word    
-bindkey '^B' backward-word   
+# 覆盖 emacs 默认的 forward-char / backward-char，按词移动
+bindkey '^F' forward-word
+bindkey '^B' backward-word
