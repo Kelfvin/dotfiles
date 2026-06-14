@@ -1,10 +1,7 @@
 # ╭──────────────────────────────────────────────────────────╮
 # │               Fix Shortcut in Tmux context               │
 # ╰──────────────────────────────────────────────────────────╯
-# editor default keymap to emacs ('-e') or vi (*-v')
+# editor default keymap to emacs ('-e') or vi (*-v')
 bindkey -e
-bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
-# 覆盖 emacs 默认的 forward-char / backward-char，按词移动
-bindkey '^F' forward-word
-bindkey '^B' backward-word
+# zsh emacs keymap 默认不绑定 ^F，这里补上按字符前进（与 ^B=backward-char 对称）
+bindkey '^F' forward-char
