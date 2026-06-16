@@ -129,7 +129,12 @@ ensure_cmd fd cargo binstall --no-confirm fd-find
 # 更好用的du工具
 ensure_cmd dust cargo binstall --no-confirm du-dust
 # yazi--文件管理器
-ensure_cmd yazi cargo binstall --no-confirm yazi-fm yazi-cli
+# 在 Linux 上使用 musl target，避免低版本 glibc 无法运行官方 gnu 构建
+if [ "$(uname -s)" = "Linux" ]; then
+    ensure_cmd yazi cargo binstall --no-confirm --target x86_64-unknown-linux-musl yazi-fm yazi-cli
+else
+    ensure_cmd yazi cargo binstall --no-confirm yazi-fm yazi-cli
+fi
 # tldr 便捷的命令查看器
 ensure_cmd tldr cargo binstall --no-confirm tlrc
 # tokei 代码统计工具
