@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // 设置为默认模型
+  "model": "kimi-code-plan/kimi-for-coding",
+
+  "provider": {
+    "kimi-code-plan": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Kimi Code Plan",
+
+      "options": {
+        "baseURL": "https://api.kimi.com/coding/v1",
+        "apiKey": "{env:KIMI_CODE_API_KEY}"
+      },
+
+      "models": {
+        "kimi-for-coding": {
+          "name": "Kimi K2.7 Code",
+
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          },
+
+          // K2.7 Code 建议开启推理
+          "options": {
+            "reasoningEffort": "medium"
+          }
+        }
+      }
+    }
+  }
+}

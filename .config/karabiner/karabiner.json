@@ -1,13 +1,49 @@
 {
     "profiles": [
         {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Press esc to switch to English input source and send esc",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "escape" },
+                                "to": [{ "key_code": "escape" }],
+                                "to_after_key_up": [{ "shell_command": "/opt/homebrew/bin/im-select com.apple.keylayout.ABC" }],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
             "devices": [
                 {
                     "identifiers": {
                         "is_keyboard": true,
+                        "is_pointing_device": true,
                         "product_id": 12290,
                         "vendor_id": 14000
                     },
+                    "ignore": false,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 12292,
+                        "vendor_id": 14000
+                    },
+                    "ignore": false,
                     "simple_modifications": [
                         {
                             "from": { "key_code": "left_command" },
@@ -22,11 +58,17 @@
                 {
                     "identifiers": {
                         "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 12292,
+                        "product_id": 4128,
+                        "vendor_id": 21075
+                    },
+                    "ignore": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 12290,
                         "vendor_id": 14000
                     },
-                    "ignore": false,
                     "simple_modifications": [
                         {
                             "from": { "key_code": "left_command" },
@@ -51,31 +93,6 @@
                     "to": [{ "key_code": "caps_lock" }]
                 }
             ],
-            "complex_modifications": {
-                "rules": [
-                    {
-                        "description": "Press esc to switch to English input source and send esc",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "escape"
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "escape"
-                                    }
-                                ],
-                                "to_after_key_up": [
-                                    {
-                                        "shell_command": "/opt/homebrew/bin/im-select com.apple.keylayout.ABC"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    }
-                ]
-            },
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
