@@ -27,13 +27,16 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export HF_ENDPOINT=https://hf-mirror.com
 
 # # ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
-# brew update / Homebrew 自身仓库更新
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-# 包元数据查询（formula/cask API）
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-# 二进制预编译
-export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
-export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+# 仅在 macOS 上生效，Linux 服务器无 Homebrew
+if [ "$(uname -s)" = "Darwin" ]; then
+  # brew update / Homebrew 自身仓库更新
+  export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+  # 包元数据查询（formula/cask API）
+  export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+  # 二进制预编译
+  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+  export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+fi
 
 
 # 自定义Starship的配置目录
@@ -76,8 +79,12 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 
-# kimi-code
-export PATH="/home/kelf/.kimi-code/bin:$PATH"
+# kimi-code（仅在该路径存在时加入 PATH）
+KIMI_CODE_PATH="$HOME/.kimi-code/bin"
+if [ -d "$KIMI_CODE_PATH" ]; then
+  export PATH="$KIMI_CODE_PATH:$PATH"
+fi
+unset KIMI_CODE_PATH
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --color=bg:-1,bg+:#313244 \

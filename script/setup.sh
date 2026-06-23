@@ -11,7 +11,6 @@ set -euo pipefail
 # ╰──────────────────────────────────────────────────────────╯
 
 INSTALL_DIR="$HOME/.local/"
-CONFIG_DIR="./config"
 TARGET_DIR="$HOME/.config"
 
 # 创建安装文件基本目录
@@ -56,13 +55,6 @@ if ! command -v curl >/dev/null 2>&1; then
 	echo "curl is required..."
 	exit 1
 fi
-
-# ── wget ──────────────────────────────────────────────────────────────
-if ! command -v wget >/dev/null 2>&1; then
-	echo "wget is required..."
-	exit 1
-fi
-
 
 # ── git ───────────────────────────────────────────────────────────────
 if ! command -v git >/dev/null 2>&1; then
