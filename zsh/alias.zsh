@@ -19,20 +19,20 @@ alias ping='ping -c 5'
 alias free="free -h"
 
 
-if command -v eza>/dev/null 2>&1; then
+if command -v eza >/dev/null 2>&1; then
   alias ls="eza"
   alias ll="eza -l"
 else
   alias ll="ls -l"
 fi
 
-if command -v dust>/dev/null 2>&1; then
+if command -v dust >/dev/null 2>&1; then
   alias du="dust"
 else
   alias du="du -h -c"
 fi
 
-if command -v duf>/dev/null 2>&1; then
+if command -v duf >/dev/null 2>&1; then
   alias df="duf"
 else
   alias df="df -h"
