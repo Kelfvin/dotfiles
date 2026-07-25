@@ -88,9 +88,14 @@ function brew_clean_cache_all() {
     local cache_dir
     cache_dir="$(brew --cache)"
 
+    if [[ -z "$cache_dir" || "$cache_dir" == "/" ]]; then
+        echo "❌ 缓存目录异常，终止清理：${cache_dir:-<empty>}" >&2
+        return 1
+    fi
+
     if [[ -d "$cache_dir" ]]; then
         echo "⚠️ 正在清空 Homebrew 缓存：$cache_dir"
-        rm -rf "$cache_dir"/*
+        rm -rf "${cache_dir%/}"/*
         echo "✅ 清理完成。"
     else
         echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
@@ -107,16 +112,7 @@ function brew_upgrade_and_clean() {
     brew upgrade
     echo "⬆️ 升级完成，准备清理缓存..."
 
-    local cache_dir
-    cache_dir="$(brew --cache)"
-
-    if [[ -d "$cache_dir" ]]; then
-        echo "⚠️ 正在清空 Homebrew 缓存：$cache_dir"
-        rm -rf "$cache_dir"/*
-        echo "✅ 升级并清理完成。"
-    else
-        echo "ℹ️ Homebrew 缓存目录不存在：$cache_dir"
-    fi
+    brew_clean_cache_all && echo "✅ 升级并清理完成。"
 }
 
 
