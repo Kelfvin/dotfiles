@@ -38,7 +38,7 @@
 
 ### 一键安装
 
-`setup.sh` 用于在新机器上一键安装常用软件（无需 root 权限，默认安装到 `~/.local`）：
+`setup.sh` 用于在新机器上一键安装常用软件：
 
 ```bash
 bash ./script/setup.sh
@@ -48,7 +48,12 @@ bash ./script/setup.sh
 
 ### setup.sh 原理
 
-这个脚本的设计目标是**无需 root 权限**，在新机器上一键构建完整的 CLI 开发环境。所有软件统一安装到 `~/.local` 目录下，避免污染系统环境。
+这个脚本的设计目标是**在新机器上一键构建完整的 CLI 开发环境**，尽量不需要 root（Linux 下仅系统包管理步骤需要 sudo）。
+
+**安装位置：**
+- `cargo-binstall` / `cargo install` 安装的工具位于 `~/.cargo/bin`
+- `eget` 下载的二进制位于 `~/.local/bin`
+- 平台相关的系统级软件（Neovim、ImageMagick、lazygit）优先使用系统包管理器
 
 **三层安装策略：**
 
@@ -59,14 +64,14 @@ bash ./script/setup.sh
    - fzf、fastfetch、fnm、ImageMagick
 
 3. **系统包管理器** — 平台适配，优先使用系统原生包
-   - **macOS**：`brew install`（Neovim、ImageMagick、lazygit）
-   - **Arch Linux**：`pacman -S`（Neovim、ImageMagick、lazygit）
+   - **macOS**：`brew install`（Neovim、ImageMagick、lazygit），需要提前安装 Homebrew
+   - **Arch Linux**：`sudo pacman -S`（Neovim、ImageMagick、lazygit）
    - **其他 Linux**：fallback 到 `eget` 下载预编译包
 
 **其他工具：**
 - **TPM**（Tmux Plugin Manager）：`git clone` 到 `~/.tmux/plugins/tpm`
 - **uv**（Python 包管理器）：curl 官方脚本安装
-- **Python CLI**：`uv tool install kimi-cli`、`nvitop`
+- **Python CLI**：`uv tool install kimi-cli`；`nvitop` 仅在 Linux 有 NVIDIA 环境时安装
 
 ### 使用 GNU Stow 管理软链接
 
@@ -76,20 +81,20 @@ bash ./script/setup.sh
 
 ```bash
 ❯ ls -l ~/.zshrc ~/.tmux.conf
-lrwxr-xr-x  kelf  dotfiles/.tmux.conf -> dotfiles/.tmux.conf
-lrwxr-xr-x  kelf  dotfiles/.zshrc -> dotfiles/.zshrc
+lrwxr-xr-x  1 kelf  staff  19  6  6 12:00 /Users/kelf/.tmux.conf -> /Users/kelf/dotfiles/.tmux.conf
+lrwxr-xr-x  1 kelf  staff  15  6  6 12:00 /Users/kelf/.zshrc -> /Users/kelf/dotfiles/.zshrc
 ```
 
-**创建软链接：**
+**创建软链接（避免整个目录被软链，运行时数据污染仓库）：**
 
 ```bash
-stow .
+stow --no-folding .
 ```
 
 **取消软链接：**
 
 ```bash
-stow -D .
+stow -D --no-folding .
 ```
 
 > 部分文件和目录已通过 `.stow-local-ignore` 排除（如 `assets/`、`doc/`、`script/` 等），避免误链接。

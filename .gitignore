@@ -1,16 +1,26 @@
 .DS_Store
 
+# 未纳入仓库的敏感/平台配置目录
 github-copilot/
 raycast/
 
-lazy-lock.json
-
+# 运行时生成的日志
 btop.log
-
 nvim.log
-.config/nvim/nvim-pack-lock.json
+
+# 备份/临时文件
+*.bak
+*.toml-*
+
+# 运行时生成的数据目录（配置本体仍被追踪）
 /.config/karabiner/automatic_backups
+/.config/yazi/plugins/*
+!/.config/yazi/plugins/smart-switch.yazi/
+!/.config/yazi/plugins/smart-tab.yazi/
 .tmux/plugins
-/.config/btop
-/.config/yazi/plugins
+
+# 本地私有文件
 zsh/.claude
+
+# 资源文件，不在 README 引用，避免误提交大文件
+assets/

@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # ──────────────────────────────────────────────────────────────────────
-# 此脚本用于在新机器上一键配置开发环境（无需Root权限）
-# 软件将安装在 ~/.local 下
+# 此脚本用于在新机器上一键配置开发环境
+# 尽量不需要 root；具体安装位置因工具而异：
+#   - cargo 工具 -> ~/.cargo/bin
+#   - eget 二进制 -> ~/.local/bin
+#   - 系统级软件（Neovim 等）-> 平台包管理器
 # ──────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -18,6 +21,11 @@ install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
 
 # 切换到脚本所在的目录
 cd "$(dirname "$0")"
+
+# macOS: 确保 Homebrew 路径在 PATH 中（Apple Silicon / Intel）
+if [ "$(uname -s)" = "Darwin" ]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
+fi
 
 # 如果命令不存在，则执行后面的安装命令
 ensure_cmd() {
@@ -146,6 +154,9 @@ if ! command -v eget >/dev/null 2>&1; then
   mv eget "$INSTALL_DIR/bin/"
 fi
 
+# 确保 eget 和后面安装到 ~/.local/bin 的工具能被找到
+export PATH="$INSTALL_DIR/bin:$PATH"
+
 # fzf 查找工具
 ensure_cmd fzf eget junegunn/fzf --to "$INSTALL_DIR/bin"
 
@@ -217,8 +228,13 @@ ensure_dir "$TPM_DIR" git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
 # 安装 uv
 ensure_cmd uv sh -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
 
-# 安装 nvitop
-ensure_cmd nvitop uv tool install nvitop
+# 安装 nvitop（仅 Linux 有 NVIDIA 环境才需要）
+if [ "$(uname -s)" = "Linux" ]; then
+  ensure_cmd nvitop uv tool install nvitop
+fi
+
+# 安装 kimi-cli
+ensure_cmd kimi uv tool install kimi-cli
 
 
 #  安装 fnm

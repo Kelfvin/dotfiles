@@ -9,7 +9,7 @@
                             {
                                 "from": { "key_code": "escape" },
                                 "to": [{ "key_code": "escape" }],
-                                "to_after_key_up": [{ "shell_command": "/opt/homebrew/bin/im-select com.apple.keylayout.ABC" }],
+                                "to_after_key_up": [{ "shell_command": "PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\" im-select com.apple.keylayout.ABC" }],
                                 "type": "basic"
                             }
                         ]

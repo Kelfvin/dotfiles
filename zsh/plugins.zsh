@@ -12,7 +12,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-source "$HOME/dotfiles/zsh/fzf-tab.zsh"
+source "$DOTFILES/zsh/fzf-tab.zsh"
 
 
 # ---- starship: 美化，提供环境信息
@@ -54,9 +54,11 @@ zstyle ":completion:*" matcher-list "m:{a-z}={A-Za-z}" # 匹配的时候忽略�
 # ╰──────────────────────────────────────────────────────────╯
 # Set up fzf key bindings and fuzzy completion
 # 非常强大，<C-r> 可以搜索历史命令，直接替代了atuin
-if [ -f ~/.fzf.zsh ]; then
+if command -v fzf >/dev/null 2>&1 && fzf --zsh >/dev/null 2>&1; then
+  eval "$(fzf --zsh)"
+elif [ -f ~/.fzf.zsh ]; then
   source ~/.fzf.zsh
 elif [ -f /usr/share/fzf/key-bindings.zsh ]; then
   source /usr/share/fzf/key-bindings.zsh
   source /usr/share/fzf/completion.zsh
-fi 
+fi

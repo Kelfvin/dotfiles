@@ -11,6 +11,12 @@ path=(
   /usr/local/bin
   $path
 )
+
+# macOS Homebrew (Apple Silicon / Intel)
+if [ "$(uname -s)" = "Darwin" ]; then
+  path=( /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/local/sbin $path )
+fi
+
 export PATH
 
 
