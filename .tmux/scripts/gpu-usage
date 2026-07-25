@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# Print a tmux-ready GPU usage segment.  An empty result means that the
+# platform does not expose a cheap, unprivileged utilization metric.
+
+case "$(uname -s)" in
+    Linux) ;;
+    *) exit 0 ;;
+esac
+
+average_numbers() {
+    awk '
+        /^[0-9]+([.][0-9]+)?$/ { total += $1; count++ }
+        END { if (count) printf "%.0f", total / count }
+    '
+}
+
+usage=""
+
+# NVIDIA: request the machine-readable utilization field instead of parsing
+# the human-oriented nvidia-smi table.
+if command -v nvidia-smi >/dev/null 2>&1; then
+    usage=$(nvidia-smi \
+        --query-gpu=utilization.gpu \
+        --format=csv,noheader,nounits 2>/dev/null | \
+        tr -d ' ' | average_numbers)
+fi
+
+# AMDGPU exposes this through sysfs.  Some Intel drivers provide the second
+# filename.  Average multiple GPUs, consistent with tmux-cpu's NVIDIA logic.
+if [ -z "$usage" ]; then
+    usage=$(
+        for metric in \
+            /sys/class/drm/card*/device/gpu_busy_percent \
+            /sys/class/drm/card*/device/gt_busy_percent
+        do
+            [ -r "$metric" ] && sed -n '1p' "$metric"
+        done | average_numbers
+    )
+fi
+
+[ -n "$usage" ] || exit 0
+
+if [ "$usage" -ge 80 ]; then
+    color='#f38ba8'
+elif [ "$usage" -ge 30 ]; then
+    color='#f9e2af'
+else
+    color='#a6e3a1'
+fi
+
+printf '#[fg=%s]GPU:%s%% ' "$color" "$usage"
