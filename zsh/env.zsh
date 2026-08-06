@@ -62,21 +62,11 @@ export MUSICFOX_ROOT=$HOME/.config/go-musicfox
 # --------------------------------------------------
 # Persistent SSH agent socket for tmux
 # --------------------------------------------------
-SSH_AGENT_LINK="$HOME/.ssh/agent.sock"
-
-# 新 SSH 登录时，将固定路径指向本次连接创建的真实 socket
-if [ -n "${SSH_AUTH_SOCK:-}" ] \
-    && [ -S "$SSH_AUTH_SOCK" ] \
-    && [ "$SSH_AUTH_SOCK" != "$SSH_AGENT_LINK" ]; then
-    ln -sfn "$SSH_AUTH_SOCK" "$SSH_AGENT_LINK"
-fi
-
 # 所有 shell，包括 tmux 中的 shell，都只使用固定路径
-if [ -S "$SSH_AGENT_LINK" ]; then
-    export SSH_AUTH_SOCK="$SSH_AGENT_LINK"
+# （链接的创建由 ~/.ssh/rc 在 SSH 登录时完成）
+if [ -S "$HOME/.ssh/agent.sock" ]; then
+    export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
 fi
-
-unset SSH_AGENT_LINK
 
 FNM_PATH="${HOME}/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
