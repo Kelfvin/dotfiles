@@ -173,6 +173,7 @@ alt-g = 'workspace G'
 alt-m = 'workspace M'
 alt-n = 'workspace N'
 alt-p = 'workspace P'
+alt-r = 'workspace R'
 
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -200,6 +201,7 @@ alt-shift-m = 'move-node-to-workspace M'
 alt-shift-g = 'move-node-to-workspace G'
 alt-shift-n = 'move-node-to-workspace N'
 alt-shift-p = 'move-node-to-workspace P'
+alt-shift-r = 'move-node-to-workspace R'
 
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
