@@ -7,6 +7,12 @@ raycast/
 # 运行时生成的日志
 btop.log
 nvim.log
+/.config/herdr/*.log
+
+# Herdr 运行时状态
+/.config/herdr/*.sock
+/.config/herdr/session.json
+/.config/herdr/.plugins.lock
 
 # 备份/临时文件
 *.bak

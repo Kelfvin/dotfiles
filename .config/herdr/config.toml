@@ -1,0 +1,20 @@
+# Herdr configuration managed by dotfiles.
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+space"
+split_vertical = "prefix+|"
+split_horizontal = "prefix+-"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[ui.toast]
+delivery = "system"
+
+[experimental]
+kitty_graphics = true
+pane_history = false
