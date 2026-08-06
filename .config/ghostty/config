@@ -76,3 +76,15 @@ keybind = cmd+digit_6=text:\x00\x36
 keybind = cmd+digit_7=text:\x00\x37
 keybind = cmd+digit_8=text:\x00\x38
 keybind = cmd+digit_9=text:\x00\x39
+
+#------------------------------------------------------------
+# Quick Terminal (Quake 风格下拉终端)
+#------------------------------------------------------------
+# Ctrl+` 在任意应用里呼出/关闭快速终端(需给 Ghostty 授权辅助功能权限)
+keybind = global:cmd+backquote=toggle_quick_terminal
+
+# 终端从屏幕顶部滑出, 高度占屏幕 40%
+quick-terminal-position = top
+quick-terminal-size     = 40%
+# 显示在鼠标所在屏幕 (main = 主屏幕)
+quick-terminal-screen   = mouse
