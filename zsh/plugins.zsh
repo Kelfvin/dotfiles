@@ -40,7 +40,8 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 
-# load completions
+# load completions (prepend so user completions override system ones)
+fpath=( "$HOME/.zfunc" $fpath )
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
