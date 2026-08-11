@@ -13,14 +13,10 @@ if test (command uname -s) = Darwin
     fish_add_path -gm /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/local/sbin
 end
 
-# fnm is installed here by script/setup.sh.
-set -l fnm_path "$HOME/.local/share/fnm"
-if test -d "$fnm_path"
-    fish_add_path -gm "$fnm_path"
-end
+# mise is installed to ~/.local/bin by script/setup.sh (already in PATH above);
+# its shims are managed by `mise activate fish` in plugins.fish.
 
 # starship / zoxide 由 script/setup.sh 安装到 ~/.cargo/bin（macOS 也可 brew install）。
-
 
 # ╭──────────────────────────────────────────────────────────╮
 # │                 XDG Base Directories                     │
@@ -29,7 +25,6 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
-
 
 # Hugging Face 镜像
 set -gx HF_ENDPOINT https://hf-mirror.com
@@ -42,7 +37,6 @@ if test (command uname -s) = Darwin
     set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
     set -gx HOMEBREW_API_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles/api
 end
-
 
 # 自定义 Starship 的配置目录
 set -gx STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"

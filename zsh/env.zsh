@@ -68,10 +68,9 @@ if [ -S "$HOME/.ssh/agent.sock" ]; then
     export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
 fi
 
-FNM_PATH="${HOME}/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "$(fnm env --shell zsh)"
+# mise: runtime version manager (replaces fnm)
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
 fi
 
 

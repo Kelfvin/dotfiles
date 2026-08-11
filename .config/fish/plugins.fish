@@ -13,9 +13,10 @@ if status is-interactive
         zoxide init fish | source
     end
 
-    # fnm: Fish equivalent of `eval "$(fnm env --shell zsh)"`.
-    if command -q fnm
-        fnm env --shell fish | source
+    # mise: runtime version manager (replaces fnm). Fish equivalent of
+    # `eval "$(mise activate zsh)"`.
+    if command -q mise
+        mise activate fish | source
     end
 
     # fzf: official Fish integration, sourced verbatim from `fzf --fish`.

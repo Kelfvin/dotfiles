@@ -50,10 +50,10 @@ ensure_dir() {
 # ╰──────────────────────────────────────────────────────────╯
 
 # ── cmake ─────────────────────────────────────────────────────────────
-# 编译工作
+# 仅当 cargo-binstall 回退到源码编译时才需要（默认走预编译二进制）
 if ! command -v cmake >/dev/null 2>&1; then
-	echo "cmake is required..."
-	exit 1
+	echo "WARNING: cmake not found. Prebuilt binaries will be used;"
+	echo "         only needed if cargo-binstall falls back to source compilation."
 fi
 
 
@@ -167,6 +167,9 @@ ensure_cmd fastfetch eget fastfetch-cli/fastfetch --to "$INSTALL_DIR/bin"
 ensure_cmd starship cargo binstall --no-confirm starship
 ensure_cmd zoxide cargo binstall --no-confirm zoxide
 
+# topgrade 一键升级所有包管理器（brew、cargo、uv、TPM…）
+ensure_cmd topgrade cargo binstall --no-confirm topgrade
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
@@ -238,8 +241,9 @@ if [ "$(uname -s)" = "Linux" ]; then
 fi
 
 
-#  安装 fnm
-ensure_cmd fnm eget Schniz/fnm --to "$INSTALL_DIR/bin"
+#  安装 mise（运行时版本管理器，替代 fnm；官方脚本默认安装到 ~/.local/bin）
+#  MISE_INSTALL_PATH 显式指定安装位置，避免脚本探测路径的歧义
+ensure_cmd mise sh -c 'MISE_INSTALL_PATH="'"$INSTALL_DIR"'bin/mise" curl https://mise.jdx.dev/install.sh | sh'
 
 
 # ── 生成 Fish 补全（每台机器本地生成，不进 dotfiles 仓库）─────────────
@@ -259,7 +263,7 @@ if command -v fish >/dev/null 2>&1; then
   if command -v starship >/dev/null 2>&1 && ! has_vendor_comp starship; then
     starship completions fish > "$FISH_COMP_DIR/starship.fish"
   fi
-  if command -v fnm >/dev/null 2>&1 && ! has_vendor_comp fnm; then
-    fnm completions --shell fish > "$FISH_COMP_DIR/fnm.fish"
+  if command -v mise >/dev/null 2>&1 && ! has_vendor_comp mise; then
+    mise completion fish > "$FISH_COMP_DIR/mise.fish"
   fi
 fi

@@ -66,6 +66,12 @@ function brew_clean_cache_all() {
 # 升级所有 Homebrew 包，然后清空缓存
 # --------------------------------------------------
 function brew_upgrade_and_clean() {
+    if command -v topgrade >/dev/null 2>&1; then
+        echo "⬆️ 使用 topgrade 升级所有包管理器（brew、cargo、uv、TPM…）..."
+        topgrade
+        return $?
+    fi
+
     echo "⬆️ 正在升级 Homebrew..."
     brew update
     echo "⬆️ 正在升级 Homebrew 包..."

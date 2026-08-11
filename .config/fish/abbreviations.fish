@@ -14,6 +14,7 @@ abbr --add tns 'tmux new -s'
 abbr --add nv nvim
 abbr --add lg lazygit
 abbr --add hh herdr
+abbr --add tg topgrade
 abbr --add fr fish_reload
 
 ## Modified commands
