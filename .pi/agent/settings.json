@@ -6,11 +6,12 @@
   "defaultThinkingLevel": "max",
   "packages": [
     "npm:pi-web-access",
-    "npm:@narumitw/pi-lsp",
     "npm:@pi-unipi/notify",
     "npm:pi-subagents",
     "npm:pi-zentui",
     "npm:@narumitw/pi-plan-mode",
-    "npm:@latentminds/pi-quotas"
+    "npm:@latentminds/pi-quotas",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-lens"
   ]
 }
