@@ -99,6 +99,17 @@ stow -D --no-folding .
 
 > 部分文件和目录已通过 `.stow-local-ignore` 排除（如 `assets/`、`doc/`、`script/` 等），避免误链接。
 
+### Fish Shell
+
+Fish 配置位于 `.config/fish/`，按环境变量、历史记录、插件、缩写和快捷键拆分；`functions/` 中是从 zsh 迁移的函数。原有的 `.zshrc` 和 `zsh/` 目录不会被修改，两个 shell 可以并存。
+
+```bash
+stow --no-folding .
+chsh -s "$(command -v fish)"  # 可选：将 Fish 设为默认 shell
+```
+
+Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fzf --fish` 提供 `Ctrl-R`、`Ctrl-T`、`Alt-C` 以及 Tab 模糊补全。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
+
 ### Tmux 插件安装
 
 首次进入 Tmux 后，按 `<C-a> + I`（大写 i）自动安装插件。
