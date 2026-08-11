@@ -11,12 +11,14 @@
 ## 🛠️ 核心工具栈
 
 | 类别 | 工具 | 说明 |
-|------|------|------|
+| ------ | ------ | ------ |
 | 编辑器 | [Neovim](https://neovim.io/) | 极速启动，SSH 场景下秒开项目；使用 **VimPack** 进行插件管理 |
 | 终端 | ~~Kitty~~ → [Ghostty](https://ghostty.org/) | 新一代终端模拟器，GPU 加速渲染，速度极快 |
 | Shell | [Fish](https://fishshell.com/) | 主 shell，原生补全/语法高亮/autosuggestion；zsh 配置保留作服务器 fallback |
-| 终端复用器 | [Tmux](https://github.com/tmux/tmux) | 终端复用器，在服务器上实现会话持久化 |
+| 终端多代理面板 | [herdr](https://herdr.dev/) | 终端内多代理面板（tmux 内嵌）；部分服务器只有 tmux，相关配置仍保留 |
+| AI 编程助手 | [Pi](https://github.com/earendil-works/pi-coding-agent) | 终端 AI 编码代理，支持多代理与扩展生态 |
 | 窗口管理 | [Aerospace](https://github.com/nikitabobko/AeroSpace) | 平铺式窗口管理器，支持虚拟桌面与快速窗口切换 |
+| 工作区自动化 | [flashspace](https://github.com/wojciech-kulik/FlashSpace) | 按应用自动切换桌面空间 |
 | 启动器 | [Raycast](https://www.raycast.com/) | 启动器与效率工具，快速查找文件、启动应用 |
 | 输入法 | ~~Rime~~ → 微信输入法 | 搭配 **Karabiner-Elements** 实现 `ESC` 切换英文模式 |
 | 按键映射 | [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | `ESC` 切换输入法、`Caps Lock` ↔ `Ctrl` 交换、外接 Windows 键盘适配 |
@@ -24,16 +26,19 @@
 ## 📦 CLI 工具箱
 
 | 工具 | 说明 |
-|------|------|
+| ------ | ------ |
 | [lazygit](https://github.com/jesseduffield/lazygit) | 终端里的 Git TUI，直观高效 |
 | [fzf](https://github.com/junegunn/fzf) | 模糊查找神器：文件、历史记录、命令…… |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | `cd` 的替代品，智能跳转已访问目录 |
+| [mise](https://mise.jdx.dev/) | 运行时版本管理器（Node 等），替代 fnm |
 | [bat](https://github.com/sharkdp/bat) | 带语法高亮的 `cat` |
 | [tldr](https://tldr.sh/) | 简洁版 `man`，直击常用示例 |
 | [ripgrep (rg)](https://github.com/BurntSushi/ripgrep) | 极速 `grep`，默认高亮 |
 | [fd](https://github.com/sharkdp/fd) | 更友好的 `find`，快速且带高亮 |
 | [yazi](https://github.com/sxyazi/yazi) | 终端文件管理器 |
 | [tokei](https://github.com/XAMPPRocky/tokei) | 代码统计，支持多种语言 |
+| [duf](https://github.com/muesli/duf) | 更友好的 `df`，磁盘用量一览 |
+| [topgrade](https://github.com/topgrade-rs/topgrade) | 一键升级全部包管理器（brew、cargo、uv、TPM…） |
 
 ## 🚀 快速开始
 
@@ -45,13 +50,14 @@
 bash ./script/setup.sh
 ```
 
-> 需要提前安装 `cmake`。
+> 预编译二进制优先，通常无需额外依赖；仅在 cargo-binstall 回退到源码编译时需要 `cmake`。
 
 ### setup.sh 原理
 
 这个脚本的设计目标是**在新机器上一键构建完整的 CLI 开发环境**，尽量不需要 root（Linux 下仅系统包管理步骤需要 sudo）。
 
 **安装位置：**
+
 - `cargo-binstall` / `cargo install` 安装的工具位于 `~/.cargo/bin`
 - `eget` 下载的二进制位于 `~/.local/bin`
 - 平台相关的系统级软件（Neovim、ImageMagick、lazygit）优先使用系统包管理器
@@ -62,7 +68,7 @@ bash ./script/setup.sh
    - ripgrep、eza、fd-find、du-dust、yazi、tlrc、tokei、tree-sitter-cli、bat
 
 2. **GitHub Release 二进制** — 通过 `eget` 自动下载最新 release
-   - fzf、fastfetch、fnm、ImageMagick
+   - fzf、fastfetch、mise、ImageMagick
 
 3. **系统包管理器** — 平台适配，优先使用系统原生包
    - **macOS**：`brew install`（Neovim、ImageMagick、lazygit），需要提前安装 Homebrew
@@ -70,6 +76,7 @@ bash ./script/setup.sh
    - **其他 Linux**：fallback 到 `eget` 下载预编译包
 
 **其他工具：**
+
 - **TPM**（Tmux Plugin Manager）：`git clone` 到 `~/.tmux/plugins/tpm`
 - **uv**（Python 包管理器）：curl 官方脚本安装
 - **starship / zoxide**：`cargo binstall` 安装（fish 主 shell 依赖）
@@ -111,9 +118,8 @@ stow -D --no-folding .
 ### 其他已纳入仓库的配置
 
 | 配置 | 说明 |
-|------|------|
+| ------ | ------ |
 | `.config/sketchybar/` | macOS 菜单栏状态栏（Spaces/时钟/音量/电池） |
-| `.config/herdr/` | 终端多代理面板（tmux 内嵌） |
 | `.config/flashspace/` | 按应用自动切换桌面空间 |
 | `.config/karabiner/` | 按键映射（ESC 切输入法、Caps↔Ctrl） |
 | `.config/aerospace/` | 平铺窗口管理器 |
@@ -144,12 +150,12 @@ Fish 使用原生补全、语法高亮和 autosuggestion，Tab 补全启用 `fis
 
 | 文件 | 说明 |
 |------|------|
-| `.tmux.conf` | tmux 配置（TPM 插件、状态栏、窗口图标映射） |
+| `.tmux.conf` | tmux 配置（TPM 插件、状态栏、窗口图标映射；仅服务器环境使用） |
 | `.zshrc` + `zsh/` | zsh fallback 配置（服务器环境使用） |
 
-### Tmux 插件安装
+### Tmux（服务器环境）
 
-首次进入 Tmux 后，按 `<C-a> + I`（大写 i）自动安装插件。
+本地终端面板已由 herdr 替代；但部分服务器只提供 tmux，`.tmux.conf` 与 [TPM](https://github.com/tmux-plugins/tpm) 仍保留。首次进入服务器 Tmux 后按 `<C-space> + I`（大写 i）自动安装插件。
 
 ### Pi 配置
 
