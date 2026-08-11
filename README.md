@@ -18,7 +18,6 @@
 | 终端多代理面板 | [herdr](https://herdr.dev/) | 终端内多代理面板（tmux 内嵌）；部分服务器只有 tmux，相关配置仍保留 |
 | AI 编程助手 | [Pi](https://github.com/earendil-works/pi-coding-agent) | 终端 AI 编码代理，支持多代理与扩展生态 |
 | 窗口管理 | [Aerospace](https://github.com/nikitabobko/AeroSpace) | 平铺式窗口管理器，支持虚拟桌面与快速窗口切换 |
-| 工作区自动化 | [flashspace](https://github.com/wojciech-kulik/FlashSpace) | 按应用自动切换桌面空间 |
 | 启动器 | [Raycast](https://www.raycast.com/) | 启动器与效率工具，快速查找文件、启动应用 |
 | 输入法 | ~~Rime~~ → 微信输入法 | 搭配 **Karabiner-Elements** 实现 `ESC` 切换英文模式 |
 | 按键映射 | [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | `ESC` 切换输入法、`Caps Lock` ↔ `Ctrl` 交换、外接 Windows 键盘适配 |
@@ -120,7 +119,6 @@ stow -D --no-folding .
 | 配置 | 说明 |
 | ------ | ------ |
 | `.config/sketchybar/` | macOS 菜单栏状态栏（Spaces/时钟/音量/电池） |
-| `.config/flashspace/` | 按应用自动切换桌面空间 |
 | `.config/karabiner/` | 按键映射（ESC 切输入法、Caps↔Ctrl） |
 | `.config/aerospace/` | 平铺窗口管理器 |
 | `.ssh/rc` | SSH 登录时固定 agent socket 路径（配合 tmux 复用） |
