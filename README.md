@@ -113,6 +113,7 @@ stow -D --no-folding .
 
 - `kitty/`、`wezterm/` — 旧终端，已迁移到 Ghostty
 - `yabai/`、`skhd/` — 旧窗口管理器，已迁移到 Aerospace
+- `flashspace/` — 旧工作区自动化，已弃用
 
 ### 其他已纳入仓库的配置
 
