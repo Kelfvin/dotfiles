@@ -239,3 +239,26 @@ ensure_cmd kimi uv tool install kimi-cli
 
 #  安装 fnm
 ensure_cmd fnm eget Schniz/fnm --to "$INSTALL_DIR/bin"
+
+
+# ── 生成 Fish 补全（每台机器本地生成，不进 dotfiles 仓库）─────────────
+# 包管理器安装的工具一般自带 fish 补全（brew 装到 vendor_completions.d）；
+# 通过 zinit/eget/cargo 安装的二进制没有补全，这里按需生成。
+has_vendor_comp() {
+  local prefix
+  for prefix in /opt/homebrew /usr/local; do
+    [ -f "$prefix/share/fish/vendor_completions.d/$1.fish" ] && return 0
+  done
+  return 1
+}
+
+if command -v fish >/dev/null 2>&1; then
+  FISH_COMP_DIR="$HOME/.config/fish/completions"
+  install -d "$FISH_COMP_DIR"
+  if command -v starship >/dev/null 2>&1 && ! has_vendor_comp starship; then
+    starship completions fish > "$FISH_COMP_DIR/starship.fish"
+  fi
+  if command -v fnm >/dev/null 2>&1 && ! has_vendor_comp fnm; then
+    fnm completions --shell fish > "$FISH_COMP_DIR/fnm.fish"
+  fi
+fi
