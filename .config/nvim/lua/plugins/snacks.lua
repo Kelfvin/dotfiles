@@ -19,6 +19,7 @@ Snacks.setup({
 	scope = { enabled = true },
 	scroll = { enabled = true },
 	statuscolumn = { enabled = true },
+	terminal = { enabled = true },
 	words = { enabled = true },
 	styles = {
 		notification = {},
@@ -148,3 +149,11 @@ map("<leader>N", Snacks.notifier.hide, "Notification history")
 map("<leader>gb", Snacks.git.blame_line, "Git blame line")
 
 map("<leader>K", Snacks.image.hover, "Display image in hover")
+
+-- terminal (replaces toggleterm.nvim)
+map("<leader>tt", function()
+	Snacks.terminal.toggle()
+end, "Toggle terminal")
+map("<leader>tT", function()
+	Snacks.terminal.toggle(nil, { win = { position = "float" } })
+end, "Toggle floating terminal")
