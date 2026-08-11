@@ -1,0 +1,16 @@
+{
+  "lastChangelogVersion": "0.84.1",
+  "theme": "dark",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "kimi-for-coding",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:@narumitw/pi-lsp",
+    "npm:@pi-unipi/notify",
+    "npm:pi-subagents",
+    "npm:pi-zentui",
+    "npm:@narumitw/pi-plan-mode",
+    "npm:@latentminds/pi-quotas"
+  ]
+}

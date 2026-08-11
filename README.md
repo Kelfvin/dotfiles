@@ -113,3 +113,14 @@ Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fzf --fish
 ### Tmux 插件安装
 
 首次进入 Tmux 后，按 `<C-a> + I`（大写 i）自动安装插件。
+
+### Pi 配置
+
+Pi 的全局设置位于 `~/.pi/agent/settings.json`，仓库中对应路径为 `.pi/agent/settings.json`。
+`~/.pi/agent/` 目录同时包含运行时会话、缓存、npm 包等动态数据，因此**必须使用** `--no-folding` 只软链单个配置文件，避免把整个目录链到仓库：
+
+```bash
+stow --no-folding .
+```
+
+> 注意：Stow 按路径 1:1 镜像，若把设置放在 `.config/pi/settings.json`，Stow 只会创建 `~/.config/pi/settings.json`，而 Pi 实际读取的是 `~/.pi/agent/settings.json`。
