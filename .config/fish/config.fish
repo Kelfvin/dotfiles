@@ -1,5 +1,9 @@
 # Fish entry point.
 
+# Suppress the startup banner ("Welcome to fish, the friendly interactive
+# shell...") by keeping fish_greeting empty.
+set -g fish_greeting
+
 # Resolve the dotfiles root from this file's real path (stow symlinks are
 # followed); fall back to the documented $HOME/dotfiles location.
 set -l dotfiles_root (path resolve (status filename)/../../..)
