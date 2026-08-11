@@ -3,5 +3,8 @@
 # 不读取 ~/.config/topgrade/topgrade.toml（实测 17.9.0 不生效）。
 
 [misc]
-# 跳过 macOS 系统更新（softwareupdate），系统更新改为手动控制
-disable = ["system"]
+# 跳过 macOS 系统更新（softwareupdate）与容器步骤（本机 docker daemon 不常开）
+disable = ["system", "containers"]
+# topgrade 自身由 Cargo 步骤（cargo-install-update）负责更新，
+# 避免自更新请求 GitHub API 时再触发限流 403
+no_self_update = true
