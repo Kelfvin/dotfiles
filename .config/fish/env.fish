@@ -19,21 +19,7 @@ if test -d "$fnm_path"
     fish_add_path -gm "$fnm_path"
 end
 
-# kimi-code (only add it when the directory exists).
-set -l kimi_code_path "$HOME/.kimi-code/bin"
-if test -d "$kimi_code_path"
-    fish_add_path -gm "$kimi_code_path"
-end
-
-# Bridge binaries downloaded by the existing zinit-based zsh setup.  These
-# entries are optional and can be removed once the tools are installed globally.
-for zinit_path in \
-    "$HOME/.local/share/zinit/plugins/ajeetdsouza---zoxide" \
-    "$HOME/.local/share/zinit/plugins/starship---starship"
-    if test -d "$zinit_path"
-        fish_add_path -gm "$zinit_path"
-    end
-end
+# starship / zoxide 由 script/setup.sh 安装到 ~/.cargo/bin（macOS 也可 brew install）。
 
 
 # ╭──────────────────────────────────────────────────────────╮

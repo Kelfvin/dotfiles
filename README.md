@@ -14,6 +14,7 @@
 |------|------|------|
 | 编辑器 | [Neovim](https://neovim.io/) | 极速启动，SSH 场景下秒开项目；使用 **VimPack** 进行插件管理 |
 | 终端 | ~~Kitty~~ → [Ghostty](https://ghostty.org/) | 新一代终端模拟器，GPU 加速渲染，速度极快 |
+| Shell | [Fish](https://fishshell.com/) | 主 shell，原生补全/语法高亮/autosuggestion；zsh 配置保留作服务器 fallback |
 | 终端复用器 | [Tmux](https://github.com/tmux/tmux) | 终端复用器，在服务器上实现会话持久化 |
 | 窗口管理 | [Aerospace](https://github.com/nikitabobko/AeroSpace) | 平铺式窗口管理器，支持虚拟桌面与快速窗口切换 |
 | 启动器 | [Raycast](https://www.raycast.com/) | 启动器与效率工具，快速查找文件、启动应用 |
@@ -71,7 +72,8 @@ bash ./script/setup.sh
 **其他工具：**
 - **TPM**（Tmux Plugin Manager）：`git clone` 到 `~/.tmux/plugins/tpm`
 - **uv**（Python 包管理器）：curl 官方脚本安装
-- **Python CLI**：`uv tool install kimi-cli`；`nvitop` 仅在 Linux 有 NVIDIA 环境时安装
+- **starship / zoxide**：`cargo binstall` 安装（fish 主 shell 依赖）
+- **Python CLI**：`nvitop` 仅在 Linux 有 NVIDIA 环境时安装
 
 ### 使用 GNU Stow 管理软链接
 
@@ -99,16 +101,51 @@ stow -D --no-folding .
 
 > 部分文件和目录已通过 `.stow-local-ignore` 排除（如 `assets/`、`doc/`、`script/` 等），避免误链接。
 
-### Fish Shell
+### 归档配置（archive/）
 
-Fish 配置位于 `.config/fish/`，按环境变量、历史记录、插件、缩写和快捷键拆分；`functions/` 中是从 zsh 迁移的函数。原有的 `.zshrc` 和 `zsh/` 目录不会被修改，两个 shell 可以并存。
+已弃用但保留历史参考的配置放在 `archive/` 目录（不会被 Stow 链接）：
+
+- `kitty/`、`wezterm/` — 旧终端，已迁移到 Ghostty
+- `yabai/`、`skhd/` — 旧窗口管理器，已迁移到 Aerospace
+
+### 其他已纳入仓库的配置
+
+| 配置 | 说明 |
+|------|------|
+| `.config/sketchybar/` | macOS 菜单栏状态栏（Spaces/时钟/音量/电池） |
+| `.config/herdr/` | 终端多代理面板（tmux 内嵌） |
+| `.config/flashspace/` | 按应用自动切换桌面空间 |
+| `.config/karabiner/` | 按键映射（ESC 切输入法、Caps↔Ctrl） |
+| `.config/aerospace/` | 平铺窗口管理器 |
+| `.ssh/rc` | SSH 登录时固定 agent socket 路径（配合 tmux 复用） |
+
+### 辅助脚本（script/）
+
+- `setup.sh` — 一键安装开发环境（见上文）
+- `backup_mac.sh` — 备份 Brewfile 和 .ssh 到 OneDrive
+- `start-camera-ftp.sh` — 启动相机 FTP 传输服务器（pure-ftpd）
+
+### 文档（doc/）
+
+- `doc/Neovim.md` — Neovim 配置结构说明（vim.pack 插件管理）
+
+### Fish Shell（主 shell）
+
+Fish 是日常主 shell，配置位于 `.config/fish/`，按环境变量、历史记录、插件、缩写和快捷键拆分；`functions/` 中是迁移自 zsh 的函数。zsh 配置（`.zshrc`、`zsh/`）保留用于服务器等不支持 fish 的环境，两者可以并存。
 
 ```bash
 stow --no-folding .
-chsh -s "$(command -v fish)"  # 可选：将 Fish 设为默认 shell
+chsh -s "$(command -v fish)"  # 将 Fish 设为默认 shell（需手动执行，会提示密码）
 ```
 
 Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fish_completion_match_mode fuzzy` 开启 Tab 模糊补全；`Ctrl-R` 由 Fish 内置的历史搜索接管。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
+
+### 系统级配置
+
+| 文件 | 说明 |
+|------|------|
+| `.tmux.conf` | tmux 配置（TPM 插件、状态栏、窗口图标映射） |
+| `.zshrc` + `zsh/` | zsh fallback 配置（服务器环境使用） |
 
 ### Tmux 插件安装
 
@@ -116,14 +153,11 @@ Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fish_compl
 
 ### Pi 配置
 
-Pi 的全局设置位于 `~/.pi/agent/settings.json`，仓库中对应路径为 `.config/pi/settings.json`。由于 `~/.pi/agent/` 同时包含运行时会话、缓存、npm 包等动态数据，因此**不能**通过 Stow 直接软链整个目录。推荐做法：
+Pi 的全局设置位于 `~/.pi/agent/settings.json`，仓库中对应路径为 `.pi/agent/settings.json`，由 Stow 直接管理软链（`--no-folding` 只链接单个文件，不会把运行时目录链进来）。
 
 ```bash
-# 用 Stow 部署其他配置
+# 用 Stow 部署其他配置（.pi/agent/settings.json 会一并链接）
 stow --no-folding .
-
-# 再手动把 Pi 设置软链到仓库中的版本
-ln -s "$HOME/dotfiles/.config/pi/settings.json" "$HOME/.pi/agent/settings.json"
 ```
 
-> 注意：Stow 按路径 1:1 镜像，若把设置放在 `.config/pi/settings.json`，Stow 只会创建 `~/.config/pi/settings.json`，而 Pi 实际读取的是 `~/.pi/agent/settings.json`。
+> 注意：`~/.pi/agent/` 下还有其他运行时数据（会话、缓存、npm 包等），仅 `settings.json` 通过软链纳入仓库管理。

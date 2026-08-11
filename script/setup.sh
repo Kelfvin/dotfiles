@@ -163,6 +163,10 @@ ensure_cmd fzf eget junegunn/fzf --to "$INSTALL_DIR/bin"
 # fastfetch 系统信息展示工具
 ensure_cmd fastfetch eget fastfetch-cli/fastfetch --to "$INSTALL_DIR/bin"
 
+# starship 提示符 & zoxide 目录跳转（fish 主 shell 依赖，不依赖 zinit）
+ensure_cmd starship cargo binstall --no-confirm starship
+ensure_cmd zoxide cargo binstall --no-confirm zoxide
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯
@@ -232,9 +236,6 @@ ensure_cmd uv sh -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
 if [ "$(uname -s)" = "Linux" ]; then
   ensure_cmd nvitop uv tool install nvitop
 fi
-
-# 安装 kimi-cli
-ensure_cmd kimi uv tool install kimi-cli
 
 
 #  安装 fnm

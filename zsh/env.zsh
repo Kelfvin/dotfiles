@@ -75,15 +75,7 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 
-# kimi-code（仅在该路径存在时加入 PATH）
-KIMI_CODE_PATH="$HOME/.kimi-code/bin"
-if [ -d "$KIMI_CODE_PATH" ]; then
-  export PATH="$KIMI_CODE_PATH:$PATH"
-fi
-unset KIMI_CODE_PATH
-
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
-  --color=bg:-1,bg+:#313244 \
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \  --color=bg:-1,bg+:#313244 \
   --color=fg:#cdd6f4,fg+:#cdd6f4 \
   --color=hl:#f38ba8,hl+:#f38ba8 \
   --color=spinner:#f5e0dc,header:#f38ba8,info:#cba6f7 \
