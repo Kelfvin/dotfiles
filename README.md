@@ -114,12 +114,12 @@ stow -D --no-folding .
 - `kitty/`、`wezterm/` — 旧终端，已迁移到 Ghostty
 - `yabai/`、`skhd/` — 旧窗口管理器，已迁移到 Aerospace
 - `flashspace/` — 旧工作区自动化，已弃用
+- `sketchybar/` — 旧菜单栏状态栏，已弃用
 
 ### 其他已纳入仓库的配置
 
 | 配置 | 说明 |
 | ------ | ------ |
-| `.config/sketchybar/` | macOS 菜单栏状态栏（Spaces/时钟/音量/电池） |
 | `.config/karabiner/` | 按键映射（ESC 切输入法、Caps↔Ctrl） |
 | `.config/aerospace/` | 平铺窗口管理器 |
 | `.ssh/rc` | SSH 登录时固定 agent socket 路径（配合 tmux 复用） |
