@@ -108,7 +108,7 @@ stow --no-folding .
 chsh -s "$(command -v fish)"  # 可选：将 Fish 设为默认 shell
 ```
 
-Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fzf --fish` 提供 `Ctrl-R`、`Ctrl-T`、`Alt-C` 以及 Tab 模糊补全。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
+Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fish_completion_match_mode fuzzy` 开启 Tab 模糊补全；`Ctrl-R` 由 Fish 内置的历史搜索接管。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
 
 ### Tmux 插件安装
 
@@ -116,11 +116,14 @@ Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fzf --fish
 
 ### Pi 配置
 
-Pi 的全局设置位于 `~/.pi/agent/settings.json`，仓库中对应路径为 `.pi/agent/settings.json`。
-`~/.pi/agent/` 目录同时包含运行时会话、缓存、npm 包等动态数据，因此**必须使用** `--no-folding` 只软链单个配置文件，避免把整个目录链到仓库：
+Pi 的全局设置位于 `~/.pi/agent/settings.json`，仓库中对应路径为 `.config/pi/settings.json`。由于 `~/.pi/agent/` 同时包含运行时会话、缓存、npm 包等动态数据，因此**不能**通过 Stow 直接软链整个目录。推荐做法：
 
 ```bash
+# 用 Stow 部署其他配置
 stow --no-folding .
+
+# 再手动把 Pi 设置软链到仓库中的版本
+ln -s "$HOME/dotfiles/.config/pi/settings.json" "$HOME/.pi/agent/settings.json"
 ```
 
 > 注意：Stow 按路径 1:1 镜像，若把设置放在 `.config/pi/settings.json`，Stow 只会创建 `~/.config/pi/settings.json`，而 Pi 实际读取的是 `~/.pi/agent/settings.json`。

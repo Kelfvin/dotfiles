@@ -7,11 +7,6 @@ if status is-interactive
     set -g fish_key_bindings fish_default_key_bindings
     bind --mode default \cf forward-char
 
-    # fzf's Fish integration uses Shift-Tab by default.  Bind Tab as well so
-    # Fish behaves like the old zsh/fzf-tab setup.  If fzf is unavailable,
-    # leave Fish's native Tab completion untouched.
-    if functions -q fzf_complete
-        bind --mode default tab fzf_complete
-        bind --mode insert tab fzf_complete
-    end
+    # Use Fish's built-in fuzzy completion in the pager instead of fzf.
+    set -g fish_completion_match_mode fuzzy
 end
