@@ -138,7 +138,7 @@ stow --no-folding .
 chsh -s "$(command -v fish)"  # 将 Fish 设为默认 shell（需手动执行，会提示密码）
 ```
 
-Fish 使用原生补全、语法高亮和 autosuggestion，并通过 `fish_completion_match_mode fuzzy` 开启 Tab 模糊补全；`Ctrl-R` 由 Fish 内置的历史搜索接管。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
+Fish 使用原生补全、语法高亮和 autosuggestion，Tab 补全启用 `fish_completion_match_mode fuzzy` 模糊匹配；fzf 官方集成（`fzf --fish`）提供 `Ctrl-R` 历史搜索、`Ctrl-T` 文件搜索、`Alt-C` 目录跳转、`Shift-Tab` 补全。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
 
 ### 系统级配置
 
