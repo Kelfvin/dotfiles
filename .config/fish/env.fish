@@ -80,3 +80,20 @@ if not set -q FZF_DEFAULT_OPTS
 else if not string match -q -- '*--color=bg:-1,bg+:#313244*' "$FZF_DEFAULT_OPTS"
     set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS $fzf_opts"
 end
+
+# fzf previews (official opts variables consumed by `fzf --fish`).
+# Ctrl-R needs none: the official history widget already adds a dynamic
+# preview (multi-line command expansion + syntax highlighting) unless the
+# user sets --preview themselves.
+
+# Ctrl-T: preview files with bat, fall back to eza for directories.
+# Keep FZF_CTRL_T_OPTS as ONE string with the preview command in quotes:
+# `fzf --fish` joins its elements with spaces, so a split list would let fzf
+# parse `--color=always` (a bat flag) as its own color option and fail with
+# "invalid color specification: always". fzf's own option parser honors the
+# quotes and passes the whole quoted string to the preview shell.
+set -gx FZF_CTRL_T_OPTS "--preview 'bat --color=always {} 2>/dev/null || eza -1 --color=always {}' --preview-window=right:60%"
+
+# Alt-C: preview directory contents with eza (matches the old zsh fzf-tab
+# cd preview).
+set -gx FZF_ALT_C_OPTS "--preview 'eza -1 --color=always {}' --preview-window=right:60%"
