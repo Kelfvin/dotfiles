@@ -1,0 +1,7 @@
+# Topgrade 配置（由 dotfiles 管理）
+# 注意：topgrade 只读取 ~/.config/topgrade.toml（最高优先级路径），
+# 不读取 ~/.config/topgrade/topgrade.toml（实测 17.9.0 不生效）。
+
+[misc]
+# 跳过 macOS 系统更新（softwareupdate），系统更新改为手动控制
+disable = ["system"]
