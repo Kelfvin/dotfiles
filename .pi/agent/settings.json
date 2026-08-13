@@ -12,6 +12,7 @@
     "npm:@narumitw/pi-plan-mode",
     "npm:@latentminds/pi-quotas",
     "npm:@juicesharp/rpiv-todo",
-    "npm:pi-lens"
+    "npm:pi-lens",
+    "npm:pi-token-speed"
   ]
 }

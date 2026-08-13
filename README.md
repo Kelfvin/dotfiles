@@ -37,6 +37,14 @@
 | [yazi](https://github.com/sxyazi/yazi) | 终端文件管理器 |
 | [tokei](https://github.com/XAMPPRocky/tokei) | 代码统计，支持多种语言 |
 | [duf](https://github.com/muesli/duf) | 更友好的 `df`，磁盘用量一览 |
+| [delta](https://github.com/dandavison/delta) | git diff 语法高亮 pager（git 侧已配置） |
+| [direnv](https://direnv.net/) | 目录级环境变量，进项目自动加载 |
+| [glow](https://github.com/charmbracelet/glow) | 终端里渲染 markdown |
+| [chafa](https://github.com/hpjansson/chafa) | 终端内显示图片（yazi SSH 图片预览依赖） |
+| [gdu](https://github.com/dundee/gdu) | 交互式磁盘分析（SSH 清盘利器） |
+| [gping](https://github.com/orf/gping) | 图形化 ping，延迟一眼看懂 |
+| [yq](https://github.com/mikefarah/yq) | YAML/TOML/JSON 互相处理 |
+| [jless](https://github.com/PaulJuliusMartinez/jless) | JSON 交互式浏览 |
 | [topgrade](https://github.com/topgrade-rs/topgrade) | 一键升级全部包管理器（brew、cargo、uv、TPM…） |
 
 ## 🚀 快速开始
@@ -127,8 +135,42 @@ stow -D --no-folding .
 ### 辅助脚本（script/）
 
 - `setup.sh` — 一键安装开发环境（见上文）
+- `completions.sh` — 补全清单：为自装工具生成 zsh/fish 补全（见下文）
 - `backup_mac.sh` — 备份 Brewfile 和 .ssh 到 OneDrive
 - `start-camera-ftp.sh` — 启动相机 FTP 传输服务器（pure-ftpd）
+
+### 补全管理（completions）
+
+自行安装的工具（cargo-binstall / eget / 官方脚本）不带补全，系统包管理器（brew/pacman/apt）安装的才自带。为此用一份**与安装方式、平台解耦的补全清单**统一管理生成物，macOS / Arch / Ubuntu 同一份脚本：
+
+```bash
+bash ~/dotfiles/script/completions.sh   # 幂等，可随时重跑
+# 或 zsh 里直接：refresh_completions
+```
+
+**触发时机：**
+
+- `setup.sh` 一键安装完成后自动生成
+- `update_all`（topgrade）升级完成后自动重新生成
+- 手动执行上述命令随时刷新
+
+**生成物落盘（均不进 git 仓库）：**
+
+| 目录 | Shell | 加载方式 |
+| ------ | ------ | ------ |
+| `~/.zfunc/` | zsh | `fpath` 已由 `zsh/plugins.zsh` prepend，优先级最高 |
+| `~/.config/fish/completions/` | fish | fish 启动自动扫描 |
+
+**工具分类：**
+
+| 类别 | 工具 | 来源 |
+| ------ | ------ | ------ |
+| A 生成器 | mise / uv / topgrade / herdr / bat / rg / fd / glow / yq / starship(fish) | 工具自带生成命令，运行时生成 |
+| B vendoring | eza / fastfetch / tldr(tlrc) | 上游无生成器，仓库内静态文件 `script/completions-src/` 分发 |
+| C 放弃 | duf / tokei / yazi / lazygit / chafa / gdu / gping / jless / delta | 上游无补全，不值得手写 |
+| D 已有机制 | fzf / zoxide / zsh 侧 starship+zoxide / direnv | `fzf --zsh/--fish`、`zoxide init`、zinit `atclone`、direnv hook 自带、系统包管理器 |
+
+> B 类文件升级大版本后可手动刷新：`curl -L https://cdn.jsdelivr.net/gh/<owner>/<repo>@<ref>/<path> -o script/completions-src/...`
 
 ### 文档（doc/）
 

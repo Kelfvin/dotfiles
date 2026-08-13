@@ -63,13 +63,24 @@ function brew_clean_cache_all() {
 }
 
 # --------------------------------------------------
+# 重新生成自装工具的 shell 补全（zsh + fish）
+# 清单见 script/completions.sh，幂等可随时重跑
+# --------------------------------------------------
+function refresh_completions() {
+    bash "$DOTFILES/script/completions.sh"
+}
+
+# --------------------------------------------------
 # 一键升级所有包管理器（brew、cargo、uv、TPM…），由 topgrade 统一处理
 # --------------------------------------------------
 function update_all() {
     if command -v topgrade >/dev/null 2>&1; then
         echo "⬆️ 使用 topgrade 升级所有包管理器（brew、cargo、uv、TPM…）..."
         topgrade
-        return $?
+        local tg_ret=$?
+        echo "🔄 重新生成 shell 补全..."
+        refresh_completions
+        return $tg_ret
     fi
 
     echo "⬆️ 正在升级 Homebrew..."

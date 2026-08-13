@@ -25,4 +25,9 @@ if status is-interactive
     if command -q fzf
         fzf --fish | source
     end
+
+    # direnv: directory-level environment variables (hook provides autoload).
+    if command -q direnv
+        direnv hook fish | source
+    end
 end

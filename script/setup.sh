@@ -246,24 +246,31 @@ fi
 ensure_cmd mise sh -c 'MISE_INSTALL_PATH="'"$INSTALL_DIR"'bin/mise" curl https://mise.jdx.dev/install.sh | sh'
 
 
-# ── 生成 Fish 补全（每台机器本地生成，不进 dotfiles 仓库）─────────────
-# 包管理器安装的工具一般自带 fish 补全（brew 装到 vendor_completions.d）；
-# 通过 zinit/eget/cargo 安装的二进制没有补全，这里按需生成。
-has_vendor_comp() {
-  local prefix
-  for prefix in /opt/homebrew /usr/local; do
-    [ -f "$prefix/share/fish/vendor_completions.d/$1.fish" ] && return 0
-  done
-  return 1
-}
-
-if command -v fish >/dev/null 2>&1; then
-  FISH_COMP_DIR="$HOME/.config/fish/completions"
-  install -d "$FISH_COMP_DIR"
-  if command -v starship >/dev/null 2>&1 && ! has_vendor_comp starship; then
-    starship completions fish > "$FISH_COMP_DIR/starship.fish"
-  fi
-  if command -v mise >/dev/null 2>&1 && ! has_vendor_comp mise; then
-    mise completion fish > "$FISH_COMP_DIR/mise.fish"
-  fi
+# ╭──────────────────────────────────────────────────────────╮
+# │               效率工具（8 件套）                          │
+# │  delta / direnv / glow / chafa / gdu / gping / yq / jless │
+# ╰──────────────────────────────────────────────────────────╯
+# 优先系统包管理器（自带补全）；Ubuntu 等无包/版本旧的平台走 binstall/eget。
+# 已验证：binstall 支持 git-delta/gping/jless；eget 支持 direnv/glow/gdu/yq
+# （chafa 无预编译 release，Ubuntu 走 apt）
+if [ "$(uname -s)" = "Darwin" ]; then
+  brew install git-delta direnv glow chafa gdu gping yq jless
+elif command -v pacman >/dev/null 2>&1; then
+  sudo pacman -S --needed git-delta direnv glow chafa gdu gping yq jless
+else
+  ensure_cmd delta cargo binstall --no-confirm git-delta
+  ensure_cmd gping cargo binstall --no-confirm gping
+  ensure_cmd jless cargo binstall --no-confirm jless
+  ensure_cmd direnv eget direnv/direnv --to "$INSTALL_DIR/bin"
+  ensure_cmd glow eget charmbracelet/glow --to "$INSTALL_DIR/bin"
+  ensure_cmd gdu eget dundee/gdu --to "$INSTALL_DIR/bin"
+  ensure_cmd yq eget mikefarah/yq --to "$INSTALL_DIR/bin"
+  ensure_cmd chafa sudo apt-get install -y chafa
 fi
+
+# ── 生成补全（zsh + fish，每台机器本地生成，不进 dotfiles 仓库）────────
+# 所有自装工具的补全由 script/completions.sh 统一管理（清单驱动，
+# 与安装方式/平台解耦，幂等）；系统包管理器（pacman/brew/apt）安装的
+# 工具自带补全，清单中的生成器/静态文件会覆盖到用户目录（优先级更高），
+# 内容一致，无害。
+bash "$(dirname "$0")/completions.sh"
