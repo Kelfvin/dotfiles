@@ -29,17 +29,12 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 
-# Hugging Face 镜像
-export HF_ENDPOINT=https://hf-mirror.com
-
-# # ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
-# 仅在 macOS 上生效，Linux 服务器无 Homebrew
-if [ "$(uname -s)" = "Darwin" ]; then
-  # brew update / Homebrew 自身仓库更新
+# Optional machine-specific mirrors live in ~/.zshrc.local.
+# Example: export HF_ENDPOINT=https://hf-mirror.com
+# Example: export DOTFILES_USE_USTC_BREW_MIRROR=1
+if [ "${DOTFILES_USE_USTC_BREW_MIRROR:-0}" = "1" ] && [ "$(uname -s)" = "Darwin" ]; then
   export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-  # 包元数据查询（formula/cask API）
   export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-  # 二进制预编译
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
   export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 fi
@@ -52,12 +47,11 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # 配置默认的编辑器
 export EDITOR="nvim"
 
-# 设置aliyunpan工具的配置目录
-export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan/
+# 设置 aliyunpan 工具的配置目录
+export ALIYUNPAN_CONFIG_DIR="$HOME/.config/aliyunpan/"
 
-export GOOGLE_CLOUD_PROJECT=charged-sled-465304-e0
-
-export MUSICFOX_ROOT=$HOME/.config/go-musicfox
+# GOOGLE_CLOUD_PROJECT and MUSICFOX_ROOT are machine-specific; set them in
+# ~/.zshrc.local when needed.
 
 # --------------------------------------------------
 # Persistent SSH agent socket for tmux
@@ -74,10 +68,14 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
-  --color=bg:-1,bg+:#313244 \
+FZF_THEME_OPTS="--color=bg:-1,bg+:#313244 \
   --color=fg:#cdd6f4,fg+:#cdd6f4 \
   --color=hl:#f38ba8,hl+:#f38ba8 \
   --color=spinner:#f5e0dc,header:#f38ba8,info:#cba6f7 \
   --color=pointer:#f5e0dc,marker:#b4befe,prompt:#cba6f7 \
   --color=border:#6c7086"
+case " ${FZF_DEFAULT_OPTS:-} " in
+  *" --color=bg:-1,bg+:#313244 "*) ;;
+  *) export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+$FZF_DEFAULT_OPTS }$FZF_THEME_OPTS" ;;
+esac
+unset FZF_THEME_OPTS

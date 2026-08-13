@@ -8,4 +8,9 @@ function update_all --description 'Upgrade everything via topgrade'
     end
     set -lx GITHUB_TOKEN (gh auth token 2>/dev/null)
     command topgrade $argv
+    set -l tg_status $status
+
+    echo '🔄 重新生成 shell 补全...'
+    refresh_completions
+    return $tg_status
 end

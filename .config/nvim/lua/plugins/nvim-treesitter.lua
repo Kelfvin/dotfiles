@@ -9,4 +9,17 @@ sitter.setup({
 	install_dir = vim.fn.stdpath("data") .. "/site",
 })
 
-sitter.install({ "rust", "javascript", "zig" })
+sitter.install({
+	"bash",
+	"c",
+	"cpp",
+	"json",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"python",
+	"rust",
+	"javascript",
+	"yaml",
+	"zig",
+})

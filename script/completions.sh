@@ -24,6 +24,11 @@
 # 用法：
 #   bash script/completions.sh          # 幂等刷新（setup.sh / update_all 也会调用）
 #
+# 行为保证：
+#   - 生成/复制先写临时文件再原子 mv，失败不会截断已有的旧补全
+#   - 工具未安装时删除上次遗留的过期补全，避免 shell 加载过期条目
+#   - 任一生成失败时以非零退出码结束（setup.sh 可感知）
+#
 # 维护：
 #   A 类：直接加一行 gen_zsh / gen_fish 调用
 #   B 类：文件放入 script/completions-src/，并加 vendor_zsh / vendor_fish 调用
@@ -44,52 +49,80 @@ ok()   { printf '  \033[32m✔\033[0m %s\n' "$*"; }
 skip() { printf '  \033[33m–\033[0m %s（未安装，跳过）\n' "$*"; }
 fail() { printf '  \033[31m✘\033[0m %s\n' "$*"; }
 
-# ── A 类：生成器（命令名与补全名一致，失败时清理坏文件） ──────────────
-gen_zsh() {
-  local tool="$1"; shift
+FAILURES=0
+
+# 原子写入：先生成到同目录临时文件，成功后再覆盖目标；
+# 工具未安装时清理上次遗留的补全文件。
+gen_to() {
+  local tool="$1" target="$2"; shift 2
   if command -v "$tool" >/dev/null 2>&1; then
-    if "$@" > "$ZCOMP_DIR/_$tool" 2>/dev/null; then
-      ok "$tool -> ~/.zfunc/_$tool"
+    local tmp
+    if tmp="$(mktemp "$target.XXXXXX")"; then
+      if "$@" > "$tmp" 2>/dev/null; then
+        mv -f "$tmp" "$target"
+        ok "$tool -> $target"
+      else
+        rm -f "$tmp"
+        FAILURES=$((FAILURES + 1))
+        fail "$tool 补全生成失败（保留旧文件）"
+      fi
     else
-      fail "$tool zsh 补全生成失败"; rm -f "$ZCOMP_DIR/_$tool"
+      FAILURES=$((FAILURES + 1))
+      fail "$tool 无法创建临时文件"
     fi
   else
     skip "$tool"
+    if [ -f "$target" ]; then
+      rm -f "$target"
+      printf '  \033[33m–\033[0m 已移除过期补全 %s\n' "$target"
+    fi
   fi
+}
+
+vendor_to() {
+  local tool="$1" source="$2" target="$3"
+  if command -v "$tool" >/dev/null 2>&1; then
+    local tmp
+    if tmp="$(mktemp "$target.XXXXXX")"; then
+      if cp -f "$source" "$tmp"; then
+        mv -f "$tmp" "$target"
+        ok "$tool -> ${target}（vendored）"
+      else
+        rm -f "$tmp"
+        FAILURES=$((FAILURES + 1))
+        fail "$tool 补全复制失败（保留旧文件）"
+      fi
+    else
+      FAILURES=$((FAILURES + 1))
+      fail "$tool 无法创建临时文件"
+    fi
+  else
+    skip "$tool"
+    if [ -f "$target" ]; then
+      rm -f "$target"
+      printf '  \033[33m–\033[0m 已移除过期补全 %s\n' "$target"
+    fi
+  fi
+}
+
+# ── A 类：生成器（命令名与补全名一致） ──────────────────────────────
+gen_zsh() {
+  local tool="$1"; shift
+  gen_to "$tool" "$ZCOMP_DIR/_$tool" "$@"
 }
 
 gen_fish() {
   local tool="$1"; shift
-  if command -v "$tool" >/dev/null 2>&1; then
-    if "$@" > "$FCOMP_DIR/$tool.fish" 2>/dev/null; then
-      ok "$tool -> fish/$tool.fish"
-    else
-      fail "$tool fish 补全生成失败"; rm -f "$FCOMP_DIR/$tool.fish"
-    fi
-  else
-    skip "$tool"
-  fi
+  gen_to "$tool" "$FCOMP_DIR/$tool.fish" "$@"
 }
 
 # ── B 类：vendoring 分发 ──────────────────────────────────────────────
 vendor_zsh() {
-  local tool="$1"
-  if command -v "$tool" >/dev/null 2>&1; then
-    cp -f "$VENDOR_ZSH/_$tool" "$ZCOMP_DIR/_$tool"
-    ok "$tool -> ~/.zfunc/_${tool}（vendored）"
-  else
-    skip "$tool"
-  fi
+  vendor_to "$1" "$VENDOR_ZSH/_$1" "$ZCOMP_DIR/_$1"
 }
 
 vendor_fish() {
-  local tool="$1"
-  if command -v "$tool" >/dev/null 2>&1; then
-    cp -f "$VENDOR_FISH/$tool.fish" "$FCOMP_DIR/$tool.fish"
-    ok "$tool -> fish/$tool.fish（vendored）"
-  else
-    skip "$tool"
-  fi
+  vendor_to "$1" "$VENDOR_FISH/$1.fish" "$FCOMP_DIR/$1.fish"
 }
 
 # ╭──────────────────────────────────────────────────────────────────╮
@@ -124,4 +157,8 @@ vendor_fish eza
 vendor_fish fastfetch
 vendor_fish tldr
 
+if [ "$FAILURES" -gt 0 ]; then
+  printf '==> 完成，但有 %d 项失败。zsh 重开 shell 生效；fish 下次启动自动加载。\n' "$FAILURES"
+  exit 1
+fi
 printf '==> 完成。zsh 重开 shell 生效；fish 下次启动自动加载。\n'

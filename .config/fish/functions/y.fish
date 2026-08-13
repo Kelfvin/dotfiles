@@ -6,6 +6,7 @@ function y --description 'Open yazi and change to its final directory'
     end
 
     command yazi $argv --cwd-file="$tmp"
+    set -l yazi_status $status
 
     set -l cwd
     if test -f "$tmp"
@@ -16,4 +17,5 @@ function y --description 'Open yazi and change to its final directory'
     end
 
     command rm -f -- "$tmp"
+    return $yazi_status
 end

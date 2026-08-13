@@ -30,3 +30,8 @@ assets
 # 归档目录（旧配置保留但不再链接）
 ^/archive
 
+# Pi 运行时数据（只链接 agent/settings.json）
+^/\.pi/subagents
+^/\.pi/agent/sessions
+^/\.pi/agent/cache
+

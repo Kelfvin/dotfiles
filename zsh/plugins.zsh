@@ -3,10 +3,10 @@
 # ╰──────────────────────────────────────────────────────────╯
 
 # ── 安装zinit ─────────────────────────────────────────────────────────
-XDG_DATA_HOME=$HOME/.local/share/
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+# XDG_DATA_HOME 已由 zsh/env.zsh 定义，这里直接使用（带默认值兜底）
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+[ ! -d "$ZINIT_HOME" ] && mkdir -p "$(dirname "$ZINIT_HOME")"
+[ ! -d "$ZINIT_HOME/.git" ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
 autoload -Uz _zinit

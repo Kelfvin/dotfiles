@@ -26,17 +26,9 @@ set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 
-# Hugging Face 镜像
-set -gx HF_ENDPOINT https://hf-mirror.com
-
-# ── Brew 镜像配置加快下载 ─────────────────────────────────────────────
-# 仅在 macOS 上生效，Linux 服务器无 Homebrew
-if test (command uname -s) = Darwin
-    set -gx HOMEBREW_BREW_GIT_REMOTE https://mirrors.ustc.edu.cn/brew.git
-    set -gx HOMEBREW_CORE_GIT_REMOTE https://mirrors.ustc.edu.cn/homebrew-core.git
-    set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
-    set -gx HOMEBREW_API_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles/api
-end
+# Machine-specific mirrors belong in config.local.fish, for example:
+# set -gx HF_ENDPOINT https://hf-mirror.com
+# set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # 自定义 Starship 的配置目录
 set -gx STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
@@ -47,8 +39,8 @@ set -gx EDITOR nvim
 # 设置 aliyunpan 工具的配置目录
 set -gx ALIYUNPAN_CONFIG_DIR "$HOME/.config/aliyunpan/"
 
-set -gx GOOGLE_CLOUD_PROJECT charged-sled-465304-e0
-set -gx MUSICFOX_ROOT "$HOME/.config/go-musicfox"
+# GOOGLE_CLOUD_PROJECT and MUSICFOX_ROOT are machine-specific; set them in
+# ~/.config/fish/config.local.fish when needed.
 
 # --------------------------------------------------
 # Persistent SSH agent socket for tmux

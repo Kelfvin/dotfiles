@@ -136,7 +136,7 @@ stow -D --no-folding .
 
 - `setup.sh` — 一键安装开发环境（见上文）
 - `completions.sh` — 补全清单：为自装工具生成 zsh/fish 补全（见下文）
-- `backup_mac.sh` — 备份 Brewfile 和 .ssh 到 OneDrive
+- `backup_mac.sh` — 备份 Brewfile 和 .ssh 到 OneDrive（.ssh 用 GPG 加密，需先设置 `DOTFILES_BACKUP_GPG_RECIPIENT` 为自己的 GPG 密钥）
 - `start-camera-ftp.sh` — 启动相机 FTP 传输服务器（pure-ftpd）
 
 ### 补全管理（completions）
@@ -146,7 +146,14 @@ stow -D --no-folding .
 ```bash
 bash ~/dotfiles/script/completions.sh   # 幂等，可随时重跑
 # 或 zsh 里直接：refresh_completions
+# 或 fish 里直接：refresh_completions
 ```
+
+**行为保证：**
+
+- 生成/复制先写临时文件再原子替换，失败不会截断已有的旧补全
+- 工具未安装时重跑会清理上次遗留的过期补全
+- 任一生成失败时脚本以非零退出码结束
 
 **触发时机：**
 
@@ -185,7 +192,7 @@ stow --no-folding .
 chsh -s "$(command -v fish)"  # 将 Fish 设为默认 shell（需手动执行，会提示密码）
 ```
 
-Fish 使用原生补全、语法高亮和 autosuggestion，Tab 补全启用 `fish_completion_match_mode fuzzy` 模糊匹配；fzf 官方集成（`fzf --fish`）提供 `Ctrl-R` 历史搜索、`Ctrl-T` 文件搜索、`Alt-C` 目录跳转、`Shift-Tab` 补全。机器相关的 Fish 设置可放在 `~/.config/fish/config.local.fish`；修改后运行 `fish_reload`。
+Fish 使用原生补全、语法高亮和 autosuggestion，Tab 补全启用 `fish_completion_match_mode fuzzy` 模糊匹配；fzf 官方集成（`fzf --fish`）提供 `Ctrl-R` 历史搜索、`Ctrl-T` 文件搜索、`Alt-C` 目录跳转、`Shift-Tab` 补全。机器相关的设置（如 `HF_ENDPOINT`、Homebrew 镜像、`GOOGLE_CLOUD_PROJECT`、`MUSICFOX_ROOT`）请放在 `~/.config/fish/config.local.fish`（zsh 对应 `~/.zshrc.local`），这两个文件已被 `.gitignore` 排除，不会提交；修改后运行 `fish_reload`。
 
 ### 系统级配置
 
@@ -207,4 +214,4 @@ Pi 的全局设置位于 `~/.pi/agent/settings.json`，仓库中对应路径为 
 stow --no-folding .
 ```
 
-> 注意：`~/.pi/agent/` 下还有其他运行时数据（会话、缓存、npm 包等），仅 `settings.json` 通过软链纳入仓库管理。
+> 注意：`~/.pi/agent/` 下还有其他运行时数据（会话、缓存、npm 包等），仅 `settings.json` 通过软链纳入仓库管理；`~/.pi/subagents/`、`~/.pi/agent/sessions/`、`~/.pi/agent/cache/` 已被 `.stow-local-ignore` 与 `.gitignore` 排除。

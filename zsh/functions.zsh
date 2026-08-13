@@ -6,12 +6,14 @@
 # 使用 y 来启动yazi，按下q后将cd到查看的目录
 # 如果不想切换目录，那么使用shift-q来退出
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd yazi_status
 	yazi "$@" --cwd-file="$tmp"
+	yazi_status=$?
 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
+	return "$yazi_status"
 }
 
 # ── Python Venv Active ────────────────────────────────────────────────
@@ -76,11 +78,16 @@ function refresh_completions() {
 function update_all() {
     if command -v topgrade >/dev/null 2>&1; then
         echo "⬆️ 使用 topgrade 升级所有包管理器（brew、cargo、uv、TPM…）..."
-        topgrade
+        topgrade "$@"
         local tg_ret=$?
         echo "🔄 重新生成 shell 补全..."
         refresh_completions
         return $tg_ret
+    fi
+
+    if ! command -v brew >/dev/null 2>&1; then
+        echo "错误: 找不到 topgrade 或 brew，请先安装其中一个。" >&2
+        return 1
     fi
 
     echo "⬆️ 正在升级 Homebrew..."
@@ -101,21 +108,22 @@ function code_open_remote(){
 
 
 function extract() {
-    local c e i
+    local c e i rc
 
-    (($#)) || return
+    (($#)) || return 0
+    e=0
 
     for i; do
         c=''
-        e=1
 
         if [[ ! -r $i ]]; then
             echo "$0: 文件不可读: \`$i'" >&2
+            e=1
             continue
         fi
 
         case $i in
-            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz|zst)))))
+            *.tar.gz|*.tgz|*.tar.lz|*.tlz|*.tar.xz|*.txz|*.tar.bz|*.tar.bz2|*.tbz|*.tbz2|*.tar.lzma|*.tar.Z|*.taz|*.tar.zst|*.tzst)
                    c=(bsdtar xvf);;
             *.7z)  c=(7z x);;
             *.Z)   c=(uncompress);;
@@ -131,7 +139,8 @@ function extract() {
         esac
 
         command "${c[@]}" "$i"
-        ((e = e || $?))
+        rc=$?
+        (( rc == 0 )) || e=1
     done
     return "$e"
 }
@@ -149,6 +158,11 @@ function cl() {
 function zed_ssh_open(){
   local host="$1"
   local remote_path="$2"
-  zed "ssh://${host}:${remote_path}"
+  [[ -n "$host" && -n "$remote_path" ]] || {
+    echo "usage: zed_ssh_open <host> <absolute-remote-path>" >&2
+    return 1
+  }
+  [[ "$remote_path" == /* ]] || remote_path="/$remote_path"
+  zed "ssh://${host}${remote_path}"
 }
 

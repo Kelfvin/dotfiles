@@ -17,7 +17,7 @@ INSTALL_DIR="$HOME/.local/"
 TARGET_DIR="$HOME/.config"
 
 # 创建安装文件基本目录
-install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
+install -d "$INSTALL_DIR/bin" "$INSTALL_DIR/share" "$INSTALL_DIR/lib"
 
 # 切换到脚本所在的目录（捕获绝对路径，避免后续 cd 后相对引用失效）
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -127,7 +127,7 @@ ensure_cmd rg cargo binstall --no-confirm ripgrep
 # 更好用的ls工具
 ensure_cmd eza cargo binstall --no-confirm eza
 ensure_cmd fd cargo binstall --no-confirm fd-find
-# 更好用的du工具
+# 更好用的 du 工具
 ensure_cmd dust cargo binstall --no-confirm du-dust
 # yazi--文件管理器
 # 在 Linux 上使用 musl target，避免低版本 glibc 无法运行官方 gnu 构建
@@ -254,10 +254,12 @@ ensure_cmd mise sh -c 'MISE_INSTALL_PATH="'"$INSTALL_DIR"'bin/mise" curl https:/
 # 优先系统包管理器（自带补全）；Ubuntu 等无包/版本旧的平台走 binstall/eget。
 # 已验证：binstall 支持 git-delta/gping/jless；eget 支持 direnv/glow/gdu/yq
 # （chafa 无预编译 release，Ubuntu 走 apt）
-# 二进制名:包名 映射（brew/pacman 通用，二进制名与包名不一定相同）
-EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa gdu-go:gdu gping:gping yq:yq jless:jless"
+# 二进制名:包名映射（不同平台的 gdu 命令名不同）
+EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa gdu:gdu gping:gping yq:yq jless:jless"
 
 if [ "$(uname -s)" = "Darwin" ]; then
+  # Homebrew installs gdu as gdu-go to avoid a coreutils conflict.
+  EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa gdu-go:gdu gping:gping yq:yq jless:jless"
   # 已安装的工具直接跳过，避免 brew 刷一堆 already installed 警告
   for pair in $EFFICIENCY_TOOLS; do
     ensure_cmd "${pair%%:*}" brew install "${pair#*:}"

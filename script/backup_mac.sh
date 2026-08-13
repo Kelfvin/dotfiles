@@ -1,6 +1,13 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
+
+# SSH archives contain private keys. Require an explicit encryption method
+# instead of silently writing plaintext credentials to a sync folder.
+if ! command -v gpg >/dev/null 2>&1; then
+  echo "Error: gpg is required to encrypt the SSH backup." >&2
+  exit 1
+fi
 
 #          ╭──────────────────────────────────────────────────────────╮
 #          │                     Backup HomeBrew                      │
@@ -26,8 +33,26 @@ echo ""
 echo "=== Backing up .ssh ==="
 SSH_BACKUP_DIR="$HOME/OneDrive/Backup/ssh"
 mkdir -p "$SSH_BACKUP_DIR"
+umask 077
 
-echo "Compressing .ssh directory..."
-tar -czf "$SSH_BACKUP_DIR/ssh_backup_${TIMESTAMP}.tar.gz" -C "$HOME" .ssh
+SSH_ARCHIVE="$SSH_BACKUP_DIR/ssh_backup_${TIMESTAMP}.tar.gz.gpg"
+RECIPIENT="${DOTFILES_BACKUP_GPG_RECIPIENT:-}"
 
-echo ".ssh backup complete: ssh_backup_${TIMESTAMP}.tar.gz"
+if [ -z "$RECIPIENT" ]; then
+  echo "Error: set DOTFILES_BACKUP_GPG_RECIPIENT to a GPG key before backing up .ssh." >&2
+  echo "Example: export DOTFILES_BACKUP_GPG_RECIPIENT='you@example.com'" >&2
+  exit 1
+fi
+
+# Exclude transient sockets and local caches; encrypt the stream before it is
+# written to the synchronized directory.
+echo "Encrypting .ssh backup..."
+if ! tar --exclude='*.sock' --exclude='known_hosts.old' -czf - -C "$HOME" .ssh \
+  | gpg --batch --yes --trust-model always --recipient "$RECIPIENT" --output "$SSH_ARCHIVE"; then
+  rm -f "$SSH_ARCHIVE"
+  echo "Error: SSH backup failed." >&2
+  exit 1
+fi
+
+chmod 600 "$SSH_ARCHIVE"
+echo ".ssh backup complete: $SSH_ARCHIVE"

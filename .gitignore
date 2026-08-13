@@ -4,6 +4,11 @@
 github-copilot/
 raycast/
 
+# Pi 运行时数据（仅 .pi/agent/settings.json 纳入仓库）
+/.pi/subagents/
+/.pi/agent/sessions/
+/.pi/agent/cache/
+
 # 运行时生成的日志
 btop.log
 nvim.log
@@ -27,6 +32,8 @@ nvim.log
 
 # 本地私有文件
 zsh/.claude
+.zshrc.local
+.config/fish/config.local.fish
 
 # 资源文件，不在 README 引用，避免误提交大文件
 assets/

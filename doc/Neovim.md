@@ -21,10 +21,14 @@
 ## 插件管理
 
 - 插件声明：`vim.pack.add({ { src = "https://github.com/...", name = "..." } })`
-- 安装/更新：`:VimPackInstall`、`:VimPackUpdate`（由 vim-pack 提供）
-- 版本锁定：`nvim-pack-lock.json` 记录每个插件的提交哈希
+- 安装：重启 Neovim 后，锁文件中记录的插件会自动按提交哈希安装
+- 更新：`:lua vim.pack.update()` 拉取更新 → 在确认缓冲区中 `:write` 应用 → `:restart`
+- 移除：从配置中删除声明后 `:restart`（残留目录可用 `vim.pack.del()` 清理）
+- 版本锁定：`nvim-pack-lock.json` 记录每个插件的提交哈希，随仓库提交
 
 ## LSP
 
 `init.lua` 中通过 `vim.lsp.enable("lua_ls")` 等启用，配置放在 `lsp/` 目录，
-Neovim 0.11+ 会按约定自动加载。语言服务器本体由 `mason` 管理安装。
+Neovim 0.11+ 会按约定自动加载。语言服务器本体由 `mason` 管理安装：
+首次启动时会自动安装 `lua-language-server`、`pyright`、`ruff`、`clangd`、`stylua`
+（见 `lua/plugins/mason.lua` 的 ensure_installed 清单），也可用 `:Mason` 手动管理。
