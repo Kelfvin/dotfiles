@@ -13,6 +13,10 @@ alias lg="lazygit"
 
 alias zsh_reload="source ~/.zshrc"
 
+# pi update shortcuts
+alias pu="pi update"          # update pi only
+alias pua="pi update --all"   # update pi and packages
+
 ## Modified commands
 alias ping='ping -c 5'
 

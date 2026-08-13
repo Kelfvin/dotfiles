@@ -17,6 +17,10 @@ abbr --add hh herdr
 abbr --add tg update_all
 abbr --add fr fish_reload
 
+# pi update shortcuts
+abbr --add pu 'pi update'
+abbr --add pua 'pi update --all'
+
 ## Modified commands
 abbr --add ping 'ping -c 5'
 abbr --add free 'free -h'
