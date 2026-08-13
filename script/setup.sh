@@ -254,10 +254,18 @@ ensure_cmd mise sh -c 'MISE_INSTALL_PATH="'"$INSTALL_DIR"'bin/mise" curl https:/
 # 优先系统包管理器（自带补全）；Ubuntu 等无包/版本旧的平台走 binstall/eget。
 # 已验证：binstall 支持 git-delta/gping/jless；eget 支持 direnv/glow/gdu/yq
 # （chafa 无预编译 release，Ubuntu 走 apt）
+# 二进制名:包名 映射（brew/pacman 通用，二进制名与包名不一定相同）
+EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa gdu-go:gdu gping:gping yq:yq jless:jless"
+
 if [ "$(uname -s)" = "Darwin" ]; then
-  brew install git-delta direnv glow chafa gdu gping yq jless
+  # 已安装的工具直接跳过，避免 brew 刷一堆 already installed 警告
+  for pair in $EFFICIENCY_TOOLS; do
+    ensure_cmd "${pair%%:*}" brew install "${pair#*:}"
+  done
 elif command -v pacman >/dev/null 2>&1; then
-  sudo pacman -S --needed git-delta direnv glow chafa gdu gping yq jless
+  for pair in $EFFICIENCY_TOOLS; do
+    ensure_cmd "${pair%%:*}" sudo pacman -S --needed "${pair#*:}"
+  done
 else
   ensure_cmd delta cargo binstall --no-confirm git-delta
   ensure_cmd gping cargo binstall --no-confirm gping
