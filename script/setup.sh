@@ -19,8 +19,9 @@ TARGET_DIR="$HOME/.config"
 # 创建安装文件基本目录
 install -d $INSTALL_DIR/bin $INSTALL_DIR/share $INSTALL_DIR/lib
 
-# 切换到脚本所在的目录
-cd "$(dirname "$0")"
+# 切换到脚本所在的目录（捕获绝对路径，避免后续 cd 后相对引用失效）
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 
 # macOS: 确保 Homebrew 路径在 PATH 中（Apple Silicon / Intel）
 if [ "$(uname -s)" = "Darwin" ]; then
@@ -273,4 +274,4 @@ fi
 # 与安装方式/平台解耦，幂等）；系统包管理器（pacman/brew/apt）安装的
 # 工具自带补全，清单中的生成器/静态文件会覆盖到用户目录（优先级更高），
 # 内容一致，无害。
-bash "$(dirname "$0")/completions.sh"
+bash "$SCRIPT_DIR/completions.sh"

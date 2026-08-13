@@ -76,7 +76,7 @@ vendor_zsh() {
   local tool="$1"
   if command -v "$tool" >/dev/null 2>&1; then
     cp -f "$VENDOR_ZSH/_$tool" "$ZCOMP_DIR/_$tool"
-    ok "$tool -> ~/.zfunc/_$tool（vendored）"
+    ok "$tool -> ~/.zfunc/_${tool}（vendored）"
   else
     skip "$tool"
   fi
