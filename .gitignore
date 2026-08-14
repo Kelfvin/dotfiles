@@ -37,3 +37,4 @@ zsh/.claude
 
 # 资源文件，不在 README 引用，避免误提交大文件
 assets/
+/.config/zed/prompts/
