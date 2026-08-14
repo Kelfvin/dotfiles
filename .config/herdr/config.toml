@@ -19,3 +19,7 @@ delivery = "system"
 [experimental]
 kitty_graphics = true
 pane_history = false
+# While prefix mode is active, temporarily switch the host input source to
+# an ASCII-capable mode so prefix commands register even when an IME is
+# active, then restore the previous input source when prefix mode exits.
+switch_ascii_input_source_in_prefix = true
