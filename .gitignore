@@ -3,6 +3,7 @@
 # 未纳入仓库的敏感/平台配置目录
 github-copilot/
 raycast/
+/.config/herdr-mirror/
 
 # Pi 运行时数据（仅 .pi/agent/settings.json 纳入仓库）
 /.pi/subagents/
