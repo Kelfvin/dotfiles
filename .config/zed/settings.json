@@ -30,14 +30,16 @@
     "light": "One Light",
     "dark": "Catppuccin Frappé"
   },
-  "auto_install_extensions": [
-    "catppuccin",
-    "catppuccin-icons",
-    "dart",
-    "dockerfile",
-    "flutter-snippets",
-    "html",
-    "rainbow-csv",
-    "toml"
-  ]
+  "auto_install_extensions": {
+    "catppuccin": true,
+    "catppuccin-icons": true,
+    "cspell": true,
+    "dart": true,
+    "dockerfile": true,
+    "flutter-snippets": true,
+    "git-firefly": true,
+    "html": true,
+    "rainbow-csv": true,
+    "toml": true
+  }
 }
