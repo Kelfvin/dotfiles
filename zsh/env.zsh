@@ -8,6 +8,7 @@ path=(
   "$HOME/.cargo/bin"
   "$HOME/bin"
   "$HOME/.local/bin"
+  "$HOME/.local/share/pnpm/bin"
   /usr/local/bin
   $path
 )
