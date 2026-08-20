@@ -27,8 +27,6 @@ nvim.log
 # 运行时生成的数据目录（配置本体仍被追踪）
 /.config/karabiner/automatic_backups
 /.config/yazi/plugins/*
-!/.config/yazi/plugins/smart-switch.yazi/
-!/.config/yazi/plugins/smart-tab.yazi/
 .tmux/plugins
 
 # 本地私有文件
