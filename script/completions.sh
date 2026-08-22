@@ -46,7 +46,7 @@ VENDOR_FISH="$SCRIPT_DIR/completions-src/fish"
 install -d "$ZCOMP_DIR" "$FCOMP_DIR"
 
 # ── 日志 ──────────────────────────────────────────────────────────────
-ok()   { printf '  \033[32m✔\033[0m %s\n' "$*"; }
+ok() { printf '  \033[32m✔\033[0m %s\n' "$*"; }
 skip() { printf '  \033[33m–\033[0m %s（未安装，跳过）\n' "$*"; }
 fail() { printf '  \033[31m✘\033[0m %s\n' "$*"; }
 
@@ -55,11 +55,12 @@ FAILURES=0
 # 原子写入：先生成到同目录临时文件，成功后再覆盖目标；
 # 工具未安装时清理上次遗留的补全文件。
 gen_to() {
-  local tool="$1" target="$2"; shift 2
+  local tool="$1" target="$2"
+  shift 2
   if command -v "$tool" >/dev/null 2>&1; then
     local tmp
     if tmp="$(mktemp "$target.XXXXXX")"; then
-      if "$@" > "$tmp" 2>/dev/null; then
+      if "$@" >"$tmp" 2>/dev/null; then
         mv -f "$tmp" "$target"
         ok "$tool -> $target"
       else
@@ -108,12 +109,14 @@ vendor_to() {
 
 # ── A 类：生成器（命令名与补全名一致） ──────────────────────────────
 gen_zsh() {
-  local tool="$1"; shift
+  local tool="$1"
+  shift
   gen_to "$tool" "$ZCOMP_DIR/_$tool" "$@"
 }
 
 gen_fish() {
-  local tool="$1"; shift
+  local tool="$1"
+  shift
   gen_to "$tool" "$FCOMP_DIR/$tool.fish" "$@"
 }
 
@@ -124,8 +127,8 @@ gen_atuin() {
   if command -v atuin >/dev/null 2>&1; then
     local tmpd tmpout
     if tmpd="$(mktemp -d)" && tmpout="$(mktemp "$target.XXXXXX")"; then
-      if atuin gen-completions --shell "$shell" --out-dir "$tmpd" >/dev/null 2>&1 \
-         && [ -f "$tmpd/$filename" ] && cp -f "$tmpd/$filename" "$tmpout"; then
+      if atuin gen-completions --shell "$shell" --out-dir "$tmpd" >/dev/null 2>&1 &&
+        [ -f "$tmpd/$filename" ] && cp -f "$tmpd/$filename" "$tmpout"; then
         mv -f "$tmpout" "$target"
         ok "atuin -> $target"
       else
@@ -160,30 +163,30 @@ vendor_fish() {
 # │                         执行清单                                │
 # ╰──────────────────────────────────────────────────────────────────╯
 printf '==> zsh 补全 → %s\n' "$ZCOMP_DIR"
-gen_zsh mise     mise completion zsh
-gen_zsh uv       uv generate-shell-completion zsh
+gen_zsh mise mise completion zsh
+gen_zsh uv uv generate-shell-completion zsh
 gen_zsh topgrade topgrade --gen-completion zsh
-gen_zsh herdr    herdr completion zsh
-gen_zsh bat      bat --completion zsh
-gen_zsh rg       rg --generate complete-zsh
-gen_zsh fd       fd --gen-completions zsh
-gen_zsh glow     glow completion zsh
-gen_zsh yq       yq shell-completion zsh
+gen_zsh herdr herdr completion zsh
+gen_zsh bat bat --completion zsh
+gen_zsh rg rg --generate complete-zsh
+gen_zsh fd fd --gen-completions zsh
+gen_zsh glow glow completion zsh
+gen_zsh yq yq shell-completion zsh
 gen_atuin zsh "$ZCOMP_DIR/_atuin" _atuin
 vendor_zsh eza
 vendor_zsh fastfetch
 vendor_zsh tldr
 
 printf '==> fish 补全 → %s\n' "$FCOMP_DIR"
-gen_fish mise     mise completion fish
-gen_fish uv       uv generate-shell-completion fish
+gen_fish mise mise completion fish
+gen_fish uv uv generate-shell-completion fish
 gen_fish topgrade topgrade --gen-completion fish
-gen_fish herdr    herdr completion fish
-gen_fish bat      bat --completion fish
-gen_fish rg       rg --generate complete-fish
-gen_fish fd       fd --gen-completions fish
-gen_fish glow     glow completion fish
-gen_fish yq       yq shell-completion fish
+gen_fish herdr herdr completion fish
+gen_fish bat bat --completion fish
+gen_fish rg rg --generate complete-fish
+gen_fish fd fd --gen-completions fish
+gen_fish glow glow completion fish
+gen_fish yq yq shell-completion fish
 gen_fish starship starship completions fish
 gen_atuin fish "$FCOMP_DIR/atuin.fish" atuin.fish
 vendor_fish eza
