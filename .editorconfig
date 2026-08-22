@@ -1,0 +1,20 @@
+# https://editorconfig.org
+# 跨编辑器基础排版约定：Neovim(0.9+ 内置)、Zed、VS Code(需插件)、JetBrains 等自动应用
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# lua 跟随 stylua 默认配置（Tab 缩进，保存时由 conform.nvim 强制）
+[*.lua]
+indent_style = tab
+tab_width = 2
+
+# 其余配置文件统一 2 空格
+[*.{sh,zsh,fish,toml,json,yml,yaml,md}]
+indent_style = space
+indent_size = 2

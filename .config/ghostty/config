@@ -25,7 +25,7 @@ font-size    = 14
 font-thicken = true
 
 #------------------------------------------------------------
-# Shell-Integration 
+# Shell-Integration
 #------------------------------------------------------------
 shell-integration-features = no-cursor,sudo,title,ssh-env,ssh-terminfo
 

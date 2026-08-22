@@ -42,9 +42,9 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 					},
 				},
 			},
-				sources = {
-					default = { "lsp", "path", "snippets", "buffer" },
-					providers = {
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {
 					snippets = {
 						score_offset = 1000,
 						should_show_items = function(ctx) -- avoid triggering snippets after . " ' chars.

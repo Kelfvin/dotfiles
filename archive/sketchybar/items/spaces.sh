@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 ##### Adding Mission Control Space Indicators #####
 # Let's add some mission control spaces:

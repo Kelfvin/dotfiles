@@ -6,14 +6,14 @@
 # 使用 y 来启动yazi，按下q后将cd到查看的目录
 # 如果不想切换目录，那么使用shift-q来退出
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd yazi_status
-	yazi "$@" --cwd-file="$tmp"
-	yazi_status=$?
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-	return "$yazi_status"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd yazi_status
+  yazi "$@" --cwd-file="$tmp"
+  yazi_status=$?
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+  return "$yazi_status"
 }
 
 # ── Python Venv Active ────────────────────────────────────────────────
@@ -154,13 +154,13 @@ function extract() {
 }
 
 function cl() {
-	local dir="$1"
-	local dir="${dir:=$HOME}"
-	if [[ -d "$dir" ]]; then
-		cd "$dir" >/dev/null; ls
-	else
-		echo "cl: $dir: 找不到目录"
-	fi
+  local dir="$1"
+  local dir="${dir:=$HOME}"
+  if [[ -d "$dir" ]]; then
+    cd "$dir" >/dev/null; ls
+  else
+    echo "cl: $dir: 找不到目录"
+  fi
 }
 
 function zed_ssh_open(){

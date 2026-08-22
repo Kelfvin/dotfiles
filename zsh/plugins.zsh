@@ -31,7 +31,7 @@ zinit light ajeetdsouza/zoxide
 # --- fzf-tab: 更好的候选栏
 zinit light Aloxaf/fzf-tab
 # --- 更好的代码补全，支持
-zinit light zsh-users/zsh-completions 
+zinit light zsh-users/zsh-completions
 # --- 更方便的ssh选择
 zinit light sunlei/zsh-ssh
 # --- 根据历史记录预测要按的命令
