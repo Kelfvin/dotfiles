@@ -31,6 +31,7 @@
 #
 # 维护：
 #   A 类：直接加一行 gen_zsh / gen_fish 调用
+#         （例外：atuin 补全写目录而非 stdout，用下方专用 gen_atuin 适配）
 #   B 类：文件放入 script/completions-src/，并加 vendor_zsh / vendor_fish 调用
 #         刷新文件：curl -L https://cdn.jsdelivr.net/gh/<owner>/<repo>@<ref>/<path>
 set -euo pipefail
@@ -116,6 +117,36 @@ gen_fish() {
   gen_to "$tool" "$FCOMP_DIR/$tool.fish" "$@"
 }
 
+# atuin 的补全生成是写文件到 --out-dir 目录，不走 stdout，单独适配。
+# 仍遵循本脚本的原子替换 + 未安装时清理旧补全的约定。
+gen_atuin() {
+  local shell="$1" target="$2" filename="$3"
+  if command -v atuin >/dev/null 2>&1; then
+    local tmpd tmpout
+    if tmpd="$(mktemp -d)" && tmpout="$(mktemp "$target.XXXXXX")"; then
+      if atuin gen-completions --shell "$shell" --out-dir "$tmpd" >/dev/null 2>&1 \
+         && [ -f "$tmpd/$filename" ] && cp -f "$tmpd/$filename" "$tmpout"; then
+        mv -f "$tmpout" "$target"
+        ok "atuin -> $target"
+      else
+        rm -f "$tmpout"
+        FAILURES=$((FAILURES + 1))
+        fail "atuin 补全生成失败（保留旧文件）"
+      fi
+      rm -rf "$tmpd"
+    else
+      FAILURES=$((FAILURES + 1))
+      fail "atuin 无法创建临时文件"
+    fi
+  else
+    skip "atuin"
+    if [ -f "$target" ]; then
+      rm -f "$target"
+      printf '  \033[33m–\033[0m 已移除过期补全 %s\n' "$target"
+    fi
+  fi
+}
+
 # ── B 类：vendoring 分发 ──────────────────────────────────────────────
 vendor_zsh() {
   vendor_to "$1" "$VENDOR_ZSH/_$1" "$ZCOMP_DIR/_$1"
@@ -138,6 +169,7 @@ gen_zsh rg       rg --generate complete-zsh
 gen_zsh fd       fd --gen-completions zsh
 gen_zsh glow     glow completion zsh
 gen_zsh yq       yq shell-completion zsh
+gen_atuin zsh "$ZCOMP_DIR/_atuin" _atuin
 vendor_zsh eza
 vendor_zsh fastfetch
 vendor_zsh tldr
@@ -153,6 +185,7 @@ gen_fish fd       fd --gen-completions fish
 gen_fish glow     glow completion fish
 gen_fish yq       yq shell-completion fish
 gen_fish starship starship completions fish
+gen_atuin fish "$FCOMP_DIR/atuin.fish" atuin.fish
 vendor_fish eza
 vendor_fish fastfetch
 vendor_fish tldr

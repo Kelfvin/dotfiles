@@ -165,6 +165,9 @@ ensure_cmd zoxide cargo binstall --no-confirm zoxide
 # topgrade 一键升级所有包管理器（brew、cargo、uv、TPM…）
 ensure_cmd topgrade cargo binstall --no-confirm topgrade
 
+# atuin 跨机同步的 shell 历史（Ctrl-R 搜索 + 端到端加密同步）
+ensure_cmd atuin cargo binstall --no-confirm atuin
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Neovim                          │
 # ╰──────────────────────────────────────────────────────────╯

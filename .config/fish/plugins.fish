@@ -20,10 +20,18 @@ if status is-interactive
     end
 
     # fzf: official Fish integration, sourced verbatim from `fzf --fish`.
-    # Provides Ctrl-R (history), Ctrl-T (files), Alt-C (directories),
-    # Shift-Tab (completion). No custom bindings on top.
+    # Provides Ctrl-T (files), Alt-C (directories), Shift-Tab (completion).
+    # Ctrl-R (history) is taken over by atuin below (later bind wins).
     if command -q fzf
         fzf --fish | source
+    end
+
+    # atuin: synced shell history across machines (replaces fzf's Ctrl-R).
+    # Must come after fzf so its Ctrl-R binding wins; fzf keeps Ctrl-T/Alt-C.
+    # Config lives in ~/.config/atuin/config.toml (tracked in dotfiles).
+    # First run on a new machine needs `atuin login` once for sync.
+    if command -q atuin
+        atuin init fish | source
     end
 
     # direnv: directory-level environment variables (hook provides autoload).

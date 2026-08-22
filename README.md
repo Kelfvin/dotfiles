@@ -46,6 +46,7 @@
 | [yq](https://github.com/mikefarah/yq) | YAML/TOML/JSON 互相处理 |
 | [jless](https://github.com/PaulJuliusMartinez/jless) | JSON 交互式浏览 |
 | [topgrade](https://github.com/topgrade-rs/topgrade) | 一键升级全部包管理器（brew、cargo、uv、TPM…） |
+| [atuin](https://atuin.sh/) | 跨机同步的 shell 历史（端到端加密）；接管 `<C-r>`，fzf 保留 `<C-t>`/`<A-c>` |
 
 ## 🚀 快速开始
 
@@ -72,7 +73,7 @@ bash ./script/setup.sh
 **三层安装策略：**
 
 1. **Rust CLI 工具** — 通过 `cargo-binstall` 从预编译二进制直接安装（免编译）
-   - ripgrep、eza、fd-find、du-dust、yazi、tlrc、tokei、tree-sitter-cli、bat
+   - ripgrep、eza、fd-find、du-dust、yazi、tlrc、tokei、tree-sitter-cli、bat、atuin
 
 2. **GitHub Release 二进制** — 通过 `eget` 自动下载最新 release
    - fzf、fastfetch、mise、ImageMagick
@@ -192,7 +193,7 @@ stow --no-folding .
 chsh -s "$(command -v fish)"  # 将 Fish 设为默认 shell（需手动执行，会提示密码）
 ```
 
-Fish 使用原生补全、语法高亮和 autosuggestion，Tab 补全启用 `fish_completion_match_mode fuzzy` 模糊匹配；fzf 官方集成（`fzf --fish`）提供 `Ctrl-R` 历史搜索、`Ctrl-T` 文件搜索、`Alt-C` 目录跳转、`Shift-Tab` 补全。机器相关的设置（如 `HF_ENDPOINT`、Homebrew 镜像、`GOOGLE_CLOUD_PROJECT`、`MUSICFOX_ROOT`）请放在 `~/.config/fish/config.local.fish`（zsh 对应 `~/.zshrc.local`），这两个文件已被 `.gitignore` 排除，不会提交；修改后运行 `fish_reload`。
+Fish 使用原生补全、语法高亮和 autosuggestion，Tab 补全启用 `fish_completion_match_mode fuzzy` 模糊匹配；fzf 官方集成提供 `Ctrl-T` 文件搜索、`Alt-C` 目录跳转、`Shift-Tab` 补全；[atuin](https://atuin.sh/) 提供 `Ctrl-R` 历史搜索并在 Mac 与服务器之间同步历史（新机器首次需 `atuin login`）。机器相关的设置（如 `HF_ENDPOINT`、Homebrew 镜像、`GOOGLE_CLOUD_PROJECT`、`MUSICFOX_ROOT`）请放在 `~/.config/fish/config.local.fish`（zsh 对应 `~/.zshrc.local`），这两个文件已被 `.gitignore` 排除，不会提交；修改后运行 `fish_reload`。
 
 ### 系统级配置
 
