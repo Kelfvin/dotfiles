@@ -30,20 +30,20 @@ fi
 
 # 如果命令不存在，则执行后面的安装命令
 ensure_cmd() {
-    local cmd="$1"
-    shift
-    if ! command -v "$cmd" >/dev/null 2>&1; then
-        "$@"
-    fi
+  local cmd="$1"
+  shift
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    "$@"
+  fi
 }
 
 # 如果目录不存在，则执行后面的安装命令
 ensure_dir() {
-    local dir="$1"
-    shift
-    if [ ! -d "$dir" ]; then
-        "$@"
-    fi
+  local dir="$1"
+  shift
+  if [ ! -d "$dir" ]; then
+    "$@"
+  fi
 }
 
 # ╭──────────────────────────────────────────────────────────╮
@@ -53,24 +53,22 @@ ensure_dir() {
 # ── cmake ─────────────────────────────────────────────────────────────
 # 仅当 cargo-binstall 回退到源码编译时才需要（默认走预编译二进制）
 if ! command -v cmake >/dev/null 2>&1; then
-	echo "WARNING: cmake not found. Prebuilt binaries will be used;"
-	echo "         only needed if cargo-binstall falls back to source compilation."
+  echo "WARNING: cmake not found. Prebuilt binaries will be used;"
+  echo "         only needed if cargo-binstall falls back to source compilation."
 fi
-
 
 # ── curl ──────────────────────────────────────────────────────────────
 # 用于下载
 if ! command -v curl >/dev/null 2>&1; then
-	echo "curl is required..."
-	exit 1
+  echo "curl is required..."
+  exit 1
 fi
 
 # ── git ───────────────────────────────────────────────────────────────
 if ! command -v git >/dev/null 2>&1; then
-	echo "git is required..."
-	exit 1
+  echo "git is required..."
+  exit 1
 fi
-
 
 # ── libclang ──────────────────────────────────────────────────────────
 # tree-sitter-cli 等 Rust 包编译时 bindgen 需要 libclang
@@ -117,7 +115,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # 安装 cargo-binstall（从预编译二进制快速安装 Rust 工具，避免本地编译）
 ensure_cmd cargo-binstall cargo install cargo-binstall --locked
 
-
 # ╭──────────────────────────────────────────────────────────╮
 # │                    使用Cargo安装软件                     │
 # ╰──────────────────────────────────────────────────────────╯
@@ -132,9 +129,9 @@ ensure_cmd dust cargo binstall --no-confirm du-dust
 # yazi--文件管理器
 # 在 Linux 上使用 musl target，避免低版本 glibc 无法运行官方 gnu 构建
 if [ "$(uname -s)" = "Linux" ]; then
-    ensure_cmd yazi cargo binstall --no-confirm --target x86_64-unknown-linux-musl yazi-fm yazi-cli
+  ensure_cmd yazi cargo binstall --no-confirm --target x86_64-unknown-linux-musl yazi-fm yazi-cli
 else
-    ensure_cmd yazi cargo binstall --no-confirm yazi-fm yazi-cli
+  ensure_cmd yazi cargo binstall --no-confirm yazi-fm yazi-cli
 fi
 # tldr 便捷的命令查看器
 ensure_cmd tldr cargo binstall --no-confirm tlrc
@@ -144,9 +141,6 @@ ensure_cmd tree-sitter cargo binstall --no-confirm tree-sitter-cli
 ensure_cmd bat cargo binstall --no-confirm bat
 
 ensure_cmd cargo-install-update cargo binstall --no-confirm cargo-update
-
-
-
 
 # 安装 eget（从 GitHub Release 下载二进制文件的工具）
 if ! command -v eget >/dev/null 2>&1; then
@@ -190,7 +184,6 @@ else
   fi
 fi
 
-
 # ╭──────────────────────────────────────────────────────────╮
 # │                         LazyGit                          │
 # ╰──────────────────────────────────────────────────────────╯
@@ -227,11 +220,9 @@ if ! command -v convert >/dev/null 2>&1 && ! command -v magick >/dev/null 2>&1; 
   fi
 fi
 
-
 # ── 安装TPM插件管理器 ─────────────────────────────────────────────────
 TPM_DIR="$HOME/.tmux/plugins/tpm"
 ensure_dir "$TPM_DIR" git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
-
 
 # 安装 uv
 ensure_cmd uv sh -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
@@ -241,25 +232,23 @@ if [ "$(uname -s)" = "Linux" ]; then
   ensure_cmd nvitop uv tool install nvitop
 fi
 
-
 #  安装 mise（运行时版本管理器，替代 fnm；官方脚本默认安装到 ~/.local/bin）
 #  MISE_INSTALL_PATH 显式指定安装位置，避免脚本探测路径的歧义
 ensure_cmd mise sh -c 'MISE_INSTALL_PATH="'"$INSTALL_DIR"'bin/mise" curl https://mise.jdx.dev/install.sh | sh'
 
-
 # ╭──────────────────────────────────────────────────────────╮
-# │               效率工具（8 件套）                          │
-# │  delta / direnv / glow / chafa / gdu / gping / yq / jless │
+# │              效率工具（9 件套）                           │
+# │ delta/direnv/glow/chafa/gdu/gping/yq/jless/duf            │
 # ╰──────────────────────────────────────────────────────────╯
 # 优先系统包管理器（自带补全）；Ubuntu 等无包/版本旧的平台走 binstall/eget。
-# 已验证：binstall 支持 git-delta/gping/jless；eget 支持 direnv/glow/gdu/yq
+# 已验证：binstall 支持 git-delta/gping/jless；eget 支持 direnv/glow/gdu/duf/yq
 # （chafa 无预编译 release，Ubuntu 走 apt）
 # 二进制名:包名映射（不同平台的 gdu 命令名不同）
-EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa gdu:gdu gping:gping yq:yq jless:jless"
+EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa duf:duf gdu:gdu gping:gping yq:yq jless:jless"
 
 if [ "$(uname -s)" = "Darwin" ]; then
   # Homebrew installs gdu as gdu-go to avoid a coreutils conflict.
-  EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa gdu-go:gdu gping:gping yq:yq jless:jless"
+  EFFICIENCY_TOOLS="delta:git-delta direnv:direnv glow:glow chafa:chafa duf:duf gdu-go:gdu gping:gping yq:yq jless:jless"
   # 已安装的工具直接跳过，避免 brew 刷一堆 already installed 警告
   for pair in $EFFICIENCY_TOOLS; do
     ensure_cmd "${pair%%:*}" brew install "${pair#*:}"
@@ -275,6 +264,7 @@ else
   ensure_cmd direnv eget direnv/direnv --to "$INSTALL_DIR/bin"
   ensure_cmd glow eget charmbracelet/glow --to "$INSTALL_DIR/bin"
   ensure_cmd gdu eget dundee/gdu --to "$INSTALL_DIR/bin"
+  ensure_cmd duf eget muesli/duf --to "$INSTALL_DIR/bin"
   ensure_cmd yq eget mikefarah/yq --to "$INSTALL_DIR/bin"
   ensure_cmd chafa sudo apt-get install -y chafa
 fi
