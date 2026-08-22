@@ -6,7 +6,8 @@
 # instead of duplicating them, matching zsh's `typeset -U path PATH`.  -g keeps
 # this in global scope, so no fish_variables file is written.  Directories that
 # do not exist are skipped silently.
-fish_add_path -gm "$HOME/.cargo/bin" "$HOME/bin" "$HOME/.local/bin" /usr/local/bin
+fish_add_path -gm "$HOME/.cargo/bin" "$HOME/bin" "$HOME/.local/bin" \
+    "$HOME/.local/share/pnpm/bin" /usr/local/bin
 
 # macOS Homebrew (Apple Silicon / Intel)
 if test (command uname -s) = Darwin
