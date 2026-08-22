@@ -5,10 +5,10 @@
 export HISTFILE=~/.zsh_history
 
 # 内存里最多保存多少条命令
-export HISTSIZE=5000
+export HISTSIZE=100000
 
 # 写入文件时保存多少条命令
-export SAVEHIST=5000
+export SAVEHIST=100000
 
 # 追加历史而不是覆盖
 setopt APPEND_HISTORY
