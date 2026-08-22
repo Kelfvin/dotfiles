@@ -6,47 +6,47 @@
 
 ## 🖥️ 开发环境
 
-目前主力机器是一台 **MacBook Air**，日常通过 SSH 连接实验室服务器进行远程开发。
+我主力机器是 **MacBook Air m3**，日常通过 SSH 连接实验室服务器进行远程开发。
 
 ## 🛠️ 核心工具栈
 
 | 类别 | 工具 | 说明 |
 | ------ | ------ | ------ |
-| 编辑器 | [Neovim](https://neovim.io/) | 极速启动，SSH 场景下秒开项目；使用 **VimPack** 进行插件管理 |
-| 终端 | ~~Kitty~~ → [Ghostty](https://ghostty.org/) | 新一代终端模拟器，GPU 加速渲染，速度极快 |
-| Shell | [Fish](https://fishshell.com/) | 主 shell，原生补全/语法高亮/autosuggestion；zsh 配置保留作服务器 fallback |
-| 终端多代理面板 | [herdr](https://herdr.dev/) | 终端内多代理面板（tmux 内嵌）；部分服务器只有 tmux，相关配置仍保留 |
-| AI 编程助手 | [Pi](https://github.com/earendil-works/pi-coding-agent) | 终端 AI 编码代理，支持多代理与扩展生态 |
+| 编辑器 | [Neovim](https://neovim.io/) | 快 |
+| 终端 | [Ghostty](https://ghostty.org/) | GPU 加速渲染 |
+| Shell | [Fish](https://fishshell.com/) | 原生补全/语法高亮/autosuggestion |
+| 终端复用器 | [herdr](https://herdr.dev/) | 会话保存、多Agent监控/协作 |
+| Agent | [Pi](https://github.com/earendil-works/pi-coding-agent) | 简洁、高可定制性 |
 | 窗口管理 | [Aerospace](https://github.com/nikitabobko/AeroSpace) | 平铺式窗口管理器，支持虚拟桌面与快速窗口切换 |
-| 启动器 | [Raycast](https://www.raycast.com/) | 启动器与效率工具，快速查找文件、启动应用 |
-| 输入法 | ~~Rime~~ → 微信输入法 | 搭配 **Karabiner-Elements** 实现 `ESC` 切换英文模式 |
+| 启动器 | [Raycast](https://www.raycast.com/) | 启动器与效率工具，快速查找文件、启动应用、剪切板 |
+| 输入法 | 豆包输入法 | 搭配 **Karabiner-Elements** 实现 `ESC` 切换英文模式 |
 | 按键映射 | [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | `ESC` 切换输入法、`Caps Lock` ↔ `Ctrl` 交换、外接 Windows 键盘适配 |
 
 ## 📦 CLI 工具箱
 
 | 工具 | 说明 |
 | ------ | ------ |
-| [lazygit](https://github.com/jesseduffield/lazygit) | 终端里的 Git TUI，直观高效 |
-| [fzf](https://github.com/junegunn/fzf) | 模糊查找神器：文件、历史记录、命令…… |
+| [lazygit](https://github.com/jesseduffield/lazygit) | git TUI |
+| [fzf](https://github.com/junegunn/fzf) | 模糊查找 |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | `cd` 的替代品，智能跳转已访问目录 |
 | [mise](https://mise.jdx.dev/) | 运行时版本管理器（Node 等），替代 fnm |
 | [bat](https://github.com/sharkdp/bat) | 带语法高亮的 `cat` |
 | [tldr](https://tldr.sh/) | 简洁版 `man`，直击常用示例 |
-| [ripgrep (rg)](https://github.com/BurntSushi/ripgrep) | 极速 `grep`，默认高亮 |
+| [ripgrep (rg)](https://github.com/BurntSushi/ripgrep) | rust版grep |
 | [fd](https://github.com/sharkdp/fd) | 更友好的 `find`，快速且带高亮 |
 | [yazi](https://github.com/sxyazi/yazi) | 终端文件管理器 |
 | [tokei](https://github.com/XAMPPRocky/tokei) | 代码统计，支持多种语言 |
 | [duf](https://github.com/muesli/duf) | 更友好的 `df`，磁盘用量一览 |
-| [delta](https://github.com/dandavison/delta) | git diff 语法高亮 pager（git 侧已配置） |
+| [delta](https://github.com/dandavison/delta) | git diff 语法高亮 pager |
 | [direnv](https://direnv.net/) | 目录级环境变量，进项目自动加载 |
 | [glow](https://github.com/charmbracelet/glow) | 终端里渲染 markdown |
 | [chafa](https://github.com/hpjansson/chafa) | 终端内显示图片（yazi SSH 图片预览依赖） |
-| [gdu](https://github.com/dundee/gdu) | 交互式磁盘分析（SSH 清盘利器） |
-| [gping](https://github.com/orf/gping) | 图形化 ping，延迟一眼看懂 |
+| [gdu](https://github.com/dundee/gdu) | 交互式磁盘分析 |
+| [gping](https://github.com/orf/gping) | TUI ping |
 | [yq](https://github.com/mikefarah/yq) | YAML/TOML/JSON 互相处理 |
 | [jless](https://github.com/PaulJuliusMartinez/jless) | JSON 交互式浏览 |
 | [topgrade](https://github.com/topgrade-rs/topgrade) | 一键升级全部包管理器（brew、cargo、uv、TPM…） |
-| [atuin](https://atuin.sh/) | 跨机同步的 shell 历史（端到端加密）；接管 `<C-r>`，fzf 保留 `<C-t>`/`<A-c>` |
+| [atuin](https://atuin.sh/) | 跨机同步的 shell 历史（端到端加密） |
 
 ## 🚀 快速开始
 
@@ -60,9 +60,9 @@ bash ./script/setup.sh
 
 > 预编译二进制优先，通常无需额外依赖；仅在 cargo-binstall 回退到源码编译时需要 `cmake`。
 
-### setup.sh 原理
+### setup.sh
 
-这个脚本的设计目标是**在新机器上一键构建完整的 CLI 开发环境**，尽量不需要 root（Linux 下仅系统包管理步骤需要 sudo）。
+设计目标是：**在新机器上一键构建完整的开发环境**，无需 root。
 
 **安装位置：**
 
